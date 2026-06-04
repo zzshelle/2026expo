@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>中正高中 國際移動力大冒險！</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
+            overscroll-behavior: none;
+        }
+        .ipad-container {
+            max-width: 1024px;
+            aspect-ratio: 4 / 3;
+            margin: auto;
+        }
+        @media (max-aspect-ratio: 4/3) {
+            .ipad-container {
+                aspect-ratio: auto;
+                height: 100vh;
+            }
+        }
+        .animate-bounce-slow {
+            animation: bounce 2s infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #EEF2F3 0%, #FFE9E9 50%, #E6EFFF 100%);
+        }
+        .touch-button {
+            touch-action: manipulation;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .touch-button:active {
+            transform: scale(0.95);
+        }
+        .custom-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        /* Slideshow Animation Styles */
+        .slide {
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out, transform 1.2s ease-in-out;
+            transform: scale(1.02);
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+        .slide.active {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+            z-index: 10;
+        }
+        /* Pulsate click instruction */
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+        .pulsate-prompt {
+            animation: pulse-ring 2.5s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="gradient-bg min-h-screen flex items-center justify-center p-0 md:p-4 overflow-hidden">
+
+    <div class="ipad-container w-full bg-white md:rounded-3xl shadow-2xl flex flex-col justify-between overflow-hidden relative border-4 border-slate-800 md:border-8">
+        
+        <!-- Top Status Bar Mock -->
+        <div class="bg-slate-900 text-white text-xs px-6 py-2 flex justify-between items-center z-10 select-none">
+            <div class="font-bold flex items-center gap-2">
+                <i class="fa-solid fa-graduation-cap text-rose-400"></i>
+                <span>台北市立中正高中 ── 國九特色課程導覽【第一關】</span>
+            </div>
+            <div class="bg-rose-500 text-[10px] px-2 py-0.5 rounded-full font-bold animate-pulse">Game 1 啟航</div>
+            <div class="flex items-center gap-4 text-[11px] opacity-90">
+                <span id="time-left"><i class="fa-regular fa-clock mr-1"></i> 剩餘時間: 03:00</span>
+                <span><i class="fa-solid fa-wifi"></i> 100% <i class="fa-solid fa-battery-three-quarters text-emerald-400 ml-1"></i></span>
+            </div>
+        </div>
+
+        <!-- SCREEN 0: SLIDESHOW (ATTRACT MODE) -->
+        <div id="screen-slideshow" onclick="dismissSlideshow()" class="flex-1 relative cursor-pointer overflow-hidden z-20 flex flex-col justify-between p-8">
+            
+            <!-- Floating click indicator layer (layered on top) -->
+            <div class="absolute inset-0 z-30 bg-black/5 hover:bg-black/0 transition duration-300"></div>
+            
+            <!-- Slide 1: Welcome Hero -->
+            <div class="slide active flex flex-col items-center justify-center text-center p-6" id="slide-1">
+                <div class="absolute inset-0 bg-gradient-to-tr from-sky-100 via-rose-100 to-indigo-100 -z-10 opacity-70"></div>
+                <div class="mb-4 bg-rose-500 text-white text-xs font-black px-4 py-1 rounded-full uppercase tracking-widest shadow-md">
+                    ★ 台北市立中正高中特色校訂必修 ★
+                </div>
+                <h1 class="text-4xl md:text-5xl font-black text-slate-800 tracking-tight leading-tight mb-4">
+                    國際移動力大冒險！<br>
+                    <span class="text-rose-500 text-3xl md:text-4xl">世界探險家 Global Explorer</span>
+                </h1>
+                <p class="text-slate-600 font-bold max-w-xl text-sm md:text-base leading-relaxed mb-6">
+                    在中正高中，我們不只讀英文，更要與世界連線！三大專題成果精華，3分鐘體驗最酷的跨國交流秘辛。
+                </p>
+                <div class="flex gap-4 items-center text-slate-400 text-xs">
+                    <span><i class="fa-solid fa-earth-americas mr-1 text-sky-500"></i> 跨文化主持</span>
+                    <span>•</span>
+                    <span><i class="fa-solid fa-plane mr-1 text-rose-500"></i> 四國視訊連線</span>
+                    <span>•</span>
+                    <span><i class="fa-solid fa-robot mr-1 text-emerald-500"></i> AI 科技永續</span>
+                </div>
+            </div>
+
+            <!-- Slide 2: Course Component 1 Intro -->
+            <div class="slide flex flex-col items-center justify-center text-center p-6" id="slide-2">
+                <div class="absolute inset-0 bg-gradient-to-tr from-rose-50 via-amber-50 to-orange-100 -z-10 opacity-70"></div>
+                <div class="mb-3 bg-amber-500 text-white text-[10px] font-black px-4 py-1 rounded-full uppercase tracking-wider">
+                    主題一：跨文化非語言溝通
+                </div>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 mb-4">
+                    避開國際社交「手勢地雷」💣
+                </h2>
+                <div class="grid grid-cols-2 gap-4 max-w-lg mx-auto items-center mb-4">
+                    <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=400&q=80" 
+                         onerror="this.src='https://placehold.co/400x300/FFE9E9/334155?text=Cross+Culture'" 
+                         alt="Gesture" class="rounded-xl shadow-md h-24 object-cover">
+                    <p class="text-left text-xs md:text-sm text-slate-600 font-medium leading-relaxed">
+                        在台灣代表完美的「OK 手勢」，在巴西和南歐竟然是極度冒犯的粗俗辱罵？出國交流前，先懂跨文化禁忌才是合格的大使！
+                    </p>
+                </div>
+            </div>
+
+            <!-- Slide 3: Course Component 2 Intro -->
+            <div class="slide flex flex-col items-center justify-center text-center p-6" id="slide-3">
+                <div class="absolute inset-0 bg-gradient-to-tr from-sky-50 via-indigo-50 to-blue-100 -z-10 opacity-70"></div>
+                <div class="mb-3 bg-blue-600 text-white text-[10px] font-black px-4 py-1 rounded-full uppercase tracking-wider">
+                    主題二：國際議題與跨國交流
+                </div>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 mb-4">
+                    世界各國就是我們的課堂 🌎
+                </h2>
+                <div class="grid grid-cols-2 gap-4 max-w-lg mx-auto items-center mb-4">
+                    <p class="text-left text-xs md:text-sm text-slate-600 font-medium leading-relaxed">
+                        跟美國高中分享「神奇電蚊拍」、和德國同學暢談蘿蔔糕與難民、克服巴西 11 小時時差、剖析日本少年的 YouTube 流行娛樂趨勢！
+                    </p>
+                    <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=400&q=80" 
+                         onerror="this.src='https://placehold.co/400x300/E6EFFF/334155?text=Exchange'" 
+                         alt="Intercultural" class="rounded-xl shadow-md h-24 object-cover">
+                </div>
+            </div>
+
+            <!-- Slide 4: Course Component 3 Intro -->
+            <div class="slide flex flex-col items-center justify-center text-center p-6" id="slide-4">
+                <div class="absolute inset-0 bg-gradient-to-tr from-emerald-50 via-teal-50 to-sky-100 -z-10 opacity-70"></div>
+                <div class="mb-3 bg-emerald-600 text-white text-[10px] font-black px-4 py-1 rounded-full uppercase tracking-wider">
+                    主題三：世界危機與科技倡議
+                </div>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 mb-4">
+                    AI 繪圖與 3D XR 線上展間 🤖
+                </h2>
+                <div class="grid grid-cols-2 gap-4 max-w-lg mx-auto items-center mb-4">
+                    <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=400&q=80" 
+                         onerror="this.src='https://placehold.co/400x300/ECFDF5/334155?text=SDGs'" 
+                         alt="SDG Crisis" class="rounded-xl shadow-md h-24 object-cover">
+                    <p class="text-left text-xs md:text-sm text-slate-600 font-medium leading-relaxed">
+                        運用 Copilot 與線上 3D 展示平台，將「巴西雨林危機」與「歐洲空氣汙染」等地球痛點，完美鏈接聯合國永續發展指標 (SDGs)！
+                    </p>
+                </div>
+            </div>
+
+            <!-- Slide 5: Final Call to Action -->
+            <div class="slide flex flex-col items-center justify-center text-center p-6" id="slide-5">
+                <div class="absolute inset-0 bg-gradient-to-tr from-purple-100 via-rose-100 to-amber-100 -z-10 opacity-70"></div>
+                <div class="text-5xl mb-4 animate-bounce-slow">🎁</div>
+                <h2 class="text-3xl md:text-4xl font-black text-slate-800 mb-2">
+                    挑戰成功，即享專屬好禮！
+                </h2>
+                <p class="text-slate-600 font-bold max-w-md text-xs md:text-sm leading-relaxed mb-6">
+                    完成第一關 3 個小遊戲挑戰，就能獲得專屬「第一關破關認證碼」，用於解鎖第二關卡，還可到中正高中攤位現場兌換精美限量小禮物喔！
+                </p>
+            </div>
+
+            <!-- Centered Bottom indicator and touch prompt -->
+            <div class="z-30 w-full flex flex-col items-center justify-center gap-4 py-4 mt-auto">
+                <!-- Dots indicators -->
+                <div class="flex gap-2">
+                    <span class="dot w-2 h-2 rounded-full bg-slate-300 transition-colors" id="dot-0"></span>
+                    <span class="dot w-2 h-2 rounded-full bg-slate-300 transition-colors" id="dot-1"></span>
+                    <span class="dot w-2 h-2 rounded-full bg-slate-300 transition-colors" id="dot-2"></span>
+                    <span class="dot w-2 h-2 rounded-full bg-slate-300 transition-colors" id="dot-3"></span>
+                    <span class="dot w-2 h-2 rounded-full bg-slate-300 transition-colors" id="dot-4"></span>
+                </div>
+                <!-- Pulsating CTA Message -->
+                <div class="pulsate-prompt bg-slate-900/90 text-white border border-white/20 text-xs md:text-sm font-extrabold px-8 py-3 rounded-full flex items-center gap-3 shadow-lg">
+                    <span>👉 觸碰螢幕 開始第一關挑戰！</span> <span class="bg-rose-500 px-2 py-0.5 rounded text-[10px] animate-pulse">TOUCH TO START</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCREEN 1: WELCOME (Name Input Box, hidden at first) -->
+        <div id="screen-welcome" class="hidden flex-1 flex flex-col items-center justify-center p-6 md:p-8 text-center select-none relative z-10 overflow-y-auto custom-scroll">
+            <div class="absolute top-4 left-4 opacity-10 text-[100px] pointer-events-none">🌍</div>
+            <div class="absolute bottom-4 right-4 opacity-10 text-[100px] pointer-events-none">🚀</div>
+            
+            <button onclick="returnToSlideshow()" class="absolute top-4 right-4 touch-button bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold text-xs px-3 py-1.5 rounded-full flex items-center gap-1">
+                <i class="fa-solid fa-house"></i> 回簡報首頁
+            </button>
+
+            <div class="mb-2 bg-rose-100 text-rose-700 font-bold px-4 py-1.5 rounded-full text-xs md:text-sm tracking-widest inline-flex items-center gap-2 shadow-sm">
+                <i class="fa-solid fa-plane-departure"></i> 第一部曲：國際移動力大冒險 ✈️
+            </div>
+            
+            <h1 class="text-3xl md:text-5xl font-extrabold text-slate-800 mb-2 tracking-tight">
+                世界探險家 <span class="text-rose-500">Global Explorer</span>
+            </h1>
+            <p class="text-slate-600 font-bold text-sm md:text-base max-w-2xl mb-6 leading-relaxed">
+                在中正高中，我們不只讀英文，更要與世界連線！搭上這班國際航班，體驗最酷的三大專案，解鎖各國交流秘辛。順利破關即可獲得<b>「第二關解鎖金鑰」</b>，開啟下一階段的挑戰！🎁
+            </p>
+
+            <!-- Name Input Field -->
+            <div class="w-full max-w-md bg-white p-5 rounded-2xl border-2 border-rose-100 shadow-md mb-6 relative">
+                <div class="absolute -top-3 left-6 bg-rose-500 text-white text-[11px] font-black px-3 py-0.5 rounded-full">
+                    登機手續 BOARDING PASS
+                </div>
+                <label for="player-name" class="block text-slate-700 font-black text-sm mb-2 text-left">
+                    <i class="fa-solid fa-passport text-rose-500 mr-1"></i> 請輸入冒險家名字/暱稱：
+                </label>
+                <div class="flex gap-2">
+                    <input type="text" id="player-name" maxlength="10" placeholder="例如：林小明 或 帥氣國九生" 
+                           class="flex-1 px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl text-slate-800 font-bold placeholder-slate-400 focus:outline-none focus:border-rose-500 text-sm transition">
+                </div>
+                <p class="text-[11px] text-slate-400 mt-2 text-left"><i class="fa-solid fa-circle-info mr-1"></i> 名字將會印製在你的專屬破關認證書上喔！</p>
+            </div>
+
+            <button onclick="startGame()" class="touch-button bg-rose-500 hover:bg-rose-600 text-white font-extrabold text-lg px-12 py-3.5 rounded-full shadow-lg hover:shadow-rose-300 transition duration-300 flex items-center gap-3 animate-bounce-slow">
+                <span>開始極速大冒險！</span> <i class="fa-solid fa-circle-play text-xl"></i>
+            </button>
+            <p class="text-[11px] text-slate-400 mt-3"><i class="fa-solid fa-tablet-screen-button"></i> 專為現場 iPad 設計，體驗約 3 分鐘</p>
+        </div>
+
+        <!-- SCREEN 2: STAGE 1 (Intercultural Gesture Landmines) -->
+        <div id="screen-stage1" class="hidden flex-1 flex flex-col p-6 md:p-8 justify-between select-none">
+            <div>
+                <!-- Stage Header -->
+                <div class="flex justify-between items-center border-b pb-3 mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-rose-500 text-white rounded-full w-7 h-7 flex items-center justify-center font-bold text-sm">1</span>
+                        <h2 class="font-bold text-slate-800 text-lg">專題一：跨文化非語言溝通 🌏</h2>
+                    </div>
+                    <span class="text-xs bg-slate-100 text-slate-600 px-3 py-1 rounded-full font-bold" id="stage1-username-badge">冒險家: 加油!</span>
+                </div>
+
+                <!-- Scenario Layout with Image -->
+                <div class="grid grid-cols-12 gap-6 items-center my-2">
+                    <!-- Left Context & Image -->
+                    <div class="col-span-4 hidden md:flex flex-col gap-2">
+                        <img id="stage1-img" src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=400&q=80" 
+                             onerror="this.src='https://placehold.co/400x300/FFE9E9/334155?text=Cross+Culture'" 
+                             alt="Cross Cultural Hand Sign" 
+                             class="rounded-2xl border-2 border-rose-100 shadow-md object-cover h-40 w-full">
+                        <span class="text-[10px] text-slate-400 text-center italic">中正特色專題：避開國際社交地雷</span>
+                    </div>
+
+                    <!-- Right Challenge Container -->
+                    <div class="col-span-12 md:col-span-8">
+                        <p class="text-slate-600 text-xs md:text-sm mb-3 bg-rose-50 p-3 rounded-xl border border-rose-100 leading-relaxed">
+                            💡 <b>文化地雷大解密：</b>在國際移動力課程中，學姐提醒我們「非語言溝通（身體手勢）」也是國民外交的大關鍵！在台灣稀鬆平常的<b>「OK 手勢」</b>（拇指與食指扣成圓圈），在部分國家竟然是<b>極度冒犯且粗俗的髒話</b>？
+                        </p>
+                        <p class="text-[11px] text-amber-600 mb-3 bg-amber-50 py-1.5 px-3 rounded-lg inline-block w-full"><i class="fa-solid fa-circle-info"></i> 提示：這個手勢在美國是 OK、在日本代表錢 (Money)，但對哪些國家的外賓比，會惹來對方一頓怒火？</p>
+                        
+                        <div class="flex flex-col gap-2 max-w-xl mx-auto">
+                            <!-- Choice A (Correct Answer) -->
+                            <button onclick="selectStage1Choice('A')" id="choice-1A" class="touch-button w-full bg-white hover:bg-slate-100 text-slate-700 font-bold p-3 rounded-xl border-2 border-slate-200 shadow-sm flex items-center justify-between text-left text-xs md:text-sm">
+                                <span>A. 巴西與南歐、地中海地區 🇧🇷🇹🇷</span>
+                                <span class="text-[10px] bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded font-bold shrink-0 ml-2">代表粗俗的性暗示辱罵</span>
+                            </button>
+                            <!-- Choice B -->
+                            <button onclick="selectStage1Choice('B')" id="choice-1B" class="touch-button w-full bg-white hover:bg-slate-100 text-slate-700 font-bold p-3 rounded-xl border-2 border-slate-200 shadow-sm flex items-center justify-between text-left text-xs md:text-sm">
+                                <span>B. 美國與英國等英語系國家 🇺🇸🇬🇧</span>
+                                <span class="text-[10px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-bold shrink-0 ml-2">代表一切完美 (OK)</span>
+                            </button>
+                            <!-- Choice C -->
+                            <button onclick="selectStage1Choice('C')" id="choice-1C" class="touch-button w-full bg-white hover:bg-slate-100 text-slate-700 font-bold p-3 rounded-xl border-2 border-slate-200 shadow-sm flex items-center justify-between text-left text-xs md:text-sm">
+                                <span>C. 韓國與日本等亞洲近鄰 🇰🇷🇯🇵</span>
+                                <span class="text-[10px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-bold shrink-0 ml-2">代表硬幣金錢或普通手勢</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Toast feedback / continue button block -->
+            <div class="flex justify-between items-center pt-4 border-t">
+                <div class="text-xs text-slate-400">
+                    <i class="fa-solid fa-circle-question"></i> 學姐學習心得：出國前先懂跨文化禁忌，才是稱職的國際移動大使！
+                </div>
+                <button id="btn-stage1-next" disabled onclick="goToStage2()" class="touch-button bg-slate-300 text-slate-500 font-extrabold px-6 py-3 rounded-xl flex items-center gap-2 cursor-not-allowed text-sm">
+                    <span>前往下一關</span> <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- SCREEN 3: STAGE 2 (World Map Exchange Challenge) -->
+        <div id="screen-stage2" class="hidden flex-1 flex flex-col p-6 md:p-8 justify-between select-none">
+            <div>
+                <!-- Stage Header -->
+                <div class="flex justify-between items-center border-b pb-3 mb-2">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-rose-500 text-white rounded-full w-7 h-7 flex items-center justify-center font-bold text-sm">2</span>
+                        <h2 class="font-bold text-slate-800 text-lg">專題二：國際議題與文化交流 ✈️</h2>
+                    </div>
+                    <span class="text-xs bg-amber-100 text-amber-700 px-3 py-1 rounded-full font-bold">完成：3 個國家拼圖 (<span id="exchange-count">0</span>/3)</span>
+                </div>
+
+                <p class="text-slate-600 text-xs mb-3 bg-blue-50 p-2.5 rounded-xl border border-blue-100">
+                    🌍 <b>世界就是我們的教室！</b>請點選下方地圖上的 4 個亮點國家，回答學姐在跨國視訊交流時遇到的神祕趣味問題！（答對 3 個即可前往下一關）
+                </p>
+
+                <!-- Map Interface & Side Cards -->
+                <div class="grid grid-cols-12 gap-4 my-2 h-[260px]">
+                    <!-- Left: Interactive Map -->
+                    <div class="col-span-7 bg-sky-50 rounded-2xl border-2 border-sky-100 p-2 relative flex items-center justify-center overflow-hidden">
+                        <span class="absolute top-2 left-4 text-[9px] text-sky-700 font-bold tracking-wider uppercase opacity-60"><i class="fa-solid fa-earth-americas"></i> 中正高中國際版圖</span>
+                        
+                        <!-- Mini World Map Mock -->
+                        <div class="w-full h-full relative opacity-95">
+                            <!-- America Point -->
+                            <button onclick="tapCountry('USA')" id="pin-USA" class="touch-button absolute top-[30%] left-[18%] bg-rose-500 hover:bg-rose-600 text-white w-9 h-9 rounded-full shadow-lg flex items-center justify-center border-2 border-white z-20">
+                                <span class="text-xs font-black">🇺🇸</span>
+                            </button>
+                            <!-- Germany Point -->
+                            <button onclick="tapCountry('Germany')" id="pin-Germany" class="touch-button absolute top-[22%] left-[48%] bg-rose-500 hover:bg-rose-600 text-white w-9 h-9 rounded-full shadow-lg flex items-center justify-center border-2 border-white z-20">
+                                <span class="text-xs font-black">🇩🇪</span>
+                            </button>
+                            <!-- Brazil Point -->
+                            <button onclick="tapCountry('Brazil')" id="pin-Brazil" class="touch-button absolute top-[65%] left-[32%] bg-rose-500 hover:bg-rose-600 text-white w-9 h-9 rounded-full shadow-lg flex items-center justify-center border-2 border-white z-20">
+                                <span class="text-xs font-black">🇧🇷</span>
+                            </button>
+                            <!-- Japan Point -->
+                            <button onclick="tapCountry('Japan')" id="pin-Japan" class="touch-button absolute top-[35%] left-[82%] bg-rose-500 hover:bg-rose-600 text-white w-9 h-9 rounded-full shadow-lg flex items-center justify-center border-2 border-white z-20">
+                                <span class="text-xs font-black">🇯🇵</span>
+                            </button>
+
+                            <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10">
+                                <i class="fa-solid fa-globe text-[150px] text-sky-800"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Quiz Side panel -->
+                    <div class="col-span-5 bg-slate-50 rounded-2xl border border-slate-200 p-3 flex flex-col justify-between overflow-y-auto custom-scroll" id="stage2-quiz-panel">
+                        <!-- 1. EMPTY STATE -->
+                        <div class="text-center py-10 text-slate-400 flex flex-col items-center justify-center h-full" id="stage2-empty-state">
+                            <i class="fa-solid fa-plane text-3xl mb-2 animate-pulse text-sky-400"></i>
+                            <p class="text-xs font-bold leading-normal">請點擊左側地圖上的<br>國旗標籤開始探索！</p>
+                        </div>
+
+                        <!-- 2. QUIZ CONTAINER -->
+                        <div id="stage2-quiz-box" class="hidden flex-col justify-between h-full">
+                            <div class="text-left flex flex-col h-full justify-between">
+                                <div>
+                                    <span id="quiz-country-badge" class="bg-rose-100 text-rose-700 text-[9px] font-black px-2 py-0.5 rounded uppercase">USA</span>
+                                    
+                                    <!-- Dynamic Quiz Image Container -->
+                                    <div class="w-full h-20 rounded-lg overflow-hidden my-1.5 border border-slate-200 shadow-sm relative">
+                                        <img id="quiz-country-img" src="" onerror="this.src='https://placehold.co/300x150/EEEEEE/334155?text=Exchange'" alt="Quiz illustration" class="w-full h-full object-cover">
+                                    </div>
+
+                                    <h4 id="quiz-question" class="font-bold text-slate-800 text-[11px] leading-tight mb-2">問題載入中...</h4>
+                                </div>
+                                <div class="flex flex-col gap-1.5" id="quiz-options">
+                                    <!-- Options populated dynamically -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. SUCCESS BOX -->
+                        <div id="stage2-success-box" class="hidden text-center py-6 flex flex-col items-center justify-center h-full">
+                            <span class="text-3xl mb-1 animate-bounce">🎉</span>
+                            <h4 id="stage2-success-title" class="font-bold text-emerald-600 text-xs">回答正確！</h4>
+                            <p class="text-[10px] text-slate-500 mt-1 max-w-[180px] leading-relaxed">完美解鎖這一個國家的寶貴交流紀錄！</p>
+                            <button onclick="clearStage2Feedback()" class="touch-button mt-3 bg-slate-800 text-white text-[10px] font-bold px-4 py-1.5 rounded-full">探索其他航點</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="flex justify-between items-center pt-3 border-t">
+                <div class="text-xs text-slate-400">
+                    <i class="fa-solid fa-location-dot"></i> 學姐回憶：和各國同學面對面交流，帶他們吃蘿蔔糕與喝珍奶，超難忘！
+                </div>
+                <button id="btn-stage2-next" disabled onclick="goToStage3()" class="touch-button bg-slate-300 text-slate-500 font-extrabold px-6 py-2.5 rounded-xl flex items-center gap-2 cursor-not-allowed text-sm">
+                    <span>前往下一關</span> <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- SCREEN 4: STAGE 3 (AI & SDG Solver) -->
+        <div id="screen-stage3" class="hidden flex-1 flex flex-col p-6 md:p-8 justify-between select-none">
+            <div>
+                <!-- Stage Header -->
+                <div class="flex justify-between items-center border-b pb-3 mb-3">
+                    <div class="flex items-center gap-2">
+                        <span class="bg-rose-500 text-white rounded-full w-7 h-7 flex items-center justify-center font-bold text-sm">3</span>
+                        <h2 class="font-bold text-slate-800 text-lg">專題三：世界危機與科技應用 🤖</h2>
+                    </div>
+                    <span class="text-xs bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full font-bold" id="stage3-username-badge">冒險家: 連線中</span>
+                </div>
+
+                <p class="text-slate-600 text-xs mb-3 bg-amber-50 p-2.5 rounded-xl border border-amber-100 leading-relaxed">
+                    🎨 <b>AI 繪圖與線上 3D XR 展間：</b>高二學長姐在課程中利用 Copilot 與 XR 工具創作世界危機畫作！請幫學姐把下列兩個代表性的世界危機，正確連線到聯合國永續發展指標 (SDGs)！
+                </p>
+
+                <!-- Drag and Drop / Matching UI -->
+                <div class="grid grid-cols-2 gap-4 my-2">
+                    <!-- Column 1: Crisis Card -->
+                    <div class="flex flex-col gap-3">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider text-center">🌍 面臨的地球危機</p>
+                        
+                        <!-- Crisis Item 1 (Amazon Deforestation) -->
+                        <div id="crisis-1" onclick="selectCrisis(1)" class="touch-button bg-white border-2 border-slate-200 p-3 rounded-2xl shadow-sm flex items-center gap-3 cursor-pointer">
+                            <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=150&q=80" 
+                                 onerror="this.src='https://placehold.co/150x150/FFE9E9/334155?text=Forest'" 
+                                 alt="Forest Crisis" class="w-12 h-12 rounded-lg object-cover border border-slate-200 shrink-0">
+                            <div class="text-left overflow-hidden">
+                                <h4 class="font-extrabold text-slate-800 text-xs md:text-sm truncate">巴西雨林砍伐</h4>
+                                <p class="text-[10px] text-slate-400 mt-0.5 truncate">亞馬遜熱帶雨林急遽縮減...</p>
+                            </div>
+                        </div>
+
+                        <!-- Crisis Item 2 (German Air Pollution) -->
+                        <div id="crisis-2" onclick="selectCrisis(2)" class="touch-button bg-white border-2 border-slate-200 p-3 rounded-2xl shadow-sm flex items-center gap-3 cursor-pointer">
+                            <img src="https://images.unsplash.com/photo-1581093588401-f3c22d752496?auto=format&fit=crop&w=150&q=80" 
+                                 onerror="this.src='https://placehold.co/150x150/E6EFFF/334155?text=Pollution'" 
+                                 alt="Air Crisis" class="w-12 h-12 rounded-lg object-cover border border-slate-200 shrink-0">
+                            <div class="text-left overflow-hidden">
+                                <h4 class="font-extrabold text-slate-800 text-xs md:text-sm truncate">德國與大國空氣汙染</h4>
+                                <p class="text-[10px] text-slate-400 mt-0.5 truncate">燃煤與廢氣危害呼吸道健康...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 2: SDG Badges -->
+                    <div class="flex flex-col gap-3">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider text-center">🇺🇳 聯合國 SDGs 指標</p>
+                        
+                        <!-- SDG Item A -->
+                        <div id="sdg-A" onclick="selectSDG('A')" class="touch-button bg-emerald-50 border-2 border-emerald-100 hover:border-emerald-300 p-3 rounded-2xl shadow-sm flex items-center gap-3 cursor-pointer">
+                            <div class="bg-emerald-500 text-white font-extrabold text-sm w-12 h-12 rounded-lg flex items-center justify-center shrink-0">15</div>
+                            <div class="text-left overflow-hidden">
+                                <h4 class="font-extrabold text-slate-800 text-xs md:text-sm truncate">SDG 15：陸地生態</h4>
+                                <p class="text-[10px] text-emerald-700 font-bold mt-0.5 truncate">遏止森林砍伐，恢復退化森林</p>
+                            </div>
+                        </div>
+
+                        <!-- SDG Item B -->
+                        <div id="sdg-B" onclick="selectSDG('B')" class="touch-button bg-blue-50 border-2 border-blue-100 hover:border-blue-300 p-3 rounded-2xl shadow-sm flex items-center gap-3 cursor-pointer">
+                            <div class="bg-blue-500 text-white font-extrabold text-sm w-12 h-12 rounded-lg flex items-center justify-center shrink-0">13</div>
+                            <div class="text-left overflow-hidden">
+                                <h4 class="font-extrabold text-slate-800 text-xs md:text-sm truncate">SDG 13：氣候行動</h4>
+                                <p class="text-[10px] text-blue-700 font-bold mt-0.5 truncate">提升對氣候變遷的調適與韌性</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Matching Connection Status visual -->
+                <div class="bg-slate-50 rounded-xl p-3 text-center border text-xs font-bold text-slate-600" id="stage3-connection-status">
+                    💡 請先點選左邊一個「地球危機」，再點選右邊對應的「SDGs指標」進行配對！
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="flex justify-between items-center pt-3 border-t">
+                <div class="text-xs text-slate-400">
+                    <i class="fa-solid fa-laptop-code"></i> AI 工具好神氣：只要下對關鍵字，生成擬真危機海報超吸睛！
+                </div>
+                <button id="btn-stage3-next" disabled onclick="showVictoryScreen()" class="touch-button bg-slate-300 text-slate-500 font-extrabold px-6 py-2.5 rounded-xl flex items-center gap-2 cursor-not-allowed text-sm">
+                    <span>生成完美 XR 策展，破關！</span> <i class="fa-solid fa-trophy"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- SCREEN 5: VICTORY & CLAIM PRIZE -->
+        <div id="screen-victory" class="hidden flex-1 flex flex-col p-6 md:p-8 items-center justify-center text-center select-none relative overflow-y-auto custom-scroll">
+            <div class="absolute inset-0 bg-gradient-to-tr from-amber-50 via-rose-50 to-blue-50 opacity-60 pointer-events-none"></div>
+            
+            <div class="relative z-10 max-w-2xl flex flex-col items-center w-full">
+                <!-- Golden Badge Icon -->
+                <div class="relative mb-2">
+                    <div class="absolute inset-0 bg-yellow-400 rounded-full blur-xl opacity-40 animate-pulse"></div>
+                    <span class="text-5xl md:text-6xl relative z-10 animate-bounce-slow inline-block">🏆</span>
+                </div>
+
+                <div class="bg-amber-100 text-amber-800 text-[10px] font-black px-4 py-1 rounded-full uppercase tracking-widest mb-2 shadow-sm">
+                    第一關闖關成功 ‧ LEVEL 1 COMPLETED
+                </div>
+
+                <h2 class="text-2xl md:text-3xl font-black text-slate-800 mb-1 leading-tight">
+                    恭喜 <span id="victory-username" class="text-rose-600">冒險家</span> 獲得<br>
+                    <span class="text-rose-500 font-extrabold">中正國際移動大使</span> 認證！
+                </h2>
+                <p class="text-[11px] md:text-xs text-slate-500 mb-4 max-w-md leading-relaxed">
+                    你成功展現了卓越的 **跨文化溝通、國際交流、與 AI 永續科技素養**！請記下方的第二關專屬金鑰，開啟下一部挑戰！
+                </p>
+
+                <!-- Virtual Unlock Key Card -->
+                <div class="bg-gradient-to-r from-amber-500 to-rose-500 rounded-2xl p-5 shadow-xl w-full max-w-md relative overflow-hidden mb-4 border-2 border-amber-200">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-full transform translate-x-12 -translate-y-12"></div>
+                    
+                    <div class="flex justify-between items-center border-b border-white/20 pb-2 mb-3 text-white">
+                        <span class="text-[10px] font-black tracking-widest"><i class="fa-solid fa-key animate-pulse"></i> SECOND STAGE UNLOCK KEY</span>
+                        <span class="text-[10px] opacity-80">ZZSH-GM-STAGE1</span>
+                    </div>
+
+                    <!-- Main Code Area -->
+                    <div class="text-center py-3.5 bg-white/10 rounded-xl border border-white/20 backdrop-blur-sm relative">
+                        <span class="text-[9px] text-amber-100 block font-bold tracking-wider uppercase">第二關闖關解鎖密碼</span>
+                        <div class="flex items-center justify-center gap-2 mt-1">
+                            <span id="unlock-passcode" class="text-2xl md:text-3xl font-black text-white tracking-widest font-mono">ZZSH-GM-STAGE2</span>
+                        </div>
+                        <button onclick="copyPasscode()" class="touch-button mt-2.5 bg-white text-slate-800 hover:bg-slate-100 text-[10px] font-bold px-4 py-1.5 rounded-full shadow-md inline-flex items-center gap-1.5 transition">
+                            <i class="fa-regular fa-copy"></i> <span id="copy-btn-text">複製解鎖密碼</span>
+                        </button>
+                    </div>
+
+                    <div class="mt-3.5 text-left text-[10px] text-white/90 leading-relaxed">
+                        <i class="fa-solid fa-circle-info mr-0.5"></i> <b>下一步指示：</b>
+                        請點擊按鈕複製密碼，並在接下來的 **第二關遊戲** 首頁中，貼上此解鎖密碼，即可解開後續的精彩探險！
+                    </div>
+                </div>
+
+                <!-- Call to action button -->
+                <button onclick="resetGame()" class="touch-button bg-slate-800 hover:bg-slate-900 text-white font-extrabold text-xs px-6 py-2 rounded-full shadow-md flex items-center gap-2">
+                    <i class="fa-solid fa-rotate-left"></i> <span>重新挑戰並回首頁輪播</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Bottom Mock iPad Home indicator -->
+        <div class="bg-white py-2 flex justify-center items-center border-t select-none">
+            <div class="w-32 h-1 bg-slate-300 rounded-full"></div>
+        </div>
+
+    </div>
+
+    <script>
+        // Slideshow System States
+        let currentSlideIndex = 0;
+        let slideshowInterval = null;
+        const totalSlides = 5;
+
+        // Game State Variables
+        let timer = null;
+        let timeLeft = 180; // 3 minutes in seconds
+        let playerName = "熱血冒險家";
+        let stage1Selected = null;
+        let stage2Completed = {
+            "USA": false,
+            "Germany": false,
+            "Brazil": false,
+            "Japan": false
+        };
+        let stage2SelectedCountry = null;
+        let stage3State = {
+            selectedCrisis: null,
+            selectedSDG: null,
+            connections: {
+                1: null, // Crisis 1 matched to SDG
+                2: null  // Crisis 2 matched to SDG
+            }
+        };
+
+        // Window load setup
+        window.onload = function() {
+            startSlideshow();
+        }
+
+        // SLIDESHOW ROTATION LOGIC
+        function startSlideshow() {
+            clearInterval(slideshowInterval);
+            currentSlideIndex = 0;
+            updateSlideshowDisplay();
+
+            slideshowInterval = setInterval(() => {
+                currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
+                updateSlideshowDisplay();
+            }, 4500); // Transitions every 4.5 seconds
+        }
+
+        function updateSlideshowDisplay() {
+            for (let i = 0; i < totalSlides; i++) {
+                const slideEl = document.getElementById(`slide-${i + 1}`);
+                const dotEl = document.getElementById(`dot-${i}`);
+                if (slideEl) {
+                    if (i === currentSlideIndex) {
+                        slideEl.classList.add("active");
+                    } else {
+                        slideEl.classList.remove("active");
+                    }
+                }
+                if (dotEl) {
+                    if (i === currentSlideIndex) {
+                        dotEl.className = "dot w-4 h-2 rounded-full bg-rose-500 transition-all duration-300";
+                    } else {
+                        dotEl.className = "dot w-2 h-2 rounded-full bg-slate-300 transition-all duration-300";
+                    }
+                }
+            }
+        }
+
+        // TRIGGER ON TOUCH: TRANSITION FROM SLIDESHOW TO GAME
+        function dismissSlideshow() {
+            clearInterval(slideshowInterval);
+            switchScreen("screen-welcome");
+        }
+
+        function returnToSlideshow() {
+            clearInterval(timer);
+            switchScreen("screen-slideshow");
+            startSlideshow();
+        }
+
+        // Standard countdown timer
+        function startTimer() {
+            clearInterval(timer);
+            timeLeft = 180;
+            updateTimerDisplay();
+            timer = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    showTimeUpModal();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            const timeStr = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            const timeLeftEl = document.getElementById("time-left");
+            if (timeLeftEl) {
+                timeLeftEl.innerHTML = `<i class="fa-regular fa-clock mr-1"></i> 剩餘時間: ${timeStr}`;
+            }
+        }
+
+        // Screen switching utility
+        function switchScreen(screenId) {
+            document.getElementById("screen-slideshow").classList.add("hidden");
+            document.getElementById("screen-welcome").classList.add("hidden");
+            document.getElementById("screen-stage1").classList.add("hidden");
+            document.getElementById("screen-stage2").classList.add("hidden");
+            document.getElementById("screen-stage3").classList.add("hidden");
+            document.getElementById("screen-victory").classList.add("hidden");
+
+            document.getElementById(screenId).classList.remove("hidden");
+        }
+
+        // Start Game Trigger (Captures Name first)
+        function startGame() {
+            const inputName = document.getElementById("player-name").value.trim();
+            if (inputName !== "") {
+                playerName = inputName;
+            } else {
+                playerName = "熱血冒險家";
+            }
+            
+            // Dynamic name mapping to layout indicators with safe element checks
+            const s1Badge = document.getElementById("stage1-username-badge");
+            if (s1Badge) s1Badge.innerText = `冒險家: ${playerName}`;
+            
+            const s3Badge = document.getElementById("stage3-username-badge");
+            if (s3Badge) s3Badge.innerText = `冒險家: ${playerName}`;
+            
+            const vUsername = document.getElementById("victory-username");
+            if (vUsername) vUsername.innerText = playerName;
+
+            switchScreen("screen-stage1");
+            startTimer();
+        }
+
+        // RESET GAME (Returns back to active attract loop!)
+        function resetGame() {
+            stage1Selected = null;
+            stage2Completed = { "USA": false, "Germany": false, "Brazil": false, "Japan": false };
+            stage2SelectedCountry = null;
+            stage3State = { selectedCrisis: null, selectedSDG: null, connections: { 1: null, 2: null } };
+            
+            // Clear input
+            const nameInput = document.getElementById("player-name");
+            if (nameInput) nameInput.value = "";
+            playerName = "熱血冒險家";
+
+            // Reset Stage 1 Styles
+            document.getElementById("choice-1A").className = "touch-button w-full bg-white hover:bg-slate-100 text-slate-700 font-bold p-3 rounded-xl border-2 border-slate-200 shadow-sm flex items-center justify-between text-left text-xs md:text-sm";
+            document.getElementById("choice-1B").className = "touch-button w-full bg-white hover:bg-slate-100 text-slate-700 font-bold p-3 rounded-xl border-2 border-slate-200 shadow-sm flex items-center justify-between text-left text-xs md:text-sm";
+            document.getElementById("choice-1C").className = "touch-button w-full bg-white hover:bg-slate-100 text-slate-700 font-bold p-3 rounded-xl border-2 border-slate-200 shadow-sm flex items-center justify-between text-left text-xs md:text-sm";
+            
+            document.getElementById("btn-stage1-next").disabled = true;
+            document.getElementById("btn-stage1-next").className = "touch-button bg-slate-300 text-slate-500 font-extrabold px-6 py-3 rounded-xl flex items-center gap-2 cursor-not-allowed text-sm";
+
+            // Reset Stage 2 pins & display status boxes
+            ["USA", "Germany", "Brazil", "Japan"].forEach(c => {
+                const pin = document.getElementById(`pin-${c}`);
+                if (pin) {
+                    pin.className = "touch-button absolute bg-rose-500 hover:bg-rose-600 text-white w-9 h-9 rounded-full shadow-lg flex items-center justify-center border-2 border-white z-20";
+                    pin.innerHTML = `<span class="text-xs font-black">${c === 'USA' ? '🇺🇸' : c === 'Germany' ? '🇩🇪' : c === 'Brazil' ? '🇧🇷' : '🇯🇵'}</span>`;
+                }
+            });
+            document.getElementById("exchange-count").innerText = "0";
+            document.getElementById("btn-stage2-next").disabled = true;
+            document.getElementById("btn-stage2-next").className = "touch-button bg-slate-300 text-slate-500 font-extrabold px-6 py-3 rounded-xl flex items-center gap-2 cursor-not-allowed text-sm";
+            
+            // Reset state panel states
+            document.getElementById("stage2-empty-state").classList.remove("hidden");
+            document.getElementById("stage2-quiz-box").classList.add("hidden");
+            document.getElementById("stage2-success-box").classList.add("hidden");
+
+            // Reset Stage 3 items
+            document.getElementById("crisis-1").className = "touch-button bg-white border-2 border-slate-200 p-3 rounded-2xl shadow-sm flex items-center gap-3 cursor-pointer";
+            document.getElementById("crisis-2").className = "touch-button bg-white border-2 border-slate-200 p-3 rounded-2xl shadow-sm flex items-center gap-3 cursor-pointer";
+            document.getElementById("sdg-A").className = "touch-button bg-emerald-50 border-2 border-emerald-100 hover:border-emerald-300 p-3 rounded-2xl shadow-sm flex items-center gap-3 cursor-pointer";
+            document.getElementById("sdg-B").className = "touch-button bg-blue-50 border-2 border-blue-100 hover:border-blue-300 p-3 rounded-2xl shadow-sm flex items-center gap-3 cursor-pointer";
+            document.getElementById("stage3-connection-status").innerText = "💡 請先點選左邊一個「地球危機」，再點選右邊對應的「SDGs指標」進行配對！";
+            document.getElementById("stage3-connection-status").className = "bg-slate-50 rounded-xl p-3 text-center border text-xs font-bold text-slate-600";
+            document.getElementById("btn-stage3-next").disabled = true;
+            document.getElementById("btn-stage3-next").className = "touch-button bg-slate-300 text-slate-500 font-extrabold px-6 py-3 rounded-xl flex items-center gap-2 cursor-not-allowed text-sm";
+
+            returnToSlideshow();
+        }
+
+        // STAGE 1: CHOICE SELECTION (Intercultural Gesture Taboo)
+        function selectStage1Choice(choice) {
+            stage1Selected = choice;
+            
+            // Reset styles
+            document.getElementById("choice-1A").className = "touch-button w-full bg-white text-slate-700 font-bold p-3 rounded-xl border-2 border-slate-200 shadow-sm flex items-center justify-between text-left text-xs md:text-sm";
+            document.getElementById("choice-1B").className = "touch-button w-full bg-white text-slate-700 font-bold p-3 rounded-xl border-2 border-slate-200 shadow-sm flex items-center justify-between text-left text-xs md:text-sm";
+            document.getElementById("choice-1C").className = "touch-button w-full bg-white text-slate-700 font-bold p-3 rounded-xl border-2 border-slate-200 shadow-sm flex items-center justify-between text-left text-xs md:text-sm";
+
+            // Highlight choice and enable Next button
+            const selectedBtn = document.getElementById(`choice-1${choice}`);
+            if (choice === 'A') {
+                // Correct Choice
+                selectedBtn.className = "touch-button w-full bg-emerald-50 text-slate-800 font-bold p-3 rounded-xl border-2 border-emerald-500 shadow-md flex items-center justify-between text-left text-xs md:text-sm";
+                confetti({ particleCount: 30, spread: 40, origin: { y: 0.8 } });
+            } else {
+                // Incorrect Choices
+                selectedBtn.className = "touch-button w-full bg-rose-50 text-slate-800 font-bold p-3 rounded-xl border-2 border-rose-500 shadow-md flex items-center justify-between text-left text-xs md:text-sm";
+            }
+
+            // Enable "Next" button with proper styling
+            const nextBtn = document.getElementById("btn-stage1-next");
+            nextBtn.disabled = false;
+            nextBtn.className = "touch-button bg-rose-500 hover:bg-rose-600 text-white font-extrabold px-6 py-3 rounded-xl flex items-center gap-2 shadow-md text-sm";
+        }
+
+        function goToStage2() {
+            switchScreen("screen-stage2");
+        }
+
+        // STAGE 2: WORLD MAP DYNAMICS & QUIZZES DATA
+        const countryQuizzes = {
+            "USA": {
+                image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?auto=format&fit=crop&w=300&q=80",
+                fallbackImage: "https://placehold.co/300x150/FFE4E6/9F1239?text=Taiwan+Special+Mosquito+Swatter",
+                question: "高二與美國 Woodson High School 交流時，學長姐發現哪樣『台灣神奇生活用品』最讓美國學生感到驚奇與不可思議？",
+                options: [
+                    { text: "台式防潑水藍白拖 👣", correct: false },
+                    { text: "瞬間擊落蚊子的「電蚊拍」 🏸⚡", correct: true },
+                    { text: "蒸煮萬物的大同電鍋 🍲", correct: false }
+                ]
+            },
+            "Germany": {
+                image: "https://images.unsplash.com/photo-1541658016709-82535e94bc69?auto=format&fit=crop&w=300&q=80",
+                fallbackImage: "https://placehold.co/300x150/E0F2FE/0369A1?text=Taiwanese+Breakfast+And+Tea",
+                question: "在跟德國 Akademie für Kommunikation 交流難民與文化議題時，學長姐特別推薦了哪樣台灣傳統國民美味讓他們大為驚豔？",
+                options: [
+                    { text: "極具衝擊力的油炸臭豆腐 🧄", correct: false },
+                    { text: "蘿蔔糕 & 早餐店溫奶茶 🥛🥧", correct: true },
+                    { text: "香氣撲鼻的台式滷肉飯 🍚", correct: false }
+                ]
+            },
+            "Brazil": {
+                image: "https://images.unsplash.com/photo-1511289081367-3487491d0c9c?auto=format&fit=crop&w=300&q=80",
+                fallbackImage: "https://placehold.co/300x150/FEF3C7/B45309?text=11+Hours+Time+Difference",
+                question: "和巴西 St. Anthony 學校進行線上永續與日常生活交流時，學長姐們面臨最考驗意志力的「時差挑戰」是什麼？",
+                options: [
+                    { text: "巴西學生堅持只講葡萄牙文無法溝通 🗣️", correct: false },
+                    { text: "兩國相差 11 小時，必須在台灣晚上 10 點進行線上簡報會議 ⏰💤", correct: true },
+                    { text: "南半球與北半球網路訊號太微弱 📶", correct: false }
+                ]
+            },
+            "Japan": {
+                image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=300&q=80",
+                fallbackImage: "https://placehold.co/300x150/ECFDF5/047857?text=YouTube+Comedy+Trends",
+                question: "和日本大阪名城高校研討社群媒體對青少年的影響力時，台日青年最常看 YouTube 的哪一種類型影片？",
+                options: [
+                    { text: "嚴肅的全英文時事與知性報導 📰", correct: false },
+                    { text: "最新的流行流行音樂 MV 🎵", correct: false },
+                    { text: "放鬆心情的娛樂與搞笑綜藝影片 (佔37%) 🎬😂", correct: true }
+                ]
+            }
+        };
+
+        function tapCountry(country) {
+            stage2SelectedCountry = country;
+            
+            // Hide state placeholders & show quiz box immediately
+            document.getElementById("stage2-empty-state").classList.add("hidden");
+            document.getElementById("stage2-success-box").classList.add("hidden");
+            
+            const quizBox = document.getElementById("stage2-quiz-box");
+            quizBox.classList.remove("hidden");
+            quizBox.style.display = 'flex'; // Ensure flex layout works correctly
+
+            // Load Quiz Image safely
+            const quizImg = document.getElementById("quiz-country-img");
+            if (quizImg) {
+                quizImg.src = countryQuizzes[country].image;
+                quizImg.onerror = function() {
+                    this.src = countryQuizzes[country].fallbackImage;
+                };
+            }
+
+            document.getElementById("quiz-country-badge").innerText = 
+                country === "USA" ? "🇺🇸 美國 Woodson HS 交流" : 
+                country === "Germany" ? "🇩🇪 德國 AFK 交流" : 
+                country === "Brazil" ? "🇧🇷 巴西 St. Anthony 交流" : "🇯🇵 日本名城高校交流";
+            
+            document.getElementById("quiz-question").innerText = countryQuizzes[country].question;
+
+            // Generate options HTML
+            const optionsContainer = document.getElementById("quiz-options");
+            optionsContainer.innerHTML = "";
+            countryQuizzes[country].options.forEach((opt, idx) => {
+                const btn = document.createElement("button");
+                btn.className = "touch-button w-full bg-white hover:bg-slate-55 text-slate-700 font-bold p-1.5 px-3 rounded-lg border text-[10px] text-left flex items-center justify-between";
+                btn.innerHTML = `<span>${opt.text}</span>`;
+                btn.onclick = () => selectStage2Answer(idx, opt.correct);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        function selectStage2Answer(optionIndex, isCorrect) {
+            const country = stage2SelectedCountry;
+            const pinBtn = document.getElementById(`pin-${country}`);
+
+            if (isCorrect) {
+                confetti({ particleCount: 20, spread: 30, origin: { y: 0.7 } });
+                stage2Completed[country] = true;
+
+                // Mark Pin on Map as Done with a Checkmark
+                if (pinBtn) {
+                    pinBtn.className = "touch-button absolute bg-emerald-500 text-white w-9 h-9 rounded-full shadow-lg flex items-center justify-center border-2 border-white z-20 animate-pulse";
+                    pinBtn.innerHTML = "<i class='fa-solid fa-check text-xs'></i>";
+                }
+
+                // Refresh completed count
+                const solvedCount = Object.values(stage2Completed).filter(Boolean).length;
+                document.getElementById("exchange-count").innerText = solvedCount;
+
+                // Toggle views to show Success screen
+                document.getElementById("stage2-quiz-box").classList.add("hidden");
+                document.getElementById("stage2-quiz-box").style.display = 'none';
+                
+                const successTitle = document.getElementById("stage2-success-title");
+                if (successTitle) successTitle.innerText = `${playerName}，回答正確！`;
+
+                const successBox = document.getElementById("stage2-success-box");
+                successBox.classList.remove("hidden");
+                successBox.style.display = 'flex';
+
+                // If 3 or more countries completed, enable transition to Stage 3
+                if (solvedCount >= 3) {
+                    const nextBtn = document.getElementById("btn-stage2-next");
+                    nextBtn.disabled = false;
+                    nextBtn.className = "touch-button bg-rose-500 hover:bg-rose-600 text-white font-extrabold px-6 py-2.5 rounded-xl flex items-center gap-2 shadow-md text-sm";
+                }
+            } else {
+                // Wrong answer - visual shake feedback on button
+                const quizBoxOptions = document.getElementById("quiz-options").children;
+                if (quizBoxOptions[optionIndex]) {
+                    quizBoxOptions[optionIndex].className = "touch-button w-full bg-rose-50 text-rose-700 font-bold p-1.5 px-3 rounded-lg border-rose-300 border text-[10px] text-left flex items-center justify-between";
+                    setTimeout(() => {
+                        if (quizBoxOptions[optionIndex]) {
+                            quizBoxOptions[optionIndex].className = "touch-button w-full bg-white hover:bg-slate-50 text-slate-700 font-bold p-1.5 px-3 rounded-lg border text-[10px] text-left flex items-center justify-between";
+                        }
+                    }, 1000);
+                }
+            }
+        }
+
+        function clearStage2Feedback() {
+            // Hide success box, restore empty default state
+            document.getElementById("stage2-success-box").classList.add("hidden");
+            document.getElementById("stage2-success-box").style.display = 'none';
+            document.getElementById("stage2-quiz-box").classList.add("hidden");
+            document.getElementById("stage2-quiz-box").style.display = 'none';
+            
+            document.getElementById("stage2-empty-state").classList.remove("hidden");
+        }
+
+        function goToStage3() {
+            switchScreen("screen-stage3");
+        }
+
+        // STAGE 3: MATCHING INTERFACE
+        function selectCrisis(id) {
+            // Reset active style for crisis cards
+            document.getElementById("crisis-1").className = "touch-button bg-white border-2 border-slate-200 p-3 rounded-2xl shadow-sm flex items-center gap-3 cursor-pointer";
+            document.getElementById("crisis-2").className = "touch-button bg-white border-2 border-slate-200 p-3 rounded-2xl shadow-sm flex items-center gap-3 cursor-pointer";
+            
+            document.getElementById(`crisis-${id}`).className = "touch-button bg-amber-50 border-2 border-amber-400 p-3 rounded-2xl shadow-md flex items-center gap-3 cursor-pointer scale-[1.02]";
+            stage3State.selectedCrisis = id;
+
+            checkAndPerformMatch();
+        }
+
+        function selectSDG(code) {
+            // Reset active style for SDG badges
+            document.getElementById("sdg-A").className = "touch-button bg-emerald-50 border-2 border-emerald-100 hover:border-emerald-300 p-3 rounded-2xl shadow-sm flex items-center gap-3 cursor-pointer";
+            document.getElementById("sdg-B").className = "touch-button bg-blue-50 border-2 border-blue-100 hover:border-blue-300 p-3 rounded-2xl shadow-sm flex items-center gap-3 cursor-pointer";
+            
+            if (code === 'A') {
+                document.getElementById("sdg-A").className = "touch-button bg-emerald-100 border-2 border-emerald-500 p-3 rounded-2xl shadow-md flex items-center gap-3 cursor-pointer scale-[1.02]";
+            } else {
+                document.getElementById("sdg-B").className = "touch-button bg-blue-100 border-2 border-blue-500 p-3 rounded-2xl shadow-md flex items-center gap-3 cursor-pointer scale-[1.02]";
+            }
+            stage3State.selectedSDG = code;
+
+            checkAndPerformMatch();
+        }
+
+        function checkAndPerformMatch() {
+            const crisis = stage3State.selectedCrisis;
+            const sdg = stage3State.selectedSDG;
+
+            if (crisis && sdg) {
+                // Rainforest Deforestation (1) -> SDG 15 (A)
+                // Air Pollution (2) -> SDG 13 (B)
+                const isMatchCorrect = (crisis === 1 && sdg === 'A') || (crisis === 2 && sdg === 'B');
+                const statusBox = document.getElementById("stage3-connection-status");
+
+                if (isMatchCorrect) {
+                    confetti({ particleCount: 20, spread: 35, origin: { y: 0.8 } });
+                    stage3State.connections[crisis] = sdg;
+                    
+                    statusBox.innerText = `✅ 配對成功！對應的關聯非常精準！`;
+                    statusBox.className = "bg-emerald-50 text-emerald-800 rounded-xl p-3 text-center border-2 border-emerald-400 text-xs font-black animate-pulse";
+
+                    // Check if all connections successfully met
+                    if (stage3State.connections[1] && stage3State.connections[2]) {
+                        const nextBtn = document.getElementById("btn-stage3-next");
+                        nextBtn.disabled = false;
+                        nextBtn.className = "touch-button bg-rose-500 hover:bg-rose-600 text-white font-extrabold px-6 py-2.5 rounded-xl flex items-center gap-2 shadow-md animate-bounce-slow text-sm";
+                    }
+                } else {
+                    statusBox.innerText = `❌ 配對不正確！換個思考角度，重新連線看看！`;
+                    statusBox.className = "bg-rose-50 text-rose-800 rounded-xl p-3 text-center border-2 border-rose-400 text-xs font-bold";
+                }
+
+                // Temporary delay to reset visual state highlights for next selection
+                setTimeout(() => {
+                    const c1 = document.getElementById("crisis-1");
+                    const c2 = document.getElementById("crisis-2");
+                    const sA = document.getElementById("sdg-A");
+                    const sB = document.getElementById("sdg-B");
+                    if (c1) c1.className = "touch-button bg-white border-2 border-slate-200 p-3 rounded-2xl shadow-sm flex items-center gap-3 cursor-pointer";
+                    if (c2) c2.className = "touch-button bg-white border-2 border-slate-200 p-3 rounded-2xl shadow-sm flex items-center gap-3 cursor-pointer";
+                    if (sA) sA.className = "touch-button bg-emerald-50 border-2 border-emerald-100 hover:border-emerald-300 p-3 rounded-2xl shadow-sm flex items-center gap-3 cursor-pointer";
+                    if (sB) sB.className = "touch-button bg-blue-50 border-2 border-blue-100 hover:border-blue-300 p-3 rounded-2xl shadow-sm flex items-center gap-3 cursor-pointer";
+                    stage3State.selectedCrisis = null;
+                    stage3State.selectedSDG = null;
+                }, 1200);
+            }
+        }
+
+        function showVictoryScreen() {
+            clearInterval(timer);
+            switchScreen("screen-victory");
+
+            // Trigger massive beautiful celebration confetti shower
+            const duration = 3 * 1000;
+            const end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 3,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 }
+                });
+                confetti({
+                    particleCount: 3,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 }
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+
+        // Clipboard Copy Helper for iPad and Desktop
+        function copyPasscode() {
+            const passcode = "ZZSH-GM-STAGE2";
+            
+            // Create a temporary hidden textarea element
+            const tempTextArea = document.createElement("textarea");
+            tempTextArea.value = passcode;
+            // Prevent scrolling
+            tempTextArea.style.top = "0";
+            tempTextArea.style.left = "0";
+            tempTextArea.style.position = "fixed";
+            document.body.appendChild(tempTextArea);
+            
+            tempTextArea.focus();
+            tempTextArea.select();
+            tempTextArea.setSelectionRange(0, 99999); // For iOS devices
+
+            try {
+                const successful = document.execCommand('copy');
+                const btnText = document.getElementById("copy-btn-text");
+                if (successful) {
+                    btnText.innerText = "已成功複製密碼！";
+                    confetti({ particleCount: 20, spread: 35 });
+                    setTimeout(() => {
+                        btnText.innerText = "複製解鎖密碼";
+                    }, 2500);
+                } else {
+                    btnText.innerText = "複製失敗，請手動抄寫";
+                }
+            } catch (err) {
+                document.getElementById("copy-btn-text").innerText = "手動抄寫：ZZSH-GM-STAGE2";
+            }
+
+            document.body.removeChild(tempTextArea);
+        }
+
+        function showTimeUpModal() {
+            showVictoryScreen();
+        }
+    </script>
+</body>
+</html>
