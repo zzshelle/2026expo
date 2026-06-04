@@ -532,7 +532,7 @@
                     <div class="text-center py-3.5 bg-white/10 rounded-xl border border-white/20 backdrop-blur-sm relative">
                         <span class="text-[9px] text-amber-100 block font-bold tracking-wider uppercase">第二關闖關解鎖密碼</span>
                         <div class="flex items-center justify-center gap-2 mt-1">
-                            <span id="unlock-passcode" class="text-2xl md:text-3xl font-black text-white tracking-widest font-mono">ZZSH-GM-STAGE2</span>
+                            <span id="unlock-passcode" class="text-2xl md:text-3xl font-black text-white tracking-widest font-mono">ZZSH-GLOBE</span>
                         </div>
                         <button onclick="copyPasscode()" class="touch-button mt-2.5 bg-white text-slate-800 hover:bg-slate-100 text-[10px] font-bold px-4 py-1.5 rounded-full shadow-md inline-flex items-center gap-1.5 transition">
                             <i class="fa-regular fa-copy"></i> <span id="copy-btn-text">複製解鎖密碼</span>
@@ -1023,7 +1023,7 @@
 
         // Clipboard Copy Helper for iPad and Desktop
         function copyPasscode() {
-            const passcode = "ZZSH-GM-STAGE2";
+            const passcode = "ZZSH-GLOBE";
             
             // Create a temporary hidden textarea element
             const tempTextArea = document.createElement("textarea");
@@ -1051,7 +1051,7 @@
                     btnText.innerText = "複製失敗，請手動抄寫";
                 }
             } catch (err) {
-                document.getElementById("copy-btn-text").innerText = "手動抄寫：ZZSH-GM-STAGE2";
+                document.getElementById("copy-btn-text").innerText = "手動抄寫：ZZSH-GLOBE";
             }
 
             document.body.removeChild(tempTextArea);
