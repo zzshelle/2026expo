@@ -16,12 +16,13 @@
             -webkit-user-select: none;
             overscroll-behavior: none;
         }
+        /* Optimized for 16:9 Widescreen display on booths */
         .ipad-container {
-            max-width: 1024px;
-            aspect-ratio: 4 / 3;
+            max-width: 1152px;
+            aspect-ratio: 16 / 9;
             margin: auto;
         }
-        @media (max-aspect-ratio: 4/3) {
+        @media (max-aspect-ratio: 16/9) {
             .ipad-container {
                 aspect-ratio: auto;
                 height: 100vh;
@@ -32,7 +33,7 @@
         }
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-8px); }
         }
         .gradient-bg {
             background: linear-gradient(135deg, #EEF2F3 0%, #FFE9E9 50%, #E6EFFF 100%);
@@ -42,10 +43,10 @@
             transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .touch-button:active {
-            transform: scale(0.95);
+            transform: scale(0.96);
         }
         .custom-scroll::-webkit-scrollbar {
-            width: 4px;
+            width: 6px;
         }
         .custom-scroll::-webkit-scrollbar-track {
             background: transparent;
@@ -71,9 +72,9 @@
         }
         /* Pulsate click instruction */
         @keyframes pulse-ring {
-            0% { transform: scale(0.95); opacity: 0.8; }
-            50% { transform: scale(1.05); opacity: 1; }
-            100% { transform: scale(0.95); opacity: 0.8; }
+            0% { transform: scale(0.96); opacity: 0.8; }
+            50% { transform: scale(1.04); opacity: 1; }
+            100% { transform: scale(0.96); opacity: 0.8; }
         }
         .pulsate-prompt {
             animation: pulse-ring 2.5s infinite ease-in-out;
@@ -84,25 +85,25 @@
 
     <div class="ipad-container w-full bg-white md:rounded-3xl shadow-2xl flex flex-col justify-between overflow-hidden relative border-4 border-slate-800 md:border-8">
         
-        <!-- Top Status Bar Mock -->
-        <div class="bg-slate-900 text-white text-xs px-6 py-2.5 flex justify-between items-center z-10 select-none border-b border-amber-500/30">
-            <div class="font-bold flex items-center gap-2">
-                <span class="bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-950 text-[10px] px-2 py-0.5 rounded-md font-black shadow-sm flex items-center gap-1 shrink-0">
-                    <i class="fa-solid fa-award animate-pulse"></i> 榮獲卓越級
+        <!-- Top Status Bar Mock (Permanently Highlight "Outstanding Level" of ZZSH) -->
+        <div class="bg-slate-900 text-white px-6 py-3 flex justify-between items-center z-10 select-none border-b border-amber-500/30">
+            <div class="font-bold flex items-center gap-3">
+                <span class="bg-gradient-to-r from-amber-400 to-yellow-500 text-slate-950 text-xs md:text-sm px-3 py-1 rounded-md font-black shadow-sm flex items-center gap-1.5 shrink-0">
+                    <i class="fa-solid fa-award animate-pulse text-sm"></i> 榮獲卓越級
                 </span>
-                <span class="tracking-wide text-amber-100 truncate">臺北市立中正高中-國際學校獎(卓越級)</span>
+                <span class="tracking-wide text-amber-100 text-sm md:text-base font-bold truncate">臺北市立中正高中 ── 國際學校獎(卓越級)</span>
                 <span class="text-slate-500 mx-1 hidden sm:inline">|</span>
-                <span class="text-slate-300 text-[11px] font-normal hidden sm:inline">國九特色課程導覽</span>
+                <span class="text-slate-300 text-xs md:text-sm font-medium hidden sm:inline">國九特色課程導覽</span>
             </div>
-            <div class="bg-rose-500 text-[10px] px-2 py-0.5 rounded-full font-bold animate-pulse shrink-0">Game 1 啟航</div>
-            <div class="flex items-center gap-4 text-[11px] opacity-90 shrink-0">
-                <span id="time-left"><i class="fa-regular fa-clock mr-1"></i> 剩餘時間: 03:00</span>
-                <span><i class="fa-solid fa-wifi"></i> 100% <i class="fa-solid fa-battery-three-quarters text-emerald-400 ml-1"></i></span>
+            <div class="bg-rose-500 text-xs md:text-sm px-3 py-1 rounded-full font-black animate-pulse shrink-0">第一關 啟航</div>
+            <div class="flex items-center gap-5 text-xs md:text-sm opacity-90 shrink-0 font-medium">
+                <span id="time-left"><i class="fa-regular fa-clock mr-1.5"></i> 剩餘時間: 03:00</span>
+                <span><i class="fa-solid fa-wifi"></i> 100% <i class="fa-solid fa-battery-three-quarters text-emerald-400 ml-1.5"></i></span>
             </div>
         </div>
 
         <!-- SCREEN 0: SLIDESHOW (ATTRACT MODE) -->
-        <div id="screen-slideshow" onclick="dismissSlideshow()" class="flex-1 relative cursor-pointer overflow-hidden z-20 flex flex-col justify-between p-8">
+        <div id="screen-slideshow" onclick="dismissSlideshow()" class="flex-1 relative cursor-pointer overflow-hidden z-20 flex flex-col justify-between p-8 md:p-12">
             
             <!-- Floating click indicator layer (layered on top) -->
             <div class="absolute inset-0 z-30 bg-black/5 hover:bg-black/0 transition duration-300"></div>
@@ -110,17 +111,17 @@
             <!-- Slide 1: Welcome Hero -->
             <div class="slide active flex flex-col items-center justify-center text-center p-6" id="slide-1">
                 <div class="absolute inset-0 bg-gradient-to-tr from-sky-100 via-rose-100 to-indigo-100 -z-10 opacity-70"></div>
-                <div class="mb-4 bg-amber-500 text-slate-950 text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-widest shadow-md flex items-center gap-1">
+                <div class="mb-4 bg-amber-500 text-slate-950 text-xs md:text-sm font-black px-5 py-2 rounded-full uppercase tracking-widest shadow-md flex items-center gap-2">
                     🏆 臺北市立中正高中 ─ 榮獲國際學校獎(卓越級) 🏆
                 </div>
-                <h1 class="text-4xl md:text-5xl font-black text-slate-800 tracking-tight leading-tight mb-4">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-slate-800 tracking-tight leading-tight mb-5">
                     國際移動力大冒險！<br>
-                    <span class="text-rose-500 text-3xl md:text-4xl">世界探險家 Global Explorer</span>
+                    <span class="text-rose-500 text-3xl md:text-4xl lg:text-5xl">世界探險家 Global Explorer</span>
                 </h1>
-                <p class="text-slate-600 font-bold max-w-xl text-sm md:text-base leading-relaxed mb-6">
-                    在中正高中，我們不只讀英文，更要與世界連線！三大專題成果精華，3分鐘體驗最酷的跨國交流秘辛。
+                <p class="text-slate-600 font-bold max-w-2xl text-base md:text-lg lg:text-xl leading-relaxed mb-6">
+                    在中正高中，我們不只讀英文，更要與 world 接軌！三大專題成果精華，3分鐘體驗最酷的跨國交流秘辛。
                 </p>
-                <div class="flex gap-4 items-center text-slate-400 text-xs">
+                <div class="flex gap-5 items-center text-slate-500 text-xs md:text-sm font-bold">
                     <span><i class="fa-solid fa-earth-americas mr-1 text-sky-500"></i> 跨文化主持</span>
                     <span>•</span>
                     <span><i class="fa-solid fa-plane mr-1 text-rose-500"></i> 四國視訊連線</span>
@@ -132,17 +133,17 @@
             <!-- Slide 2: Course Component 1 Intro -->
             <div class="slide flex flex-col items-center justify-center text-center p-6" id="slide-2">
                 <div class="absolute inset-0 bg-gradient-to-tr from-rose-50 via-amber-50 to-orange-100 -z-10 opacity-70"></div>
-                <div class="mb-3 bg-amber-500 text-white text-[10px] font-black px-4 py-1 rounded-full uppercase tracking-wider">
+                <div class="mb-4 bg-amber-500 text-white text-xs md:text-sm font-black px-5 py-2 rounded-full uppercase tracking-wider">
                     主題一：跨文化非語言溝通
                 </div>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 mb-4">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-800 mb-5">
                     避開國際社交「手勢地雷」💣
                 </h2>
-                <div class="grid grid-cols-2 gap-4 max-w-lg mx-auto items-center mb-4">
+                <div class="grid grid-cols-12 gap-6 max-w-4xl mx-auto items-center mb-4">
                     <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=400&q=80" 
                          onerror="this.src='https://placehold.co/400x300/FFE9E9/334155?text=Cross+Culture'" 
-                         alt="Gesture" class="rounded-xl shadow-md h-24 object-cover">
-                    <p class="text-left text-xs md:text-sm text-slate-600 font-medium leading-relaxed">
+                         alt="Gesture" class="col-span-4 rounded-xl shadow-md h-32 md:h-40 object-cover w-full">
+                    <p class="col-span-8 text-left text-sm md:text-base lg:text-lg text-slate-600 font-bold leading-relaxed">
                         在台灣代表完美的「OK 手勢」，在巴西和南歐竟然是極度冒犯的粗俗辱罵？出國交流前，先懂跨文化禁忌才是合格的大使！
                     </p>
                 </div>
@@ -151,36 +152,36 @@
             <!-- Slide 3: Course Component 2 Intro -->
             <div class="slide flex flex-col items-center justify-center text-center p-6" id="slide-3">
                 <div class="absolute inset-0 bg-gradient-to-tr from-sky-50 via-indigo-50 to-blue-100 -z-10 opacity-70"></div>
-                <div class="mb-3 bg-blue-600 text-white text-[10px] font-black px-4 py-1 rounded-full uppercase tracking-wider">
+                <div class="mb-4 bg-blue-600 text-white text-xs md:text-sm font-black px-5 py-2 rounded-full uppercase tracking-wider">
                     主題二：國際議題與跨國交流
                 </div>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 mb-4">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-800 mb-5">
                     世界各國就是我們的課堂 🌎
                 </h2>
-                <div class="grid grid-cols-2 gap-4 max-w-lg mx-auto items-center mb-4">
-                    <p class="text-left text-xs md:text-sm text-slate-600 font-medium leading-relaxed">
+                <div class="grid grid-cols-12 gap-6 max-w-4xl mx-auto items-center mb-4">
+                    <p class="col-span-8 text-left text-sm md:text-base lg:text-lg text-slate-600 font-bold leading-relaxed">
                         跟美國高中分享「神奇電蚊拍」、和德國同學暢談蘿蔔糕與難民、克服巴西 11 小時時差、剖析日本少年的 YouTube 流行娛樂趨勢！
                     </p>
                     <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=400&q=80" 
                          onerror="this.src='https://placehold.co/400x300/E6EFFF/334155?text=Exchange'" 
-                         alt="Intercultural" class="rounded-xl shadow-md h-24 object-cover">
+                         alt="Intercultural" class="col-span-4 rounded-xl shadow-md h-32 md:h-40 object-cover w-full">
                 </div>
             </div>
 
             <!-- Slide 4: Course Component 3 Intro -->
             <div class="slide flex flex-col items-center justify-center text-center p-6" id="slide-4">
                 <div class="absolute inset-0 bg-gradient-to-tr from-emerald-50 via-teal-50 to-sky-100 -z-10 opacity-70"></div>
-                <div class="mb-3 bg-emerald-600 text-white text-[10px] font-black px-4 py-1 rounded-full uppercase tracking-wider">
+                <div class="mb-4 bg-emerald-600 text-white text-xs md:text-sm font-black px-5 py-2 rounded-full uppercase tracking-wider">
                     主題三：世界危機與科技倡議
                 </div>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-800 mb-4">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-800 mb-5">
                     AI 繪圖與 3D XR 線上展間 🤖
                 </h2>
-                <div class="grid grid-cols-2 gap-4 max-w-lg mx-auto items-center mb-4">
+                <div class="grid grid-cols-12 gap-6 max-w-4xl mx-auto items-center mb-4">
                     <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=400&q=80" 
                          onerror="this.src='https://placehold.co/400x300/ECFDF5/334155?text=SDGs'" 
-                         alt="SDG Crisis" class="rounded-xl shadow-md h-24 object-cover">
-                    <p class="text-left text-xs md:text-sm text-slate-600 font-medium leading-relaxed">
+                         alt="SDG Crisis" class="col-span-4 rounded-xl shadow-md h-32 md:h-40 object-cover w-full">
+                    <p class="col-span-8 text-left text-sm md:text-base lg:text-lg text-slate-600 font-bold leading-relaxed">
                         運用 Copilot 與線上 3D 展示平台，將「巴西雨林危機」與「歐洲空氣汙染」等地球痛點，完美鏈接聯合國永續發展指標 (SDGs)！
                     </p>
                 </div>
@@ -189,118 +190,118 @@
             <!-- Slide 5: Final Call to Action -->
             <div class="slide flex flex-col items-center justify-center text-center p-6" id="slide-5">
                 <div class="absolute inset-0 bg-gradient-to-tr from-purple-100 via-rose-100 to-amber-100 -z-10 opacity-70"></div>
-                <div class="text-5xl mb-4 animate-bounce-slow">🎁</div>
-                <h2 class="text-3xl md:text-4xl font-black text-slate-800 mb-2">
+                <div class="text-6xl mb-4 animate-bounce-slow">🎁</div>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-black text-slate-800 mb-3">
                     挑戰成功，即享專屬好禮！
                 </h2>
-                <p class="text-slate-600 font-bold max-w-md text-xs md:text-sm leading-relaxed mb-6">
-                    完成第一關 3 個小遊戲挑戰，就能獲得專屬「第一關破關認證碼」，用於解鎖第二關卡，還可到中正高中攤位現場兌換精美限量小禮物喔！
+                <p class="text-slate-600 font-bold max-w-2xl text-sm md:text-base lg:text-lg leading-relaxed mb-6">
+                    完成第一關 3 個小遊戲挑戰，就能獲得專屬「第一關破關認證」，即可到中正高中攤位現場兌換精美限量小禮物喔！
                 </p>
             </div>
 
             <!-- Centered Bottom indicator and touch prompt -->
-            <div class="z-30 w-full flex flex-col items-center justify-center gap-4 py-4 mt-auto">
+            <div class="z-30 w-full flex flex-col items-center justify-center gap-5 py-4 mt-auto">
                 <!-- Dots indicators -->
-                <div class="flex gap-2">
-                    <span class="dot w-2 h-2 rounded-full bg-slate-300 transition-colors" id="dot-0"></span>
-                    <span class="dot w-2 h-2 rounded-full bg-slate-300 transition-colors" id="dot-1"></span>
-                    <span class="dot w-2 h-2 rounded-full bg-slate-300 transition-colors" id="dot-2"></span>
-                    <span class="dot w-2 h-2 rounded-full bg-slate-300 transition-colors" id="dot-3"></span>
-                    <span class="dot w-2 h-2 rounded-full bg-slate-300 transition-colors" id="dot-4"></span>
+                <div class="flex gap-3">
+                    <span class="dot w-3 h-3 rounded-full bg-slate-300 transition-all" id="dot-0"></span>
+                    <span class="dot w-3 h-3 rounded-full bg-slate-300 transition-all" id="dot-1"></span>
+                    <span class="dot w-3 h-3 rounded-full bg-slate-300 transition-all" id="dot-2"></span>
+                    <span class="dot w-3 h-3 rounded-full bg-slate-300 transition-all" id="dot-3"></span>
+                    <span class="dot w-3 h-3 rounded-full bg-slate-300 transition-all" id="dot-4"></span>
                 </div>
                 <!-- Pulsating CTA Message -->
-                <div class="pulsate-prompt bg-slate-900/90 text-white border border-white/20 text-xs md:text-sm font-extrabold px-8 py-3 rounded-full flex items-center gap-3 shadow-lg">
-                    <span>👉 觸碰螢幕 開始第一關挑戰！</span> <span class="bg-rose-500 px-2 py-0.5 rounded text-[10px] animate-pulse">TOUCH TO START</span>
+                <div class="pulsate-prompt bg-slate-900/95 text-white border border-white/20 text-sm md:text-base lg:text-lg font-extrabold px-10 py-4 rounded-full flex items-center gap-4 shadow-xl">
+                    <span>👉 觸碰螢幕 開始第一關挑戰！</span> <span class="bg-rose-500 px-3 py-1 rounded text-xs animate-pulse">TOUCH TO START</span>
                 </div>
             </div>
         </div>
 
-        <!-- SCREEN 1: WELCOME (Name Input Box, hidden at first) -->
-        <div id="screen-welcome" class="hidden flex-1 flex flex-col items-center justify-center p-6 md:p-8 text-center select-none relative z-10 overflow-y-auto custom-scroll">
-            <div class="absolute top-4 left-4 opacity-10 text-[100px] pointer-events-none">🌍</div>
-            <div class="absolute bottom-4 right-4 opacity-10 text-[100px] pointer-events-none">🚀</div>
+        <!-- SCREEN 1: WELCOME (Name Input Box) -->
+        <div id="screen-welcome" class="hidden flex-1 flex flex-col items-center justify-center p-8 md:p-12 text-center select-none relative z-10 overflow-y-auto custom-scroll">
+            <div class="absolute top-4 left-4 opacity-10 text-[120px] pointer-events-none">🌍</div>
+            <div class="absolute bottom-4 right-4 opacity-10 text-[120px] pointer-events-none">🚀</div>
             
-            <button onclick="returnToSlideshow()" class="absolute top-4 right-4 touch-button bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold text-xs px-3 py-1.5 rounded-full flex items-center gap-1">
+            <button onclick="returnToSlideshow()" class="absolute top-4 right-4 touch-button bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-sm px-4 py-2 rounded-full flex items-center gap-1.5">
                 <i class="fa-solid fa-house"></i> 回簡報首頁
             </button>
 
-            <div class="mb-2 bg-amber-100 text-amber-800 font-bold px-4 py-1.5 rounded-full text-xs md:text-sm tracking-widest inline-flex items-center gap-2 shadow-sm border border-amber-200">
+            <div class="mb-3 bg-amber-100 text-amber-800 font-bold px-5 py-2 rounded-full text-xs md:text-sm lg:text-base tracking-widest inline-flex items-center gap-2 shadow-sm border border-amber-200">
                 <i class="fa-solid fa-trophy"></i> 臺北市立中正高中 ─ 榮獲國際學校獎(卓越級) ✈️
             </div>
             
-            <h1 class="text-3xl md:text-5xl font-extrabold text-slate-800 mb-2 tracking-tight">
+            <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-800 mb-3 tracking-tight">
                 世界探險家 <span class="text-rose-500">Global Explorer</span>
             </h1>
-            <p class="text-slate-600 font-bold text-sm md:text-base max-w-2xl mb-6 leading-relaxed">
-                在中正高中，我們不只讀英文，更要與世界連線！搭上這班國際航班，體驗最酷的三大專案，解鎖各國交流秘辛。順利破關即可獲得<b>「第二關解鎖金鑰」</b>，開啟下一階段的挑戰！🎁
+            <p class="text-slate-600 font-bold text-sm md:text-base lg:text-lg max-w-3xl mb-8 leading-relaxed">
+                在中正高中，我們不只讀英文，更要與世界連線！搭上這班國際航班，體驗最酷的三大專案，解鎖各國交流秘辛。順利破關即可獲得<b>「第一關破關認證」</b>，集齊現場攤位全部三個關卡的挑戰，就能兌換精美限量小禮物喔！🎁
             </p>
 
             <!-- Name Input Field -->
-            <div class="w-full max-w-md bg-white p-5 rounded-2xl border-2 border-rose-100 shadow-md mb-6 relative">
-                <div class="absolute -top-3 left-6 bg-rose-500 text-white text-[11px] font-black px-3 py-0.5 rounded-full">
+            <div class="w-full max-w-lg bg-white p-6 rounded-2xl border-2 border-rose-100 shadow-md mb-8 relative">
+                <div class="absolute -top-3.5 left-6 bg-rose-500 text-white text-xs font-black px-4 py-1 rounded-full tracking-widest">
                     登機手續 BOARDING PASS
                 </div>
-                <label for="player-name" class="block text-slate-700 font-black text-sm mb-2 text-left">
-                    <i class="fa-solid fa-passport text-rose-500 mr-1"></i> 請輸入冒險家名字/暱稱：
+                <label for="player-name" class="block text-slate-700 font-black text-base md:text-lg mb-3 text-left">
+                    <i class="fa-solid fa-passport text-rose-500 mr-1.5"></i> 請輸入冒險家名字/暱稱：
                 </label>
-                <div class="flex gap-2">
+                <div class="flex gap-3">
                     <input type="text" id="player-name" maxlength="10" placeholder="例如：林小明 或 帥氣國九生" 
-                           class="flex-1 px-4 py-3 bg-slate-50 border-2 border-slate-200 rounded-xl text-slate-800 font-bold placeholder-slate-400 focus:outline-none focus:border-rose-500 text-sm transition">
+                           class="flex-1 px-5 py-4 bg-slate-50 border-2 border-slate-200 rounded-xl text-slate-800 font-bold placeholder-slate-400 focus:outline-none focus:border-rose-500 text-base md:text-lg transition">
                 </div>
-                <p class="text-[11px] text-slate-400 mt-2 text-left"><i class="fa-solid fa-circle-info mr-1"></i> 名字將會印製在你的專屬破關認證書上喔！</p>
+                <p class="text-xs text-slate-400 mt-3 text-left"><i class="fa-solid fa-circle-info mr-1.5"></i> 名字將會印製在你的專屬破關認證書上喔！</p>
             </div>
 
-            <button onclick="startGame()" class="touch-button bg-rose-500 hover:bg-rose-600 text-white font-extrabold text-lg px-12 py-3.5 rounded-full shadow-lg hover:shadow-rose-300 transition duration-300 flex items-center gap-3 animate-bounce-slow">
-                <span>開始極速大冒險！</span> <i class="fa-solid fa-circle-play text-xl"></i>
+            <button onclick="startGame()" class="touch-button bg-rose-500 hover:bg-rose-600 text-white font-extrabold text-lg md:text-xl px-14 py-4 rounded-full shadow-lg hover:shadow-rose-300 transition duration-300 flex items-center gap-3 animate-bounce-slow">
+                <span>開始極速大冒險！</span> <i class="fa-solid fa-circle-play text-2xl"></i>
             </button>
-            <p class="text-[11px] text-slate-400 mt-3"><i class="fa-solid fa-tablet-screen-button"></i> 專為現場 iPad 設計，體驗約 3 分鐘</p>
+            <p class="text-xs text-slate-400 mt-4"><i class="fa-solid fa-tablet-screen-button"></i> 專為現場 iPad 設計，體驗約 3 分鐘</p>
         </div>
 
         <!-- SCREEN 2: STAGE 1 (Intercultural Gesture Landmines) -->
-        <div id="screen-stage1" class="hidden flex-1 flex flex-col p-6 md:p-8 justify-between select-none">
+        <div id="screen-stage1" class="hidden flex-1 flex flex-col p-8 md:p-10 justify-between select-none overflow-y-auto custom-scroll">
             <div>
                 <!-- Stage Header -->
-                <div class="flex justify-between items-center border-b pb-3 mb-4">
-                    <div class="flex items-center gap-2">
-                        <span class="bg-rose-500 text-white rounded-full w-7 h-7 flex items-center justify-center font-bold text-sm">1</span>
-                        <h2 class="font-bold text-slate-800 text-lg">專題一：跨文化非語言溝通 🌏</h2>
+                <div class="flex justify-between items-center border-b pb-4 mb-5">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-rose-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm md:text-base">1</span>
+                        <h2 class="font-bold text-slate-800 text-lg md:text-xl lg:text-2xl">專題一：跨文化非語言溝通 🌏</h2>
                     </div>
-                    <span class="text-xs bg-slate-100 text-slate-600 px-3 py-1 rounded-full font-bold" id="stage1-username-badge">冒險家: 加油!</span>
+                    <span class="text-sm bg-slate-100 text-slate-700 px-4 py-1.5 rounded-full font-bold" id="stage1-username-badge">冒險家: 加油!</span>
                 </div>
 
                 <!-- Scenario Layout with Image -->
-                <div class="grid grid-cols-12 gap-6 items-center my-2">
+                <div class="grid grid-cols-12 gap-8 items-center my-2">
                     <!-- Left Context & Image -->
-                    <div class="col-span-4 hidden md:flex flex-col gap-2">
+                    <div class="col-span-12 md:col-span-4 flex flex-col gap-3">
                         <img id="stage1-img" src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=400&q=80" 
                              onerror="this.src='https://placehold.co/400x300/FFE9E9/334155?text=Cross+Culture'" 
                              alt="Cross Cultural Hand Sign" 
-                             class="rounded-2xl border-2 border-rose-100 shadow-md object-cover h-40 w-full">
-                        <span class="text-[10px] text-slate-400 text-center italic">中正特色專題：避開國際社交地雷</span>
+                             class="rounded-2xl border-2 border-rose-100 shadow-md object-cover h-44 w-full">
+                        <span class="text-xs text-slate-500 text-center font-bold">中正特色專題：避開國際社交地雷</span>
                     </div>
 
                     <!-- Right Challenge Container -->
                     <div class="col-span-12 md:col-span-8">
-                        <p class="text-slate-600 text-xs md:text-sm mb-3 bg-rose-50 p-3 rounded-xl border border-rose-100 leading-relaxed">
+                        <p class="text-slate-600 text-sm md:text-base lg:text-lg mb-4 bg-rose-50 p-4 rounded-xl border border-rose-100 leading-relaxed font-semibold">
                             💡 <b>文化地雷大解密：</b>在國際移動力課程中，學姐提醒我們「非語言溝通（身體手勢）」也是國民外交的大關鍵！在台灣稀鬆平常的<b>「OK 手勢」</b>（拇指與食指扣成圓圈），在部分國家竟然是<b>極度冒犯且粗俗的髒話</b>？
                         </p>
-                        <p class="text-[11px] text-amber-600 mb-3 bg-amber-50 py-1.5 px-3 rounded-lg inline-block w-full"><i class="fa-solid fa-circle-info"></i> 提示：這個手勢在美國是 OK、在日本代表錢 (Money)，但對哪些國家的外賓比，會惹來對方一頓怒火？</p>
+                        <p class="text-xs md:text-sm text-amber-700 mb-4 bg-amber-50 py-2 px-4 rounded-lg inline-block w-full font-bold"><i class="fa-solid fa-circle-info mr-1"></i> 提示：這個手勢在美國是 OK、在日本代表錢 (Money)，但對哪些國家的外賓比，會惹來對方一頓怒火？</p>
                         
-                        <div class="flex flex-col gap-2 max-w-xl mx-auto">
+                        <div class="flex flex-col gap-3 max-w-2xl mx-auto">
                             <!-- Choice A (Correct Answer) -->
-                            <button onclick="selectStage1Choice('A')" id="choice-1A" class="touch-button w-full bg-white hover:bg-slate-100 text-slate-700 font-bold p-3 rounded-xl border-2 border-slate-200 shadow-sm flex items-center justify-between text-left text-xs md:text-sm">
+                            <button onclick="selectStage1Choice('A')" id="choice-1A" class="touch-button w-full bg-white hover:bg-slate-50 text-slate-700 font-bold p-4 rounded-xl border-2 border-slate-200 shadow-sm flex items-center justify-between text-left text-sm md:text-base lg:text-lg">
                                 <span>A. 巴西與南歐、地中海地區 🇧🇷🇹🇷</span>
-                                <span class="text-[10px] bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded font-bold shrink-0 ml-2">代表粗俗的性暗示辱罵</span>
+                                <span class="text-xs bg-emerald-100 text-emerald-700 px-3 py-1 rounded font-black shrink-0 ml-3">代表粗俗的性暗示辱罵</span>
                             </button>
                             <!-- Choice B -->
-                            <button onclick="selectStage1Choice('B')" id="choice-1B" class="touch-button w-full bg-white hover:bg-slate-100 text-slate-700 font-bold p-3 rounded-xl border-2 border-slate-200 shadow-sm flex items-center justify-between text-left text-xs md:text-sm">
+                            <button onclick="selectStage1Choice('B')" id="choice-1B" class="touch-button w-full bg-white hover:bg-slate-50 text-slate-700 font-bold p-4 rounded-xl border-2 border-slate-200 shadow-sm flex items-center justify-between text-left text-sm md:text-base lg:text-lg">
                                 <span>B. 美國與英國等英語系國家 🇺🇸🇬🇧</span>
-                                <span class="text-[10px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-bold shrink-0 ml-2">代表一切完美 (OK)</span>
+                                <span class="text-xs bg-slate-100 text-slate-700 px-3 py-1 rounded font-black shrink-0 ml-3">代表一切完美 (OK)</span>
                             </button>
                             <!-- Choice C -->
-                            <button onclick="selectStage1Choice('C')" id="choice-1C" class="touch-button w-full bg-white hover:bg-slate-100 text-slate-700 font-bold p-3 rounded-xl border-2 border-slate-200 shadow-sm flex items-center justify-between text-left text-xs md:text-sm">
+                            <button onclick="selectStage1Choice('C')" id="choice-1C" class="touch-button w-full bg-white hover:bg-slate-50 text-slate-700 font-bold p-4 rounded-xl border-2 border-slate-200 shadow-sm flex items-center justify-between text-left text-sm md:text-base lg:text-lg">
                                 <span>C. 韓國與日本等亞洲近鄰 🇰🇷🇯🇵</span>
-                                <span class="text-[10px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded font-bold shrink-0 ml-2">代表硬幣金錢或普通手勢</span>
+                                <span class="text-xs bg-slate-100 text-slate-700 px-3 py-1 rounded font-black shrink-0 ml-3">代表硬幣金錢或普通手勢</span>
                             </button>
                         </div>
                     </div>
@@ -308,261 +309,260 @@
             </div>
 
             <!-- Toast feedback / continue button block -->
-            <div class="flex justify-between items-center pt-4 border-t">
-                <div class="text-xs text-slate-400">
+            <div class="flex justify-between items-center pt-4 border-t mt-5">
+                <div class="text-xs md:text-sm text-slate-400 font-bold">
                     <i class="fa-solid fa-circle-question"></i> 學姐學習心得：出國前先懂跨文化禁忌，才是稱職的國際移動大使！
                 </div>
-                <button id="btn-stage1-next" disabled onclick="goToStage2()" class="touch-button bg-slate-300 text-slate-500 font-extrabold px-6 py-3 rounded-xl flex items-center gap-2 cursor-not-allowed text-sm">
+                <button id="btn-stage1-next" disabled onclick="goToStage2()" class="touch-button bg-slate-300 text-slate-500 font-extrabold px-8 py-3 rounded-xl flex items-center gap-2 cursor-not-allowed text-sm md:text-base">
                     <span>前往下一關</span> <i class="fa-solid fa-arrow-right"></i>
                 </button>
             </div>
         </div>
 
         <!-- SCREEN 3: STAGE 2 (World Map Exchange Challenge) -->
-        <div id="screen-stage2" class="hidden flex-1 flex flex-col p-6 md:p-8 justify-between select-none">
+        <div id="screen-stage2" class="hidden flex-1 flex flex-col p-8 md:p-10 justify-between select-none overflow-y-auto custom-scroll">
             <div>
                 <!-- Stage Header -->
-                <div class="flex justify-between items-center border-b pb-3 mb-2">
-                    <div class="flex items-center gap-2">
-                        <span class="bg-rose-500 text-white rounded-full w-7 h-7 flex items-center justify-center font-bold text-sm">2</span>
-                        <h2 class="font-bold text-slate-800 text-lg">專題二：國際議題與文化交流 ✈️</h2>
+                <div class="flex justify-between items-center border-b pb-4 mb-3">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-rose-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm md:text-base">2</span>
+                        <h2 class="font-bold text-slate-800 text-lg md:text-xl lg:text-2xl">專題二：國際議題與文化交流 ✈️</h2>
                     </div>
-                    <span class="text-xs bg-amber-100 text-amber-700 px-3 py-1 rounded-full font-bold">完成：3 個國家拼圖 (<span id="exchange-count">0</span>/3)</span>
+                    <span class="text-xs md:text-sm bg-amber-100 text-amber-700 px-4 py-1.5 rounded-full font-black">完成：3 個國家拼圖 (<span id="exchange-count">0</span>/3)</span>
                 </div>
 
-                <p class="text-slate-600 text-xs mb-3 bg-blue-50 p-2.5 rounded-xl border border-blue-100">
+                <p class="text-slate-600 text-sm md:text-base mb-4 bg-blue-50 p-3.5 rounded-xl border border-blue-100 font-semibold leading-relaxed">
                     🌍 <b>世界就是我們的教室！</b>請點選下方地圖上的 4 個亮點國家，回答學姐在跨國視訊交流時遇到的神祕趣味問題！（答對 3 個即可前往下一關）
                 </p>
 
                 <!-- Map Interface & Side Cards -->
-                <div class="grid grid-cols-12 gap-4 my-2 h-[260px]">
+                <div class="grid grid-cols-12 gap-6 my-2 min-h-[300px]">
                     <!-- Left: Interactive Map -->
-                    <div class="col-span-7 bg-sky-50 rounded-2xl border-2 border-sky-100 p-2 relative flex items-center justify-center overflow-hidden">
-                        <span class="absolute top-2 left-4 text-[9px] text-sky-700 font-bold tracking-wider uppercase opacity-60"><i class="fa-solid fa-earth-americas"></i> 中正高中國際版圖</span>
+                    <div class="col-span-12 md:col-span-7 bg-sky-50 rounded-2xl border-2 border-sky-100 p-3 relative flex items-center justify-center overflow-hidden min-h-[260px]">
+                        <span class="absolute top-3 left-4 text-xs text-sky-800 font-black tracking-wider uppercase opacity-70"><i class="fa-solid fa-earth-americas text-sm"></i> 中正高中國際版圖</span>
                         
                         <!-- Mini World Map Mock -->
-                        <div class="w-full h-full relative opacity-95">
+                        <div class="w-full h-full relative opacity-95 min-h-[220px]">
                             <!-- America Point -->
-                            <button onclick="tapCountry('USA')" id="pin-USA" class="touch-button absolute top-[30%] left-[18%] bg-rose-500 hover:bg-rose-600 text-white w-9 h-9 rounded-full shadow-lg flex items-center justify-center border-2 border-white z-20">
-                                <span class="text-xs font-black">🇺🇸</span>
+                            <button onclick="tapCountry('USA')" id="pin-USA" class="touch-button absolute top-[28%] left-[18%] bg-rose-500 hover:bg-rose-600 text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center border-2 border-white z-20">
+                                <span class="text-base md:text-lg font-black">🇺🇸</span>
                             </button>
                             <!-- Germany Point -->
-                            <button onclick="tapCountry('Germany')" id="pin-Germany" class="touch-button absolute top-[22%] left-[48%] bg-rose-500 hover:bg-rose-600 text-white w-9 h-9 rounded-full shadow-lg flex items-center justify-center border-2 border-white z-20">
-                                <span class="text-xs font-black">🇩🇪</span>
+                            <button onclick="tapCountry('Germany')" id="pin-Germany" class="touch-button absolute top-[18%] left-[48%] bg-rose-500 hover:bg-rose-600 text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center border-2 border-white z-20">
+                                <span class="text-base md:text-lg font-black">🇩🇪</span>
                             </button>
                             <!-- Brazil Point -->
-                            <button onclick="tapCountry('Brazil')" id="pin-Brazil" class="touch-button absolute top-[65%] left-[32%] bg-rose-500 hover:bg-rose-600 text-white w-9 h-9 rounded-full shadow-lg flex items-center justify-center border-2 border-white z-20">
-                                <span class="text-xs font-black">🇧🇷</span>
+                            <button onclick="tapCountry('Brazil')" id="pin-Brazil" class="touch-button absolute top-[62%] left-[32%] bg-rose-500 hover:bg-rose-600 text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center border-2 border-white z-20">
+                                <span class="text-base md:text-lg font-black">🇧🇷</span>
                             </button>
                             <!-- Japan Point -->
-                            <button onclick="tapCountry('Japan')" id="pin-Japan" class="touch-button absolute top-[35%] left-[82%] bg-rose-500 hover:bg-rose-600 text-white w-9 h-9 rounded-full shadow-lg flex items-center justify-center border-2 border-white z-20">
-                                <span class="text-xs font-black">🇯🇵</span>
+                            <button onclick="tapCountry('Japan')" id="pin-Japan" class="touch-button absolute top-[32%] left-[82%] bg-rose-500 hover:bg-rose-600 text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center border-2 border-white z-20">
+                                <span class="text-base md:text-lg font-black">🇯🇵</span>
                             </button>
 
                             <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10">
-                                <i class="fa-solid fa-globe text-[150px] text-sky-800"></i>
+                                <i class="fa-solid fa-globe text-[160px] text-sky-800"></i>
                             </div>
                         </div>
                     </div>
 
                     <!-- Right: Quiz Side panel -->
-                    <div class="col-span-5 bg-slate-50 rounded-2xl border border-slate-200 p-3 flex flex-col justify-between overflow-y-auto custom-scroll" id="stage2-quiz-panel">
+                    <div class="col-span-12 md:col-span-5 bg-slate-50 rounded-2xl border border-slate-200 p-4 flex flex-col justify-between overflow-y-auto custom-scroll min-h-[260px]" id="stage2-quiz-panel">
                         <!-- 1. EMPTY STATE -->
-                        <div class="text-center py-10 text-slate-400 flex flex-col items-center justify-center h-full" id="stage2-empty-state">
-                            <i class="fa-solid fa-plane text-3xl mb-2 animate-pulse text-sky-400"></i>
-                            <p class="text-xs font-bold leading-normal">請點擊左側地圖上的<br>國旗標籤開始探索！</p>
+                        <div class="text-center py-12 text-slate-400 flex flex-col items-center justify-center h-full" id="stage2-empty-state">
+                            <i class="fa-solid fa-plane text-4xl mb-3 animate-pulse text-sky-400"></i>
+                            <p class="text-sm md:text-base font-black leading-relaxed text-slate-500">請點擊左側地圖上的<br>國旗標籤開始探索！</p>
                         </div>
 
                         <!-- 2. QUIZ CONTAINER -->
                         <div id="stage2-quiz-box" class="hidden flex-col justify-between h-full">
-                            <div class="text-left flex flex-col h-full justify-between">
+                            <div class="text-left flex flex-col h-full justify-between gap-2">
                                 <div>
-                                    <span id="quiz-country-badge" class="bg-rose-100 text-rose-700 text-[9px] font-black px-2 py-0.5 rounded uppercase">USA</span>
+                                    <span id="quiz-country-badge" class="bg-rose-100 text-rose-700 text-xs font-black px-3 py-1 rounded uppercase tracking-wider">USA</span>
                                     
                                     <!-- Dynamic Quiz Image Container -->
-                                    <div class="w-full h-20 rounded-lg overflow-hidden my-1.5 border border-slate-200 shadow-sm relative">
+                                    <div class="w-full h-28 rounded-lg overflow-hidden my-2 border border-slate-200 shadow-sm relative">
                                         <img id="quiz-country-img" src="" onerror="this.src='https://placehold.co/300x150/EEEEEE/334155?text=Exchange'" alt="Quiz illustration" class="w-full h-full object-cover">
                                     </div>
 
-                                    <h4 id="quiz-question" class="font-bold text-slate-800 text-[11px] leading-tight mb-2">問題載入中...</h4>
+                                    <h4 id="quiz-question" class="font-extrabold text-slate-800 text-xs md:text-sm lg:text-base leading-snug mb-3">問題載入中...</h4>
                                 </div>
-                                <div class="flex flex-col gap-1.5" id="quiz-options">
+                                <div class="flex flex-col gap-2" id="quiz-options">
                                     <!-- Options populated dynamically -->
                                 </div>
                             </div>
                         </div>
 
                         <!-- 3. SUCCESS BOX -->
-                        <div id="stage2-success-box" class="hidden text-center py-6 flex flex-col items-center justify-center h-full">
-                            <span class="text-3xl mb-1 animate-bounce">🎉</span>
-                            <h4 id="stage2-success-title" class="font-bold text-emerald-600 text-xs">回答正確！</h4>
-                            <p class="text-[10px] text-slate-500 mt-1 max-w-[180px] leading-relaxed">完美解鎖這一個國家的寶貴交流紀錄！</p>
-                            <button onclick="clearStage2Feedback()" class="touch-button mt-3 bg-slate-800 text-white text-[10px] font-bold px-4 py-1.5 rounded-full">探索其他航點</button>
+                        <div id="stage2-success-box" class="hidden text-center py-8 flex flex-col items-center justify-center h-full">
+                            <span class="text-4xl mb-2 animate-bounce">🎉</span>
+                            <h4 id="stage2-success-title" class="font-black text-emerald-600 text-base md:text-lg">回答正確！</h4>
+                            <p class="text-xs md:text-sm text-slate-600 mt-2 max-w-[240px] leading-relaxed font-bold">完美解鎖這一個國家的寶貴交流紀錄！</p>
+                            <button onclick="clearStage2Feedback()" class="touch-button mt-4 bg-slate-800 hover:bg-slate-900 text-white text-xs md:text-sm font-bold px-5 py-2 rounded-full">探索其他航點</button>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Footer -->
-            <div class="flex justify-between items-center pt-3 border-t">
-                <div class="text-xs text-slate-400">
+            <div class="flex justify-between items-center pt-4 border-t mt-4">
+                <div class="text-xs md:text-sm text-slate-400 font-bold">
                     <i class="fa-solid fa-location-dot"></i> 學姐回憶：和各國同學面對面交流，帶他們吃蘿蔔糕與喝珍奶，超難忘！
                 </div>
-                <button id="btn-stage2-next" disabled onclick="goToStage3()" class="touch-button bg-slate-300 text-slate-500 font-extrabold px-6 py-2.5 rounded-xl flex items-center gap-2 cursor-not-allowed text-sm">
+                <button id="btn-stage2-next" disabled onclick="goToStage3()" class="touch-button bg-slate-300 text-slate-500 font-extrabold px-8 py-3 rounded-xl flex items-center gap-2 cursor-not-allowed text-sm md:text-base">
                     <span>前往下一關</span> <i class="fa-solid fa-arrow-right"></i>
                 </button>
             </div>
         </div>
 
         <!-- SCREEN 4: STAGE 3 (AI & SDG Solver) -->
-        <div id="screen-stage3" class="hidden flex-1 flex flex-col p-6 md:p-8 justify-between select-none">
+        <div id="screen-stage3" class="hidden flex-1 flex flex-col p-8 md:p-10 justify-between select-none overflow-y-auto custom-scroll">
             <div>
                 <!-- Stage Header -->
-                <div class="flex justify-between items-center border-b pb-3 mb-3">
-                    <div class="flex items-center gap-2">
-                        <span class="bg-rose-500 text-white rounded-full w-7 h-7 flex items-center justify-center font-bold text-sm">3</span>
-                        <h2 class="font-bold text-slate-800 text-lg">專題三：世界危機與科技應用 🤖</h2>
+                <div class="flex justify-between items-center border-b pb-4 mb-4">
+                    <div class="flex items-center gap-3">
+                        <span class="bg-rose-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm md:text-base">3</span>
+                        <h2 class="font-bold text-slate-800 text-lg md:text-xl lg:text-2xl">專題三：世界危機與科技應用 🤖</h2>
                     </div>
-                    <span class="text-xs bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full font-bold" id="stage3-username-badge">冒險家: 連線中</span>
+                    <span class="text-xs md:text-sm bg-emerald-100 text-emerald-700 px-4 py-1.5 rounded-full font-bold" id="stage3-username-badge">冒險家: 連線中</span>
                 </div>
 
-                <p class="text-slate-600 text-xs mb-3 bg-amber-50 p-2.5 rounded-xl border border-amber-100 leading-relaxed">
+                <p class="text-slate-600 text-sm md:text-base mb-4 bg-amber-50 p-3.5 rounded-xl border border-amber-100 leading-relaxed font-semibold">
                     🎨 <b>AI 繪圖與線上 3D XR 展間：</b>高二學長姐在課程中利用 Copilot 與 XR 工具創作世界危機畫作！請幫學姐把下列兩個代表性的世界危機，正確連線到聯合國永續發展指標 (SDGs)！
                 </p>
 
                 <!-- Drag and Drop / Matching UI -->
-                <div class="grid grid-cols-2 gap-4 my-2">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-2">
                     <!-- Column 1: Crisis Card -->
-                    <div class="flex flex-col gap-3">
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider text-center">🌍 面臨的地球危機</p>
+                    <div class="flex flex-col gap-4">
+                        <p class="text-xs font-black text-slate-500 uppercase tracking-widest text-center">🌍 面臨的地球危機</p>
                         
                         <!-- Crisis Item 1 (Amazon Deforestation) -->
-                        <div id="crisis-1" onclick="selectCrisis(1)" class="touch-button bg-white border-2 border-slate-200 p-3 rounded-2xl shadow-sm flex items-center gap-3 cursor-pointer">
+                        <div id="crisis-1" onclick="selectCrisis(1)" class="touch-button bg-white border-2 border-slate-200 p-4 rounded-2xl shadow-sm flex items-center gap-4 cursor-pointer">
                             <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=150&q=80" 
                                  onerror="this.src='https://placehold.co/150x150/FFE9E9/334155?text=Forest'" 
-                                 alt="Forest Crisis" class="w-12 h-12 rounded-lg object-cover border border-slate-200 shrink-0">
+                                 alt="Forest Crisis" class="w-16 h-16 rounded-lg object-cover border border-slate-200 shrink-0">
                             <div class="text-left overflow-hidden">
-                                <h4 class="font-extrabold text-slate-800 text-xs md:text-sm truncate">巴西雨林砍伐</h4>
-                                <p class="text-[10px] text-slate-400 mt-0.5 truncate">亞馬遜熱帶雨林急遽縮減...</p>
+                                <h4 class="font-black text-slate-800 text-base md:text-lg truncate">巴西雨林砍伐</h4>
+                                <p class="text-xs md:text-sm text-slate-500 mt-1 truncate">亞馬遜熱帶雨林急遽縮減...</p>
                             </div>
                         </div>
 
                         <!-- Crisis Item 2 (German Air Pollution) -->
-                        <div id="crisis-2" onclick="selectCrisis(2)" class="touch-button bg-white border-2 border-slate-200 p-3 rounded-2xl shadow-sm flex items-center gap-3 cursor-pointer">
+                        <div id="crisis-2" onclick="selectCrisis(2)" class="touch-button bg-white border-2 border-slate-200 p-4 rounded-2xl shadow-sm flex items-center gap-4 cursor-pointer">
                             <img src="https://images.unsplash.com/photo-1581093588401-f3c22d752496?auto=format&fit=crop&w=150&q=80" 
                                  onerror="this.src='https://placehold.co/150x150/E6EFFF/334155?text=Pollution'" 
-                                 alt="Air Crisis" class="w-12 h-12 rounded-lg object-cover border border-slate-200 shrink-0">
+                                 alt="Air Crisis" class="w-16 h-16 rounded-lg object-cover border border-slate-200 shrink-0">
                             <div class="text-left overflow-hidden">
-                                <h4 class="font-extrabold text-slate-800 text-xs md:text-sm truncate">德國與大國空氣汙染</h4>
-                                <p class="text-[10px] text-slate-400 mt-0.5 truncate">燃煤與廢氣危害呼吸道健康...</p>
+                                <h4 class="font-black text-slate-800 text-base md:text-lg truncate">德國與大國空氣汙染</h4>
+                                <p class="text-xs md:text-sm text-slate-500 mt-1 truncate">燃煤與廢氣危害呼吸道健康...</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Column 2: SDG Badges -->
-                    <div class="flex flex-col gap-3">
-                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider text-center">🇺🇳 聯合國 SDGs 指標</p>
+                    <div class="flex flex-col gap-4">
+                        <p class="text-xs font-black text-slate-500 uppercase tracking-widest text-center">🇺🇳 聯合國 SDGs 指標</p>
                         
                         <!-- SDG Item A -->
-                        <div id="sdg-A" onclick="selectSDG('A')" class="touch-button bg-emerald-50 border-2 border-emerald-100 hover:border-emerald-300 p-3 rounded-2xl shadow-sm flex items-center gap-3 cursor-pointer">
-                            <div class="bg-emerald-500 text-white font-extrabold text-sm w-12 h-12 rounded-lg flex items-center justify-center shrink-0">15</div>
+                        <div id="sdg-A" onclick="selectSDG('A')" class="touch-button bg-emerald-50 border-2 border-emerald-100 hover:border-emerald-300 p-4 rounded-2xl shadow-sm flex items-center gap-4 cursor-pointer">
+                            <div class="bg-emerald-500 text-white font-black text-lg md:text-xl w-16 h-16 rounded-lg flex items-center justify-center shrink-0 shadow">15</div>
                             <div class="text-left overflow-hidden">
-                                <h4 class="font-extrabold text-slate-800 text-xs md:text-sm truncate">SDG 15：陸地生態</h4>
-                                <p class="text-[10px] text-emerald-700 font-bold mt-0.5 truncate">遏止森林砍伐，恢復退化森林</p>
+                                <h4 class="font-black text-slate-800 text-base md:text-lg truncate">SDG 15：陸地生態</h4>
+                                <p class="text-xs md:text-sm text-emerald-700 font-bold mt-1 truncate">遏止森林砍伐，恢復退化森林</p>
                             </div>
                         </div>
 
                         <!-- SDG Item B -->
-                        <div id="sdg-B" onclick="selectSDG('B')" class="touch-button bg-blue-50 border-2 border-blue-100 hover:border-blue-300 p-3 rounded-2xl shadow-sm flex items-center gap-3 cursor-pointer">
-                            <div class="bg-blue-500 text-white font-extrabold text-sm w-12 h-12 rounded-lg flex items-center justify-center shrink-0">13</div>
+                        <div id="sdg-B" onclick="selectSDG('B')" class="touch-button bg-blue-50 border-2 border-blue-100 hover:border-blue-300 p-4 rounded-2xl shadow-sm flex items-center gap-4 cursor-pointer">
+                            <div class="bg-blue-500 text-white font-black text-lg md:text-xl w-16 h-16 rounded-lg flex items-center justify-center shrink-0 shadow">13</div>
                             <div class="text-left overflow-hidden">
-                                <h4 class="font-extrabold text-slate-800 text-xs md:text-sm truncate">SDG 13：氣候行動</h4>
-                                <p class="text-[10px] text-blue-700 font-bold mt-0.5 truncate">提升對氣候變遷的調適與韌性</p>
+                                <h4 class="font-black text-slate-800 text-base md:text-lg truncate">SDG 13：氣候行動</h4>
+                                <p class="text-xs md:text-sm text-blue-700 font-bold mt-1 truncate">提升對氣候變遷的調適與韌性</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Live Matching Connection Status visual -->
-                <div class="bg-slate-50 rounded-xl p-3 text-center border text-xs font-bold text-slate-600" id="stage3-connection-status">
+                <div class="bg-slate-50 rounded-xl p-4 text-center border text-sm md:text-base font-bold text-slate-600 mt-4" id="stage3-connection-status">
                     💡 請先點選左邊一個「地球危機」，再點選右邊對應的「SDGs指標」進行配對！
                 </div>
             </div>
 
             <!-- Footer -->
-            <div class="flex justify-between items-center pt-3 border-t">
-                <div class="text-xs text-slate-400">
+            <div class="flex justify-between items-center pt-4 border-t mt-4">
+                <div class="text-xs md:text-sm text-slate-400 font-bold">
                     <i class="fa-solid fa-laptop-code"></i> AI 工具好神氣：只要下對關鍵字，生成擬真危機海報超吸睛！
                 </div>
-                <button id="btn-stage3-next" disabled onclick="showVictoryScreen()" class="touch-button bg-slate-300 text-slate-500 font-extrabold px-6 py-2.5 rounded-xl flex items-center gap-2 cursor-not-allowed text-sm">
-                    <span>生成完美 XR 策展，破關！</span> <i class="fa-solid fa-trophy"></i>
+                <button id="btn-stage3-next" disabled onclick="showVictoryScreen()" class="touch-button bg-slate-300 text-slate-500 font-extrabold px-8 py-3 rounded-xl flex items-center gap-2 cursor-not-allowed text-sm md:text-base">
+                    <span>生成完美 XR 策展，破關！</span> <i class="fa-solid fa-trophy text-sm md:text-base"></i>
                 </button>
             </div>
         </div>
 
-        <!-- SCREEN 5: VICTORY & CLAIM PRIZE -->
+        <!-- SCREEN 5: VICTORY & CLAIM PRIZE (Booth Redemption Focused) -->
         <div id="screen-victory" class="hidden flex-1 flex flex-col p-6 md:p-8 items-center justify-center text-center select-none relative overflow-y-auto custom-scroll">
             <div class="absolute inset-0 bg-gradient-to-tr from-amber-50 via-rose-50 to-blue-50 opacity-60 pointer-events-none"></div>
             
-            <div class="relative z-10 max-w-2xl flex flex-col items-center w-full">
-                <!-- Golden Badge Icon -->
-                <div class="relative mb-2">
-                    <div class="absolute inset-0 bg-yellow-400 rounded-full blur-xl opacity-40 animate-pulse"></div>
-                    <span class="text-5xl md:text-6xl relative z-10 animate-bounce-slow inline-block">🏆</span>
+            <div class="relative z-10 max-w-3xl flex flex-col items-center w-full">
+                
+                <!-- MANDATORY BOOTH PRIZE CLAIM BANNER (Highly Eye-Catching) -->
+                <div class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 border-4 border-white text-white rounded-2xl px-6 py-4 mb-4 shadow-xl animate-pulse flex items-center justify-center gap-3">
+                    <i class="fa-solid fa-gift text-3xl md:text-4xl text-amber-300 animate-bounce"></i>
+                    <div class="text-left">
+                        <span class="block text-sm md:text-base font-black tracking-widest text-emerald-100 uppercase">🏆 現場工作人員認證畫面 🏆</span>
+                        <span class="block text-base md:text-lg lg:text-xl font-extrabold tracking-wide">
+                            本機台破關成功，3個關卡都完成可獲得精美小禮物喔！
+                        </span>
+                    </div>
                 </div>
 
-                <div class="bg-amber-100 text-amber-800 text-[10px] font-black px-4 py-1 rounded-full uppercase tracking-widest mb-2 shadow-sm">
+                <div class="bg-amber-100 text-amber-900 text-xs md:text-sm font-black px-4 py-1.5 rounded-full uppercase tracking-widest mb-3 shadow-sm border border-amber-200">
                     第一關闖關成功 ‧ LEVEL 1 COMPLETED
                 </div>
 
-                <h2 class="text-2xl md:text-3xl font-black text-slate-800 mb-1 leading-tight">
-                    恭喜 <span id="victory-username" class="text-rose-600">冒險家</span> 獲得<br>
-                    <span class="text-rose-500 font-extrabold">中正國際移動大使</span> 認證！
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-black text-slate-800 mb-2 leading-tight">
+                    恭喜 <span id="victory-username" class="text-rose-600 font-extrabold">冒險家</span> 獲得<br>
+                    <span class="text-rose-500 font-extrabold">中正國際移動大使 ─ 第一關破關認證</span>
                 </h2>
-                <p class="text-[11px] md:text-xs text-slate-500 mb-4 max-w-md leading-relaxed">
-                    你成功展現了卓越的 **跨文化溝通、國際交流、與 AI 永續科技素養**！請記下方的第二關專屬金鑰，開啟下一部挑戰！
+                
+                <p class="text-xs md:text-sm text-slate-500 mb-4 max-w-xl leading-relaxed font-bold">
+                    您已成功通過第一關的 3 個精采小遊戲挑戰！請向攤位現場工作人員出示此畫面，登記第一關的過關紀錄，並前往挑戰其餘兩關。<b>集齊全部 3 個關卡的挑戰紀錄</b>就能兌換限量精美小禮物喔！🎁
                 </p>
 
-                <!-- Virtual Unlock Key Card -->
-                <div class="bg-gradient-to-r from-amber-500 to-rose-500 rounded-2xl p-5 shadow-xl w-full max-w-md relative overflow-hidden mb-4 border-2 border-amber-200">
-                    <div class="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-full transform translate-x-12 -translate-y-12"></div>
-                    
-                    <div class="flex justify-between items-center border-b border-white/20 pb-2 mb-3 text-white">
-                        <span class="text-[10px] font-black tracking-widest"><i class="fa-solid fa-key animate-pulse"></i> SECOND STAGE UNLOCK KEY</span>
-                        <span class="text-[10px] opacity-80">ZZSH-GM-STAGE1</span>
+                <!-- High Quality Interactive Certificate Box (Stage 1 Specific Certificate) -->
+                <div class="bg-white border-2 border-amber-200 rounded-2xl p-6 shadow-xl w-full max-w-md relative overflow-hidden mb-6">
+                    <div class="absolute -top-10 -right-10 w-24 h-24 bg-amber-100 rounded-full flex items-center justify-center">
+                         <i class="fa-solid fa-certificate text-amber-500 text-4xl"></i>
                     </div>
-
-                    <!-- Main Code Area -->
-                    <div class="text-center py-3.5 bg-white/10 rounded-xl border border-white/20 backdrop-blur-sm relative">
-                        <span class="text-[9px] text-amber-100 block font-bold tracking-wider uppercase">第二關闖關解鎖密碼</span>
-                        <div class="flex items-center justify-center gap-2 mt-1">
-                            <span id="unlock-passcode" class="text-2xl md:text-3xl font-black text-white tracking-widest font-mono">ZZSH-GLOBE</span>
+                    <div class="flex flex-col items-center justify-center">
+                        <span class="text-slate-400 text-[10px] uppercase tracking-widest font-black mb-1">ZZSH Global Mobility</span>
+                        <div class="text-slate-800 font-black text-lg md:text-xl">🏆 第一關：啟航 破關認證書 🏆</div>
+                        <div class="border-t-2 border-dashed border-slate-200 w-full my-4"></div>
+                        <div class="text-slate-600 text-sm md:text-base font-bold">
+                            恭喜冒險家：<span id="cert-username" class="text-rose-500 font-extrabold text-lg">熱血冒險家</span>
                         </div>
-                        <button onclick="copyPasscode()" class="touch-button mt-2.5 bg-white text-slate-800 hover:bg-slate-100 text-[10px] font-bold px-4 py-1.5 rounded-full shadow-md inline-flex items-center gap-1.5 transition">
-                            <i class="fa-regular fa-copy"></i> <span id="copy-btn-text">複製解鎖密碼</span>
-                        </button>
-                    </div>
-
-                    <div class="mt-3.5 text-left text-[10px] text-white/90 leading-relaxed">
-                        <i class="fa-solid fa-circle-info mr-0.5"></i> <b>下一步指示：</b>
-                        請點擊按鈕複製密碼，並在接下來的 **第二關遊戲** 首頁中，貼上此解鎖密碼，即可解開後續的精彩探險！
+                        <p class="text-slate-500 text-xs mt-2 font-bold"><i class="fa-solid fa-square-check text-emerald-500 mr-1"></i> 已順利完成「國際移動力」第一關卡挑戰</p>
+                        <p class="text-slate-400 text-[10px] mt-1 font-medium">歡迎挑戰現場其餘關卡，集滿 3 關即可兌換好禮！</p>
                     </div>
                 </div>
 
                 <!-- Call to action button -->
-                <button onclick="resetGame()" class="touch-button bg-slate-800 hover:bg-slate-900 text-white font-extrabold text-xs px-6 py-2 rounded-full shadow-md flex items-center gap-2">
+                <button onclick="resetGame()" class="touch-button bg-slate-800 hover:bg-slate-950 text-white font-extrabold text-xs md:text-sm px-6 py-2.5 rounded-full shadow-md flex items-center gap-1.5">
                     <i class="fa-solid fa-rotate-left"></i> <span>重新挑戰並回首頁輪播</span>
                 </button>
             </div>
         </div>
 
         <!-- Bottom Mock iPad Home indicator -->
-        <div class="bg-white py-2 flex justify-center items-center border-t select-none">
-            <div class="w-32 h-1 bg-slate-300 rounded-full"></div>
+        <div class="bg-white py-3 flex justify-center items-center border-t select-none">
+            <div class="w-36 h-1.5 bg-slate-300 rounded-full"></div>
         </div>
 
     </div>
 
+    <!-- JS SCRIPT LOGIC -->
     <script>
         // Slideshow System States
         let currentSlideIndex = 0;
@@ -595,7 +595,6 @@
             startSlideshow();
         }
 
-        // SLIDESHOW ROTATION LOGIC
         function startSlideshow() {
             clearInterval(slideshowInterval);
             currentSlideIndex = 0;
@@ -620,9 +619,9 @@
                 }
                 if (dotEl) {
                     if (i === currentSlideIndex) {
-                        dotEl.className = "dot w-4 h-2 rounded-full bg-rose-500 transition-all duration-300";
+                        dotEl.className = "dot w-5 h-3 rounded-full bg-rose-500 transition-all duration-300";
                     } else {
-                        dotEl.className = "dot w-2 h-2 rounded-full bg-slate-300 transition-all duration-300";
+                        dotEl.className = "dot w-3 h-3 rounded-full bg-slate-300 transition-all duration-300";
                     }
                 }
             }
@@ -661,7 +660,7 @@
             const timeStr = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
             const timeLeftEl = document.getElementById("time-left");
             if (timeLeftEl) {
-                timeLeftEl.innerHTML = `<i class="fa-regular fa-clock mr-1"></i> 剩餘時間: ${timeStr}`;
+                timeLeftEl.innerHTML = `<i class="fa-regular fa-clock mr-1.5"></i> 剩餘時間: ${timeStr}`;
             }
         }
 
@@ -677,7 +676,7 @@
             document.getElementById(screenId).classList.remove("hidden");
         }
 
-        // Start Game Trigger (Captures Name first)
+        // Start Game Trigger
         function startGame() {
             const inputName = document.getElementById("player-name").value.trim();
             if (inputName !== "") {
@@ -686,7 +685,6 @@
                 playerName = "熱血冒險家";
             }
             
-            // Dynamic name mapping to layout indicators with safe element checks
             const s1Badge = document.getElementById("stage1-username-badge");
             if (s1Badge) s1Badge.innerText = `冒險家: ${playerName}`;
             
@@ -696,84 +694,32 @@
             const vUsername = document.getElementById("victory-username");
             if (vUsername) vUsername.innerText = playerName;
 
+            const certUsername = document.getElementById("cert-username");
+            if (certUsername) certUsername.innerText = playerName;
+
             switchScreen("screen-stage1");
             startTimer();
-        }
-
-        // RESET GAME (Returns back to active attract loop!)
-        function resetGame() {
-            stage1Selected = null;
-            stage2Completed = { "USA": false, "Germany": false, "Brazil": false, "Japan": false };
-            stage2SelectedCountry = null;
-            stage3State = { selectedCrisis: null, selectedSDG: null, connections: { 1: null, 2: null } };
-            
-            // Clear input
-            const nameInput = document.getElementById("player-name");
-            if (nameInput) nameInput.value = "";
-            playerName = "熱血冒險家";
-
-            // Reset Stage 1 Styles
-            document.getElementById("choice-1A").className = "touch-button w-full bg-white hover:bg-slate-100 text-slate-700 font-bold p-3 rounded-xl border-2 border-slate-200 shadow-sm flex items-center justify-between text-left text-xs md:text-sm";
-            document.getElementById("choice-1B").className = "touch-button w-full bg-white hover:bg-slate-100 text-slate-700 font-bold p-3 rounded-xl border-2 border-slate-200 shadow-sm flex items-center justify-between text-left text-xs md:text-sm";
-            document.getElementById("choice-1C").className = "touch-button w-full bg-white hover:bg-slate-100 text-slate-700 font-bold p-3 rounded-xl border-2 border-slate-200 shadow-sm flex items-center justify-between text-left text-xs md:text-sm";
-            
-            document.getElementById("btn-stage1-next").disabled = true;
-            document.getElementById("btn-stage1-next").className = "touch-button bg-slate-300 text-slate-500 font-extrabold px-6 py-3 rounded-xl flex items-center gap-2 cursor-not-allowed text-sm";
-
-            // Reset Stage 2 pins & display status boxes
-            ["USA", "Germany", "Brazil", "Japan"].forEach(c => {
-                const pin = document.getElementById(`pin-${c}`);
-                if (pin) {
-                    pin.className = "touch-button absolute bg-rose-500 hover:bg-rose-600 text-white w-9 h-9 rounded-full shadow-lg flex items-center justify-center border-2 border-white z-20";
-                    pin.innerHTML = `<span class="text-xs font-black">${c === 'USA' ? '🇺🇸' : c === 'Germany' ? '🇩🇪' : c === 'Brazil' ? '🇧🇷' : '🇯🇵'}</span>`;
-                }
-            });
-            document.getElementById("exchange-count").innerText = "0";
-            document.getElementById("btn-stage2-next").disabled = true;
-            document.getElementById("btn-stage2-next").className = "touch-button bg-slate-300 text-slate-500 font-extrabold px-6 py-3 rounded-xl flex items-center gap-2 cursor-not-allowed text-sm";
-            
-            // Reset state panel states
-            document.getElementById("stage2-empty-state").classList.remove("hidden");
-            document.getElementById("stage2-quiz-box").classList.add("hidden");
-            document.getElementById("stage2-success-box").classList.add("hidden");
-
-            // Reset Stage 3 items
-            document.getElementById("crisis-1").className = "touch-button bg-white border-2 border-slate-200 p-3 rounded-2xl shadow-sm flex items-center gap-3 cursor-pointer";
-            document.getElementById("crisis-2").className = "touch-button bg-white border-2 border-slate-200 p-3 rounded-2xl shadow-sm flex items-center gap-3 cursor-pointer";
-            document.getElementById("sdg-A").className = "touch-button bg-emerald-50 border-2 border-emerald-100 hover:border-emerald-300 p-3 rounded-2xl shadow-sm flex items-center gap-3 cursor-pointer";
-            document.getElementById("sdg-B").className = "touch-button bg-blue-50 border-2 border-blue-100 hover:border-blue-300 p-3 rounded-2xl shadow-sm flex items-center gap-3 cursor-pointer";
-            document.getElementById("stage3-connection-status").innerText = "💡 請先點選左邊一個「地球危機」，再點選右邊對應的「SDGs指標」進行配對！";
-            document.getElementById("stage3-connection-status").className = "bg-slate-50 rounded-xl p-3 text-center border text-xs font-bold text-slate-600";
-            document.getElementById("btn-stage3-next").disabled = true;
-            document.getElementById("btn-stage3-next").className = "touch-button bg-slate-300 text-slate-500 font-extrabold px-6 py-3 rounded-xl flex items-center gap-2 cursor-not-allowed text-sm";
-
-            returnToSlideshow();
         }
 
         // STAGE 1: CHOICE SELECTION (Intercultural Gesture Taboo)
         function selectStage1Choice(choice) {
             stage1Selected = choice;
             
-            // Reset styles
-            document.getElementById("choice-1A").className = "touch-button w-full bg-white text-slate-700 font-bold p-3 rounded-xl border-2 border-slate-200 shadow-sm flex items-center justify-between text-left text-xs md:text-sm";
-            document.getElementById("choice-1B").className = "touch-button w-full bg-white text-slate-700 font-bold p-3 rounded-xl border-2 border-slate-200 shadow-sm flex items-center justify-between text-left text-xs md:text-sm";
-            document.getElementById("choice-1C").className = "touch-button w-full bg-white text-slate-700 font-bold p-3 rounded-xl border-2 border-slate-200 shadow-sm flex items-center justify-between text-left text-xs md:text-sm";
+            document.getElementById("choice-1A").className = "touch-button w-full bg-white text-slate-700 font-bold p-4 rounded-xl border-2 border-slate-200 shadow-sm flex items-center justify-between text-left text-sm md:text-base lg:text-lg";
+            document.getElementById("choice-1B").className = "touch-button w-full bg-white text-slate-700 font-bold p-4 rounded-xl border-2 border-slate-200 shadow-sm flex items-center justify-between text-left text-sm md:text-base lg:text-lg";
+            document.getElementById("choice-1C").className = "touch-button w-full bg-white text-slate-700 font-bold p-4 rounded-xl border-2 border-slate-200 shadow-sm flex items-center justify-between text-left text-sm md:text-base lg:text-lg";
 
-            // Highlight choice and enable Next button
             const selectedBtn = document.getElementById(`choice-1${choice}`);
             if (choice === 'A') {
-                // Correct Choice
-                selectedBtn.className = "touch-button w-full bg-emerald-50 text-slate-800 font-bold p-3 rounded-xl border-2 border-emerald-500 shadow-md flex items-center justify-between text-left text-xs md:text-sm";
+                selectedBtn.className = "touch-button w-full bg-emerald-50 text-slate-800 font-bold p-4 rounded-xl border-2 border-emerald-500 shadow-md flex items-center justify-between text-left text-sm md:text-base lg:text-lg";
                 confetti({ particleCount: 30, spread: 40, origin: { y: 0.8 } });
             } else {
-                // Incorrect Choices
-                selectedBtn.className = "touch-button w-full bg-rose-50 text-slate-800 font-bold p-3 rounded-xl border-2 border-rose-500 shadow-md flex items-center justify-between text-left text-xs md:text-sm";
+                selectedBtn.className = "touch-button w-full bg-rose-50 text-slate-800 font-bold p-4 rounded-xl border-2 border-rose-500 shadow-md flex items-center justify-between text-left text-sm md:text-base lg:text-lg";
             }
 
-            // Enable "Next" button with proper styling
             const nextBtn = document.getElementById("btn-stage1-next");
             nextBtn.disabled = false;
-            nextBtn.className = "touch-button bg-rose-500 hover:bg-rose-600 text-white font-extrabold px-6 py-3 rounded-xl flex items-center gap-2 shadow-md text-sm";
+            nextBtn.className = "touch-button bg-rose-500 hover:bg-rose-600 text-white font-extrabold px-8 py-3 rounded-xl flex items-center gap-2 shadow-md text-sm md:text-base";
         }
 
         function goToStage2() {
@@ -827,15 +773,14 @@
         function tapCountry(country) {
             stage2SelectedCountry = country;
             
-            // Hide state placeholders & show quiz box immediately
             document.getElementById("stage2-empty-state").classList.add("hidden");
             document.getElementById("stage2-success-box").classList.add("hidden");
+            document.getElementById("stage2-success-box").style.display = 'none';
             
             const quizBox = document.getElementById("stage2-quiz-box");
             quizBox.classList.remove("hidden");
-            quizBox.style.display = 'flex'; // Ensure flex layout works correctly
+            quizBox.style.display = 'flex';
 
-            // Load Quiz Image safely
             const quizImg = document.getElementById("quiz-country-img");
             if (quizImg) {
                 quizImg.src = countryQuizzes[country].image;
@@ -851,12 +796,11 @@
             
             document.getElementById("quiz-question").innerText = countryQuizzes[country].question;
 
-            // Generate options HTML
             const optionsContainer = document.getElementById("quiz-options");
             optionsContainer.innerHTML = "";
             countryQuizzes[country].options.forEach((opt, idx) => {
                 const btn = document.createElement("button");
-                btn.className = "touch-button w-full bg-white hover:bg-slate-55 text-slate-700 font-bold p-1.5 px-3 rounded-lg border text-[10px] text-left flex items-center justify-between";
+                btn.className = "touch-button w-full bg-white hover:bg-slate-50 text-slate-800 font-bold p-2.5 px-4 rounded-lg border text-xs md:text-sm text-left flex items-center justify-between shadow-sm border-slate-200";
                 btn.innerHTML = `<span>${opt.text}</span>`;
                 btn.onclick = () => selectStage2Answer(idx, opt.correct);
                 optionsContainer.appendChild(btn);
@@ -871,17 +815,14 @@
                 confetti({ particleCount: 20, spread: 30, origin: { y: 0.7 } });
                 stage2Completed[country] = true;
 
-                // Mark Pin on Map as Done with a Checkmark
                 if (pinBtn) {
-                    pinBtn.className = "touch-button absolute bg-emerald-500 text-white w-9 h-9 rounded-full shadow-lg flex items-center justify-center border-2 border-white z-20 animate-pulse";
-                    pinBtn.innerHTML = "<i class='fa-solid fa-check text-xs'></i>";
+                    pinBtn.className = "touch-button absolute bg-emerald-500 text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center border-2 border-white z-20 animate-pulse";
+                    pinBtn.innerHTML = "<i class='fa-solid fa-check text-sm md:text-base'></i>";
                 }
 
-                // Refresh completed count
                 const solvedCount = Object.values(stage2Completed).filter(Boolean).length;
                 document.getElementById("exchange-count").innerText = solvedCount;
 
-                // Toggle views to show Success screen
                 document.getElementById("stage2-quiz-box").classList.add("hidden");
                 document.getElementById("stage2-quiz-box").style.display = 'none';
                 
@@ -892,20 +833,18 @@
                 successBox.classList.remove("hidden");
                 successBox.style.display = 'flex';
 
-                // If 3 or more countries completed, enable transition to Stage 3
                 if (solvedCount >= 3) {
                     const nextBtn = document.getElementById("btn-stage2-next");
                     nextBtn.disabled = false;
-                    nextBtn.className = "touch-button bg-rose-500 hover:bg-rose-600 text-white font-extrabold px-6 py-2.5 rounded-xl flex items-center gap-2 shadow-md text-sm";
+                    nextBtn.className = "touch-button bg-rose-500 hover:bg-rose-600 text-white font-extrabold px-8 py-3 rounded-xl flex items-center gap-2 shadow-md text-sm md:text-base";
                 }
             } else {
-                // Wrong answer - visual shake feedback on button
                 const quizBoxOptions = document.getElementById("quiz-options").children;
                 if (quizBoxOptions[optionIndex]) {
-                    quizBoxOptions[optionIndex].className = "touch-button w-full bg-rose-50 text-rose-700 font-bold p-1.5 px-3 rounded-lg border-rose-300 border text-[10px] text-left flex items-center justify-between";
+                    quizBoxOptions[optionIndex].className = "touch-button w-full bg-rose-50 text-rose-700 font-bold p-2.5 px-4 rounded-lg border-rose-300 border text-xs md:text-sm text-left flex items-center justify-between";
                     setTimeout(() => {
                         if (quizBoxOptions[optionIndex]) {
-                            quizBoxOptions[optionIndex].className = "touch-button w-full bg-white hover:bg-slate-50 text-slate-700 font-bold p-1.5 px-3 rounded-lg border text-[10px] text-left flex items-center justify-between";
+                            quizBoxOptions[optionIndex].className = "touch-button w-full bg-white hover:bg-slate-50 text-slate-800 font-bold p-2.5 px-4 rounded-lg border text-xs md:text-sm text-left flex items-center justify-between shadow-sm border-slate-200";
                         }
                     }, 1000);
                 }
@@ -913,7 +852,6 @@
         }
 
         function clearStage2Feedback() {
-            // Hide success box, restore empty default state
             document.getElementById("stage2-success-box").classList.add("hidden");
             document.getElementById("stage2-success-box").style.display = 'none';
             document.getElementById("stage2-quiz-box").classList.add("hidden");
@@ -928,25 +866,23 @@
 
         // STAGE 3: MATCHING INTERFACE
         function selectCrisis(id) {
-            // Reset active style for crisis cards
-            document.getElementById("crisis-1").className = "touch-button bg-white border-2 border-slate-200 p-3 rounded-2xl shadow-sm flex items-center gap-3 cursor-pointer";
-            document.getElementById("crisis-2").className = "touch-button bg-white border-2 border-slate-200 p-3 rounded-2xl shadow-sm flex items-center gap-3 cursor-pointer";
+            document.getElementById("crisis-1").className = "touch-button bg-white border-2 border-slate-200 p-4 rounded-2xl shadow-sm flex items-center gap-4 cursor-pointer";
+            document.getElementById("crisis-2").className = "touch-button bg-white border-2 border-slate-200 p-4 rounded-2xl shadow-sm flex items-center gap-4 cursor-pointer";
             
-            document.getElementById(`crisis-${id}`).className = "touch-button bg-amber-50 border-2 border-amber-400 p-3 rounded-2xl shadow-md flex items-center gap-3 cursor-pointer scale-[1.02]";
+            document.getElementById(`crisis-${id}`).className = "touch-button bg-amber-50 border-2 border-amber-400 p-4 rounded-2xl shadow-md flex items-center gap-4 cursor-pointer scale-[1.02]";
             stage3State.selectedCrisis = id;
 
             checkAndPerformMatch();
         }
 
         function selectSDG(code) {
-            // Reset active style for SDG badges
-            document.getElementById("sdg-A").className = "touch-button bg-emerald-50 border-2 border-emerald-100 hover:border-emerald-300 p-3 rounded-2xl shadow-sm flex items-center gap-3 cursor-pointer";
-            document.getElementById("sdg-B").className = "touch-button bg-blue-50 border-2 border-blue-100 hover:border-blue-300 p-3 rounded-2xl shadow-sm flex items-center gap-3 cursor-pointer";
+            document.getElementById("sdg-A").className = "touch-button bg-emerald-50 border-2 border-emerald-100 hover:border-emerald-300 p-4 rounded-2xl shadow-sm flex items-center gap-4 cursor-pointer";
+            document.getElementById("sdg-B").className = "touch-button bg-blue-50 border-2 border-blue-100 hover:border-blue-300 p-4 rounded-2xl shadow-sm flex items-center gap-4 cursor-pointer";
             
             if (code === 'A') {
-                document.getElementById("sdg-A").className = "touch-button bg-emerald-100 border-2 border-emerald-500 p-3 rounded-2xl shadow-md flex items-center gap-3 cursor-pointer scale-[1.02]";
+                document.getElementById("sdg-A").className = "touch-button bg-emerald-100 border-2 border-emerald-500 p-4 rounded-2xl shadow-md flex items-center gap-4 cursor-pointer scale-[1.02]";
             } else {
-                document.getElementById("sdg-B").className = "touch-button bg-blue-100 border-2 border-blue-500 p-3 rounded-2xl shadow-md flex items-center gap-3 cursor-pointer scale-[1.02]";
+                document.getElementById("sdg-B").className = "touch-button bg-blue-100 border-2 border-blue-500 p-4 rounded-2xl shadow-md flex items-center gap-4 cursor-pointer scale-[1.02]";
             }
             stage3State.selectedSDG = code;
 
@@ -958,8 +894,6 @@
             const sdg = stage3State.selectedSDG;
 
             if (crisis && sdg) {
-                // Rainforest Deforestation (1) -> SDG 15 (A)
-                // Air Pollution (2) -> SDG 13 (B)
                 const isMatchCorrect = (crisis === 1 && sdg === 'A') || (crisis === 2 && sdg === 'B');
                 const statusBox = document.getElementById("stage3-connection-status");
 
@@ -968,29 +902,27 @@
                     stage3State.connections[crisis] = sdg;
                     
                     statusBox.innerText = `✅ 配對成功！對應的關聯非常精準！`;
-                    statusBox.className = "bg-emerald-50 text-emerald-800 rounded-xl p-3 text-center border-2 border-emerald-400 text-xs font-black animate-pulse";
+                    statusBox.className = "bg-emerald-50 text-emerald-800 rounded-xl p-4 text-center border-2 border-emerald-400 text-sm md:text-base font-black animate-pulse mt-4";
 
-                    // Check if all connections successfully met
                     if (stage3State.connections[1] && stage3State.connections[2]) {
                         const nextBtn = document.getElementById("btn-stage3-next");
                         nextBtn.disabled = false;
-                        nextBtn.className = "touch-button bg-rose-500 hover:bg-rose-600 text-white font-extrabold px-6 py-2.5 rounded-xl flex items-center gap-2 shadow-md animate-bounce-slow text-sm";
+                        nextBtn.className = "touch-button bg-rose-500 hover:bg-rose-600 text-white font-extrabold px-8 py-3 rounded-xl flex items-center gap-2 shadow-md animate-bounce-slow text-sm md:text-base";
                     }
                 } else {
                     statusBox.innerText = `❌ 配對不正確！換個思考角度，重新連線看看！`;
-                    statusBox.className = "bg-rose-50 text-rose-800 rounded-xl p-3 text-center border-2 border-rose-400 text-xs font-bold";
+                    statusBox.className = "bg-rose-50 text-rose-800 rounded-xl p-4 text-center border-2 border-rose-400 text-sm md:text-base font-bold mt-4";
                 }
 
-                // Temporary delay to reset visual state highlights for next selection
                 setTimeout(() => {
                     const c1 = document.getElementById("crisis-1");
                     const c2 = document.getElementById("crisis-2");
                     const sA = document.getElementById("sdg-A");
                     const sB = document.getElementById("sdg-B");
-                    if (c1) c1.className = "touch-button bg-white border-2 border-slate-200 p-3 rounded-2xl shadow-sm flex items-center gap-3 cursor-pointer";
-                    if (c2) c2.className = "touch-button bg-white border-2 border-slate-200 p-3 rounded-2xl shadow-sm flex items-center gap-3 cursor-pointer";
-                    if (sA) sA.className = "touch-button bg-emerald-50 border-2 border-emerald-100 hover:border-emerald-300 p-3 rounded-2xl shadow-sm flex items-center gap-3 cursor-pointer";
-                    if (sB) sB.className = "touch-button bg-blue-50 border-2 border-blue-100 hover:border-blue-300 p-3 rounded-2xl shadow-sm flex items-center gap-3 cursor-pointer";
+                    if (c1) c1.className = "touch-button bg-white border-2 border-slate-200 p-4 rounded-2xl shadow-sm flex items-center gap-4 cursor-pointer";
+                    if (c2) c2.className = "touch-button bg-white border-2 border-slate-200 p-4 rounded-2xl shadow-sm flex items-center gap-4 cursor-pointer";
+                    if (sA) sA.className = "touch-button bg-emerald-50 border-2 border-emerald-100 hover:border-emerald-300 p-4 rounded-2xl shadow-sm flex items-center gap-4 cursor-pointer";
+                    if (sB) sB.className = "touch-button bg-blue-50 border-2 border-blue-100 hover:border-blue-300 p-4 rounded-2xl shadow-sm flex items-center gap-4 cursor-pointer";
                     stage3State.selectedCrisis = null;
                     stage3State.selectedSDG = null;
                 }, 1200);
@@ -1001,7 +933,6 @@
             clearInterval(timer);
             switchScreen("screen-victory");
 
-            // Trigger massive beautiful celebration confetti shower
             const duration = 3 * 1000;
             const end = Date.now() + duration;
 
@@ -1023,42 +954,6 @@
                     requestAnimationFrame(frame);
                 }
             }());
-        }
-
-        // Clipboard Copy Helper for iPad and Desktop
-        function copyPasscode() {
-            const passcode = "ZZSH-GLOBE";
-            
-            // Create a temporary hidden textarea element
-            const tempTextArea = document.createElement("textarea");
-            tempTextArea.value = passcode;
-            // Prevent scrolling
-            tempTextArea.style.top = "0";
-            tempTextArea.style.left = "0";
-            tempTextArea.style.position = "fixed";
-            document.body.appendChild(tempTextArea);
-            
-            tempTextArea.focus();
-            tempTextArea.select();
-            tempTextArea.setSelectionRange(0, 99999); // For iOS devices
-
-            try {
-                const successful = document.execCommand('copy');
-                const btnText = document.getElementById("copy-btn-text");
-                if (successful) {
-                    btnText.innerText = "已成功複製密碼！";
-                    confetti({ particleCount: 20, spread: 35 });
-                    setTimeout(() => {
-                        btnText.innerText = "複製解鎖密碼";
-                    }, 2500);
-                } else {
-                    btnText.innerText = "複製失敗，請手動抄寫";
-                }
-            } catch (err) {
-                document.getElementById("copy-btn-text").innerText = "手動抄寫：ZZSH-GLOBE";
-            }
-
-            document.body.removeChild(tempTextArea);
         }
 
         function showTimeUpModal() {
