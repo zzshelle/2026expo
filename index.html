@@ -375,7 +375,7 @@
                         </div>
 
                         <!-- 2. QUIZ CONTAINER -->
-                        <div id="stage2-quiz-box" class="hidden flex-col justify-between h-full">
+                        <div id="stage2-quiz-box" class="hidden flex-col justify-between h-full" style="display: none;">
                             <div class="text-left flex flex-col h-full justify-between gap-2">
                                 <div>
                                     <span id="quiz-country-badge" class="bg-rose-100 text-rose-700 text-xs font-black px-3 py-1 rounded uppercase tracking-wider">USA</span>
@@ -394,7 +394,7 @@
                         </div>
 
                         <!-- 3. SUCCESS BOX -->
-                        <div id="stage2-success-box" class="hidden text-center py-8 flex flex-col items-center justify-center h-full">
+                        <div id="stage2-success-box" class="hidden text-center py-8 flex flex-col items-center justify-center h-full" style="display: none;">
                             <span class="text-4xl mb-2 animate-bounce">🎉</span>
                             <h4 id="stage2-success-title" class="font-black text-emerald-600 text-base md:text-lg">回答正確！</h4>
                             <p class="text-xs md:text-sm text-slate-600 mt-2 max-w-[240px] leading-relaxed font-bold">完美解鎖這一個國家的寶貴交流紀錄！</p>
@@ -666,14 +666,14 @@
 
         // Screen switching utility
         function switchScreen(screenId) {
-            document.getElementById("screen-slideshow").classList.add("hidden");
-            document.getElementById("screen-welcome").classList.add("hidden");
-            document.getElementById("screen-stage1").classList.add("hidden");
-            document.getElementById("screen-stage2").classList.add("hidden");
-            document.getElementById("screen-stage3").classList.add("hidden");
-            document.getElementById("screen-victory").classList.add("hidden");
+            const screens = ["screen-slideshow", "screen-welcome", "screen-stage1", "screen-stage2", "screen-stage3", "screen-victory"];
+            screens.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.classList.add("hidden");
+            });
 
-            document.getElementById(screenId).classList.remove("hidden");
+            const targetScreen = document.getElementById(screenId);
+            if (targetScreen) targetScreen.classList.remove("hidden");
         }
 
         // Start Game Trigger
@@ -699,6 +699,101 @@
 
             switchScreen("screen-stage1");
             startTimer();
+        }
+
+        // RESET GAME (Returns back to active attract loop!)
+        function resetGame() {
+            try {
+                // Reset state variables
+                stage1Selected = null;
+                stage2Completed = { "USA": false, "Germany": false, "Brazil": false, "Japan": false };
+                stage2SelectedCountry = null;
+                stage3State = { selectedCrisis: null, selectedSDG: null, connections: { 1: null, 2: null } };
+                
+                const nameInput = document.getElementById("player-name");
+                if (nameInput) nameInput.value = "";
+                playerName = "熱血冒險家";
+
+                // Reset Stage 1 Styles
+                const c1A = document.getElementById("choice-1A");
+                if (c1A) c1A.className = "touch-button w-full bg-white hover:bg-slate-50 text-slate-700 font-bold p-4 rounded-xl border-2 border-slate-200 shadow-sm flex items-center justify-between text-left text-sm md:text-base lg:text-lg";
+                const c1B = document.getElementById("choice-1B");
+                if (c1B) c1B.className = "touch-button w-full bg-white hover:bg-slate-50 text-slate-700 font-bold p-4 rounded-xl border-2 border-slate-200 shadow-sm flex items-center justify-between text-left text-sm md:text-base lg:text-lg";
+                const c1C = document.getElementById("choice-1C");
+                if (c1C) c1C.className = "touch-button w-full bg-white hover:bg-slate-50 text-slate-700 font-bold p-4 rounded-xl border-2 border-slate-200 shadow-sm flex items-center justify-between text-left text-sm md:text-base lg:text-lg";
+                
+                const btnS1Next = document.getElementById("btn-stage1-next");
+                if (btnS1Next) {
+                    btnS1Next.disabled = true;
+                    btnS1Next.className = "touch-button bg-slate-300 text-slate-500 font-extrabold px-8 py-3 rounded-xl flex items-center gap-2 cursor-not-allowed text-sm md:text-base";
+                }
+
+                // Reset Stage 2 pins without losing their positioning classes
+                ["USA", "Germany", "Brazil", "Japan"].forEach(c => {
+                    const pin = document.getElementById(`pin-${c}`);
+                    if (pin) {
+                        pin.classList.remove("bg-emerald-500", "animate-pulse");
+                        pin.classList.add("bg-rose-500", "hover:bg-rose-600");
+                        pin.innerHTML = `<span class="text-base md:text-lg font-black">${c === 'USA' ? '🇺🇸' : c === 'Germany' ? '🇩🇪' : c === 'Brazil' ? '🇧🇷' : '🇯🇵'}</span>`;
+                    }
+                });
+
+                const exCount = document.getElementById("exchange-count");
+                if (exCount) exCount.innerText = "0";
+
+                const btnS2Next = document.getElementById("btn-stage2-next");
+                if (btnS2Next) {
+                    btnS2Next.disabled = true;
+                    btnS2Next.className = "touch-button bg-slate-300 text-slate-500 font-extrabold px-8 py-3 rounded-xl flex items-center gap-2 cursor-not-allowed text-sm md:text-base";
+                }
+                
+                const s2EmptyState = document.getElementById("stage2-empty-state");
+                if (s2EmptyState) {
+                    s2EmptyState.classList.remove("hidden");
+                    s2EmptyState.style.display = "";
+                }
+
+                const s2QuizBox = document.getElementById("stage2-quiz-box");
+                if (s2QuizBox) {
+                    s2QuizBox.classList.add("hidden");
+                    s2QuizBox.style.display = "none";
+                }
+
+                const s2SuccessBox = document.getElementById("stage2-success-box");
+                if (s2SuccessBox) {
+                    s2SuccessBox.classList.add("hidden");
+                    s2SuccessBox.style.display = "none";
+                }
+
+                // Reset Stage 3 items
+                const crisis1 = document.getElementById("crisis-1");
+                if (crisis1) crisis1.className = "touch-button bg-white border-2 border-slate-200 p-4 rounded-2xl shadow-sm flex items-center gap-4 cursor-pointer";
+                const crisis2 = document.getElementById("crisis-2");
+                if (crisis2) crisis2.className = "touch-button bg-white border-2 border-slate-200 p-4 rounded-2xl shadow-sm flex items-center gap-4 cursor-pointer";
+                
+                const sdgA = document.getElementById("sdg-A");
+                if (sdgA) sdgA.className = "touch-button bg-emerald-50 border-2 border-emerald-100 hover:border-emerald-300 p-4 rounded-2xl shadow-sm flex items-center gap-4 cursor-pointer";
+                const sdgB = document.getElementById("sdg-B");
+                if (sdgB) sdgB.className = "touch-button bg-blue-50 border-2 border-blue-100 hover:border-blue-300 p-4 rounded-2xl shadow-sm flex items-center gap-4 cursor-pointer";
+                
+                const s3Status = document.getElementById("stage3-connection-status");
+                if (s3Status) {
+                    s3Status.innerText = "💡 請先點選左邊一個「地球危機」，再點選右邊對應的「SDGs指標」進行配對！";
+                    s3Status.className = "bg-slate-50 rounded-xl p-4 text-center border text-sm md:text-base font-bold text-slate-600 mt-4";
+                }
+
+                const btnS3Next = document.getElementById("btn-stage3-next");
+                if (btnS3Next) {
+                    btnS3Next.disabled = true;
+                    btnS3Next.className = "touch-button bg-slate-300 text-slate-500 font-extrabold px-8 py-3 rounded-xl flex items-center gap-2 cursor-not-allowed text-sm md:text-base";
+                }
+
+            } catch (e) {
+                console.error("Error during resetGame: ", e);
+            } finally {
+                // Ensure we ALWAYS return to slideshow even if some DOM visual reset failed!
+                returnToSlideshow();
+            }
         }
 
         // STAGE 1: CHOICE SELECTION (Intercultural Gesture Taboo)
@@ -773,13 +868,23 @@
         function tapCountry(country) {
             stage2SelectedCountry = country;
             
-            document.getElementById("stage2-empty-state").classList.add("hidden");
-            document.getElementById("stage2-success-box").classList.add("hidden");
-            document.getElementById("stage2-success-box").style.display = 'none';
+            const s2EmptyState = document.getElementById("stage2-empty-state");
+            if (s2EmptyState) {
+                s2EmptyState.classList.add("hidden");
+                s2EmptyState.style.display = 'none';
+            }
+
+            const s2SuccessBox = document.getElementById("stage2-success-box");
+            if (s2SuccessBox) {
+                s2SuccessBox.classList.add("hidden");
+                s2SuccessBox.style.display = 'none';
+            }
             
             const quizBox = document.getElementById("stage2-quiz-box");
-            quizBox.classList.remove("hidden");
-            quizBox.style.display = 'flex';
+            if (quizBox) {
+                quizBox.classList.remove("hidden");
+                quizBox.style.display = 'flex';
+            }
 
             const quizImg = document.getElementById("quiz-country-img");
             if (quizImg) {
@@ -823,15 +928,20 @@
                 const solvedCount = Object.values(stage2Completed).filter(Boolean).length;
                 document.getElementById("exchange-count").innerText = solvedCount;
 
-                document.getElementById("stage2-quiz-box").classList.add("hidden");
-                document.getElementById("stage2-quiz-box").style.display = 'none';
+                const quizBox = document.getElementById("stage2-quiz-box");
+                if (quizBox) {
+                    quizBox.classList.add("hidden");
+                    quizBox.style.display = 'none';
+                }
                 
                 const successTitle = document.getElementById("stage2-success-title");
                 if (successTitle) successTitle.innerText = `${playerName}，回答正確！`;
 
                 const successBox = document.getElementById("stage2-success-box");
-                successBox.classList.remove("hidden");
-                successBox.style.display = 'flex';
+                if (successBox) {
+                    successBox.classList.remove("hidden");
+                    successBox.style.display = 'flex';
+                }
 
                 if (solvedCount >= 3) {
                     const nextBtn = document.getElementById("btn-stage2-next");
@@ -852,12 +962,23 @@
         }
 
         function clearStage2Feedback() {
-            document.getElementById("stage2-success-box").classList.add("hidden");
-            document.getElementById("stage2-success-box").style.display = 'none';
-            document.getElementById("stage2-quiz-box").classList.add("hidden");
-            document.getElementById("stage2-quiz-box").style.display = 'none';
+            const s2SuccessBox = document.getElementById("stage2-success-box");
+            if (s2SuccessBox) {
+                s2SuccessBox.classList.add("hidden");
+                s2SuccessBox.style.display = 'none';
+            }
+
+            const s2QuizBox = document.getElementById("stage2-quiz-box");
+            if (s2QuizBox) {
+                s2QuizBox.classList.add("hidden");
+                s2QuizBox.style.display = 'none';
+            }
             
-            document.getElementById("stage2-empty-state").classList.remove("hidden");
+            const s2EmptyState = document.getElementById("stage2-empty-state");
+            if (s2EmptyState) {
+                s2EmptyState.classList.remove("hidden");
+                s2EmptyState.style.display = '';
+            }
         }
 
         function goToStage3() {
