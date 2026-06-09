@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>中正全球通：國際日常特務挑戰</title>
+    <!-- Tailwind CSS for high fidelity responsive layout -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for interactive beautiful icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter, Noto Sans TC, and Quicksand for dopamine playful theme -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+TC:wght@400;700;900&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Quicksand', 'Noto Sans TC', sans-serif;
+            background: linear-gradient(135deg, #FFDEE9 0%, #B5FFFC 100%);
+            overscroll-behavior: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        /* Optimized Container for Widescreen 16:9 and Standard iPads alike */
+        .ipad-frame {
+            width: 96%;
+            max-width: 1150px;
+            height: 90vh;
+            max-height: 850px;
+        }
+        /* Hidden scrollbars for clean console aesthetic */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* Playful pulse & bounce for buttons */
+        @keyframes dopamine-glow {
+            0%, 100% { box-shadow: 0 10px 25px rgba(244, 63, 94, 0.35), inset 0 0 10px rgba(255, 255, 255, 0.6); transform: scale(1); }
+            50% { box-shadow: 0 15px 35px rgba(244, 63, 94, 0.55), inset 0 0 15px rgba(255, 255, 255, 0.8); transform: scale(1.02); }
+        }
+        .glow-button {
+            animation: dopamine-glow 2s infinite ease-in-out;
+        }
+        /* Soft dynamic radar pulse */
+        @keyframes radar-pulse {
+            0% { transform: scale(0.8); opacity: 0.9; }
+            100% { transform: scale(2.3); opacity: 0; }
+        }
+        .radar-ring {
+            animation: radar-pulse 1.8s cubic-bezier(0.215, 0.610, 0.355, 1) infinite;
+        }
+        /* Slide in layout effects */
+        .slide-in {
+            animation: slideIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+        @keyframes slideIn {
+            from { transform: translateY(40px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        /* Jelly dopamine glass panels */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 182, 193, 0.7);
+            box-shadow: 0 12px 40px rgba(244, 63, 94, 0.08);
+        }
+        .glass-panel-light {
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(10px);
+            border: 1.5px solid rgba(181, 255, 252, 0.9);
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-2 sm:p-4 overflow-hidden select-none">
+
+    <!-- Main iPad Container with clean vanilla white/cream bezel -->
+    <div id="app" class="ipad-frame bg-rose-50/45 border-[14px] border-white rounded-[45px] relative overflow-hidden shadow-[0_25px_60px_rgba(244,63,94,0.18)] flex flex-col ring-4 ring-rose-200/50">
+        
+        <!-- Top Status Bar (Mock Playful iPad) -->
+        <div class="h-8 bg-white/90 px-6 flex items-center justify-between text-xs text-rose-500 select-none shrink-0 z-50 border-b border-rose-100">
+            <div class="flex items-center gap-2">
+                <span class="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-amber-500 tracking-wider font-mono text-xs">ZZSH GLOBAL PLAY</span>
+                <span class="px-1.5 py-0.5 rounded bg-pink-100 text-[10px] text-pink-600 font-black border border-pink-200">HAPPY DAY</span>
+            </div>
+            <div class="font-black tracking-wider text-rose-600 text-xs" id="clock">12:05</div>
+            <div class="flex items-center gap-2 font-bold text-xs">
+                <i class="fas fa-wifi text-sky-400"></i>
+                <i class="fas fa-battery-three-quarters text-emerald-400 animate-pulse"></i>
+                <span>100%</span>
+            </div>
+        </div>
+
+        <!-- GLOBAL HEADER BANNER (CONSTANT IN EVERY SCREEN - MOVED TO TOP OF APP CONTAINER) -->
+        <div class="bg-gradient-to-r from-pink-500 via-rose-400 to-amber-400 text-white border-b-2 border-pink-300 py-3 text-center px-4 shrink-0 shadow-md z-50 flex items-center justify-center gap-2 relative">
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.15)_1px,transparent_1px)] bg-[size:10px_10px] pointer-events-none"></div>
+            <i class="fas fa-trophy text-yellow-300 animate-bounce text-sm sm:text-lg drop-shadow-[0_2px_4px_rgba(0,0,0,0.15)]"></i>
+            <h1 class="text-xs sm:text-sm md:text-base font-black tracking-widest flex items-center gap-2 drop-shadow-[0_2px_4px_rgba(244,63,94,0.3)]">
+                臺北市立中正高中 <span class="text-pink-100 font-normal">|</span> 國際學校獎 <span class="bg-yellow-300 text-rose-600 text-[10px] sm:text-xs px-3.5 py-0.5 rounded-full font-black uppercase tracking-wider shadow">卓越級</span>
+            </h1>
+        </div>
+
+        <!-- SCREEN CONTENT CONTAINER (PHYSICALLY ISOLATED VIEWPORT TO PREVENT SCROLL / OVERFLOW) -->
+        <div class="flex-1 relative overflow-hidden bg-gradient-to-b from-rose-50/50 via-white to-sky-50/30">
+
+            <!-- SCREEN 1: PRE-TOUCH SCREEN (Vibrant Highlight Carousel) -->
+            <div id="screen-carousel" class="absolute inset-0 flex flex-col justify-between z-45 transition-opacity duration-700">
+                
+                <!-- Carousel Display Port -->
+                <div class="relative flex-1 flex flex-col justify-center p-4 sm:p-6 overflow-hidden">
+                    <!-- Slides Container -->
+                    <div id="carousel-slides" class="w-full h-full max-h-[55vh] relative flex items-center justify-center">
+                        
+                        <!-- Slide 1: 卓越級認證 -->
+                        <div class="carousel-slide absolute inset-0 flex flex-col items-center justify-center opacity-0 transition-all duration-1000 scale-95 p-2">
+                            <div class="glass-panel rounded-3xl p-5 max-w-xl w-full flex flex-col items-center h-full justify-between border-rose-300/60 shadow-[0_15px_30px_rgba(244,63,94,0.1)]">
+                                <span class="bg-pink-100 text-pink-600 text-sm px-4 py-1.5 rounded-full font-black tracking-wider border border-pink-200">🏆 卓越認證・榮耀肯定</span>
+                                <div class="w-full flex-1 flex items-center justify-center my-3 overflow-hidden rounded-2xl bg-gradient-to-tr from-pink-100 to-rose-50 border border-pink-200 relative group">
+                                    <div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+                                        <svg class="w-16 h-16 text-pink-400 mb-2 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 14l9-5-9-5-9 5 9 5zm0 0l9-5-9-5-9 5 9 5zm0 0v6m0-6L3 9m9 5l9-5M9 21h6"></path>
+                                        </svg>
+                                        <span class="text-sm text-rose-500 font-extrabold tracking-widest uppercase">IEA Excellence Award</span>
+                                        <span class="text-xs text-pink-400 mt-1">深耕國際教育獎 · 卓越級認證</span>
+                                    </div>
+                                    <img src="image.png" alt="深耕國際教育獎" class="absolute inset-0 w-full h-full object-contain p-2 z-10 opacity-0 transition-opacity duration-500" onload="this.classList.remove('opacity-0')">
+                                </div>
+                                <div class="text-center px-2">
+                                    <h3 class="text-lg sm:text-xl font-black text-rose-950 tracking-wide">國際教育深耕計畫</h3>
+                                    <p class="text-xs sm:text-sm text-rose-700 mt-1 leading-relaxed font-bold">中正高中榮獲台北市深耕國際教育最高肯定「卓越級認證」！</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 2: 國際文化展 -->
+                        <div class="carousel-slide absolute inset-0 flex flex-col items-center justify-center opacity-0 transition-all duration-1000 scale-95 p-2">
+                            <div class="glass-panel rounded-3xl p-5 max-w-xl w-full flex flex-col items-center h-full justify-between border-amber-300/60 shadow-[0_15px_30px_rgba(251,191,36,0.1)]">
+                                <span class="bg-amber-100 text-amber-700 text-sm px-4 py-1.5 rounded-full font-black tracking-wider border border-amber-200">🌍 多元文化・探索 world</span>
+                                <div class="w-full flex-1 flex items-center justify-center my-3 overflow-hidden rounded-2xl bg-gradient-to-tr from-amber-100 to-yellow-50 border border-amber-200 relative">
+                                    <div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+                                        <svg class="w-16 h-16 text-amber-400 mb-2 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h1.5A1.5 1.5 0 0018 10.5V10a2 2 0 012-2h.05M5 12a7 7 0 1114 0 7 7 0 01-14 0z"></path>
+                                        </svg>
+                                        <span class="text-sm text-amber-600 font-extrabold tracking-widest uppercase">International Culture Fair</span>
+                                        <span class="text-xs text-amber-500 mt-1">61周年校慶國際文化展</span>
+                                    </div>
+                                    <img src="1.jpg" alt="國際文化展" class="absolute inset-0 w-full h-full object-contain p-2 z-10 opacity-0 transition-opacity duration-500" onload="this.classList.remove('opacity-0')">
+                                </div>
+                                <div class="text-center px-2">
+                                    <h3 class="text-lg sm:text-xl font-black text-amber-900 tracking-wide">61周年校慶國際文化展</h3>
+                                    <p class="text-xs sm:text-sm text-amber-800 mt-1 leading-relaxed font-bold">東吳德文、淡江法文、日舞學院、銘傳國際處等跨界設攤交流！</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 3: 夥伴學校 (一) -->
+                        <div class="carousel-slide absolute inset-0 flex flex-col items-center justify-center opacity-0 transition-all duration-1000 scale-95 p-2">
+                            <div class="glass-panel rounded-3xl p-5 max-w-xl w-full flex flex-col items-center h-full justify-between border-cyan-300/60 shadow-[0_15px_30px_rgba(6,182,212,0.1)]">
+                                <span class="bg-cyan-100 text-cyan-700 text-sm px-4 py-1.5 rounded-full font-black tracking-wider border border-cyan-200">🤝 跨國合作・零距離學習</span>
+                                <div class="w-full flex-1 flex items-center justify-center my-3 overflow-hidden rounded-2xl bg-gradient-to-tr from-cyan-100 to-sky-50 border border-cyan-200 relative">
+                                    <div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+                                        <svg class="w-16 h-16 text-cyan-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
+                                        </svg>
+                                        <span class="text-sm text-cyan-600 font-extrabold tracking-widest uppercase">Global Partner Network</span>
+                                        <span class="text-xs text-cyan-500 mt-1">國外夥伴學校線上合創</span>
+                                    </div>
+                                    <img src="4.3.b%20%E5%90%88%E4%BD%9C%E5%AD%B8%E6%A0%A1%E6%A9%9F%E6%A7%8B%E4%B8%80%E8%A6%BD%E5%9C%961.jpg" alt="合作學校1" class="absolute inset-0 w-full h-full object-contain p-2 z-10 opacity-0 transition-opacity duration-500" onload="this.classList.remove('opacity-0')">
+                                </div>
+                                <div class="text-center px-2">
+                                    <h3 class="text-lg sm:text-xl font-black text-cyan-900 tracking-wide">國外夥伴學校無遠弗屆</h3>
+                                    <p class="text-xs sm:text-sm text-cyan-800 mt-1 leading-relaxed font-bold">蘇黎世藝大、瑞典斯德哥爾摩、莫斯科大學等豐富的線上合創！</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 4: 夥伴學校 (二) -->
+                        <div class="carousel-slide absolute inset-0 flex flex-col items-center justify-center opacity-0 transition-all duration-1000 scale-95 p-2">
+                            <div class="glass-panel rounded-3xl p-5 max-w-xl w-full flex flex-col items-center h-full justify-between border-violet-300/60 shadow-[0_15px_30px_rgba(139,92,246,0.1)]">
+                                <span class="bg-violet-100 text-violet-700 text-sm px-4 py-1.5 rounded-full font-black tracking-wider border border-violet-200">🎓 國際雙聯・菁英搖籃</span>
+                                <div class="w-full flex-1 flex items-center justify-center my-3 overflow-hidden rounded-2xl bg-gradient-to-tr from-violet-100 to-indigo-50 border border-violet-200 relative">
+                                    <div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+                                        <svg class="w-16 h-16 text-violet-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                                        </svg>
+                                        <span class="text-sm text-violet-600 font-extrabold tracking-widest uppercase">Joint Diploma (JDP / SACEI)</span>
+                                        <span class="text-xs text-violet-500 mt-1">台美、台澳雙學制合作</span>
+                                    </div>
+                                    <img src="4.3.b%20%E5%90%88%E4%BD%9C%E5%AD%B8%E6%A0%A1%E6%A9%9F%E6%A7%8B%E4%B8%80%E8%A6%BD%E5%9C%962.jpg" alt="合作學校2" class="absolute inset-0 w-full h-full object-contain p-2 z-10 opacity-0 transition-opacity duration-500" onload="this.classList.remove('opacity-0')">
+                                </div>
+                                <div class="text-center px-2">
+                                    <h3 class="text-lg sm:text-xl font-black text-violet-900 tracking-wide">雙聯學制 (JDP / SACEI)</h3>
+                                    <p class="text-xs sm:text-sm text-violet-800 mt-1 leading-relaxed font-bold">美國費爾蒙特、南澳大利亞教育局雙學制，不出國拿雙文憑！</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 5: SDGs融入全學科 -->
+                        <div class="carousel-slide absolute inset-0 flex flex-col items-center justify-center opacity-0 transition-all duration-1000 scale-95 p-2">
+                            <div class="glass-panel rounded-3xl p-5 max-w-xl w-full flex flex-col items-center h-full justify-between border-emerald-300/60 shadow-[0_15px_30px_rgba(16,185,129,0.1)]">
+                                <span class="bg-emerald-100 text-emerald-700 text-sm px-4 py-1.5 rounded-full font-black tracking-wider border border-emerald-200">🌿 雙語跨域・SDGs永續</span>
+                                <div class="w-full flex-1 flex items-center justify-center my-3 overflow-hidden rounded-2xl bg-gradient-to-tr from-emerald-100 to-teal-50 border border-emerald-200 relative">
+                                    <div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+                                        <svg class="w-16 h-16 text-emerald-400 mb-2 animate-spin" style="animation-duration: 8s" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m12.728 0l-.707-.707M6.343 6.364l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"></path>
+                                        </svg>
+                                        <span class="text-sm text-emerald-600 font-extrabold tracking-widest uppercase">Bilingual SDGs Integration</span>
+                                        <span class="text-xs text-emerald-500 mt-1">跨學科 SDGs 融入探究</span>
+                                    </div>
+                                    <img src="3.3.a%20%E5%85%A8%E6%A0%A1%E5%AD%B8%E7%A7%91%E8%AA%B2%E7%A8%8B%E8%9E%8D%E5%85%A5SDGs.jpg" alt="SDGs融入課程" class="absolute inset-0 w-full h-full object-contain p-2 z-10 opacity-0 transition-opacity duration-500" onload="this.classList.remove('opacity-0')">
+                                </div>
+                                <div class="text-center px-2">
+                                    <h3 class="text-lg sm:text-xl font-black text-emerald-900 tracking-wide">跨領域 SDGs 探究學習</h3>
+                                    <p class="text-xs sm:text-sm text-emerald-800 mt-1 leading-relaxed font-bold">結合海洋遊憩、國際移動力、生態音樂等指標性雙語課程！</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Slide 6: 英語角海報 -->
+                        <div class="carousel-slide absolute inset-0 flex flex-col items-center justify-center opacity-0 transition-all duration-1000 scale-95 p-2">
+                            <div class="glass-panel rounded-3xl p-5 max-w-xl w-full flex flex-col items-center h-full justify-between border-rose-300/60 shadow-[0_15px_30px_rgba(244,63,94,0.1)]">
+                                <span class="bg-rose-100 text-rose-700 text-sm px-4 py-1.5 rounded-full font-black tracking-wider border border-rose-200">🗣️ 英語角・輕鬆開口說</span>
+                                <div class="w-full flex-1 flex items-center justify-center my-3 overflow-hidden rounded-2xl bg-gradient-to-tr from-rose-100 to-pink-50 border border-rose-200 relative">
+                                    <div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+                                        <svg class="w-16 h-16 text-rose-400 mb-2 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                                        </svg>
+                                        <span class="text-sm text-rose-600 font-extrabold tracking-widest uppercase">English Corner Hub</span>
+                                        <span class="text-xs text-rose-500 mt-1">每週五 lunchtime 英語口說情境</span>
+                                    </div>
+                                    <img src="%E8%8B%B1%E8%AA%9E%E8%A7%92%E6%B5%B7%E5%A0%B1.jpg" alt="英語角海報" class="absolute inset-0 w-full h-full object-contain p-2 z-10 opacity-0 transition-opacity duration-500" onload="this.classList.remove('opacity-0')">
+                                </div>
+                                <div class="text-center px-2">
+                                    <h3 class="text-lg sm:text-xl font-black text-rose-900 tracking-wide">English Corner 英語口說</h3>
+                                    <p class="text-xs sm:text-sm text-rose-800 mt-1 leading-relaxed font-bold">每週五中午 12:05 於情境教室，外師與你暢聊 14 個實用主題！</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Carousel Dynamic Dot Indicators & Autoplay Progress Bar -->
+                    <div class="mt-4 flex flex-col items-center gap-2">
+                        <div class="flex gap-2.5" id="carousel-dots">
+                            <!-- Dots populated by JS -->
+                        </div>
+                        <div class="w-40 bg-rose-200/50 h-2 rounded-full overflow-hidden mt-1">
+                            <div id="carousel-progress" class="bg-gradient-to-r from-pink-400 to-amber-400 h-full w-0 transition-all duration-100 linear"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Area to Begin Game -->
+                <div class="p-6 text-center border-t border-rose-100/60 bg-white/70 shrink-0">
+                    <button onclick="startInteractiveMode()" class="glow-button w-full max-w-xl bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 hover:from-pink-400 hover:to-amber-400 text-white font-black py-5 px-10 rounded-2xl text-2xl shadow-[0_10px_20px_rgba(244,63,94,0.25)] transition-transform transform active:scale-95 tracking-widest flex items-center justify-center gap-3 mx-auto">
+                        <span>⚡ 點擊螢幕・啟動闖關 ⚡</span>
+                    </button>
+                    <p class="text-xs text-pink-500 font-mono tracking-widest mt-3 uppercase font-extrabold">ZHONGZHENG HIGH SCHOOL GLOBAL DEPT.</p>
+                </div>
+            </div>
+
+            <!-- SCREEN 2: iPad PLAYER NAME REGISTRATION (IMPROVED SIZES FOR HORIZONTAL) -->
+            <div id="screen-lock" class="absolute inset-0 bg-white/95 flex flex-col justify-between p-6 z-40 opacity-0 pointer-events-none transition-opacity duration-500">
+                <!-- Header Info -->
+                <div class="text-center mt-6">
+                    <div class="w-20 h-20 rounded-full bg-pink-100 border-2 border-pink-300 flex items-center justify-center mx-auto mb-4 shadow-[0_8px_16px_rgba(244,63,94,0.1)] animate-bounce text-3xl">
+                        👋
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-black tracking-wider text-rose-950">哈囉！新進特務！</h2>
+                    <p class="text-sm sm:text-base text-rose-700 mt-1 font-extrabold">請在下方填寫您的名字，開啟中正全球通之旅！</p>
+                </div>
+
+                <!-- Name Entry Pad Box -->
+                <div class="my-auto max-w-md mx-auto w-full px-4">
+                    <div class="glass-panel rounded-3xl p-6 border-pink-200 shadow-xl flex flex-col items-center gap-5">
+                        <span class="text-sm text-pink-500 font-black uppercase tracking-wider">輸入您的特務代號 / 姓名</span>
+                        
+                        <input type="text" id="player-name-input" placeholder="請輸入名字..." maxlength="8" class="w-full text-center bg-white text-rose-600 text-xl font-black py-4 px-4 rounded-xl border-2 border-pink-200 focus:outline-none focus:border-pink-400 placeholder-pink-200 shadow-sm transition-all">
+                        
+                        <div id="name-error-msg" class="text-sm text-rose-500 font-black hidden">⚠️ 名字不可以留空喔，請輸入！</div>
+                        
+                        <button onclick="submitPlayerName()" class="glow-button w-full bg-gradient-to-r from-pink-500 to-amber-500 hover:from-pink-400 hover:to-amber-400 text-white font-extrabold py-4 px-6 rounded-xl text-base transition-transform active:scale-95 shadow-md flex items-center justify-center gap-2">
+                            <span>建立角色並登入</span> <i class="fas fa-arrow-right text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Footer brand decor -->
+                <div class="text-center pb-3 shrink-0">
+                    <p class="text-xs text-pink-400 font-bold uppercase tracking-widest font-mono">ZHONGZHENG HIGH SCHOOL GLOBAL SECURITY DEPT.</p>
+                </div>
+            </div>
+
+            <!-- SCREEN 3: GAME DASHBOARD (Control Center Map) -->
+            <div id="screen-dashboard" class="absolute inset-0 bg-gradient-to-b from-rose-50/20 to-sky-50/20 flex flex-col p-4 sm:p-6 z-30 opacity-0 pointer-events-none transition-opacity duration-500 overflow-y-auto no-scrollbar">
+                
+                <!-- Agent Control Header -->
+                <div class="flex items-center justify-between border-b-2 border-pink-100 pb-3.5 mb-4 shrink-0">
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 rounded-xl bg-pink-100 border border-pink-200 flex items-center justify-center shadow-md">
+                            <i class="fas fa-gamepad text-pink-500 text-xl animate-bounce"></i>
+                        </div>
+                        <div>
+                            <div class="text-xs text-pink-500 tracking-widest font-bold uppercase">ZZSH MISSION CONTROL</div>
+                            <!-- Dynamic Player Name injection -->
+                            <h3 class="text-base sm:text-lg font-black text-rose-950">特務代號：<span id="dashboard-player-name" class="text-pink-600">讀取中</span></h3>
+                        </div>
+                    </div>
+                    <!-- Progress visual tracker -->
+                    <div class="text-right flex flex-col items-end">
+                        <span class="text-xs text-rose-500 font-bold uppercase tracking-wider">核心拼圖解鎖度</span>
+                        <div class="flex items-center gap-2 mt-1">
+                            <div class="w-24 sm:w-32 bg-white h-4 rounded-full overflow-hidden border-2 border-pink-200 p-[1px]">
+                                <div id="dashboard-progress-bar" class="bg-gradient-to-r from-pink-400 via-amber-400 to-emerald-400 h-full w-0 rounded-full transition-all duration-700"></div>
+                            </div>
+                            <span id="dashboard-progress-txt" class="text-sm font-black font-mono text-pink-600">0/3</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Welcome Board with glowing badge -->
+                <div class="glass-panel rounded-2xl p-4 mb-4 border-pink-200 relative overflow-hidden shrink-0 shadow-lg">
+                    <div class="absolute -right-8 -top-8 w-24 h-24 bg-pink-300/15 rounded-full blur-xl pointer-events-none"></div>
+                    <h4 class="text-base sm:text-lg font-black text-rose-950 flex items-center gap-2">
+                        <span class="flex h-3 w-3 relative">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 bg-pink-500"></span>
+                        </span>
+                        中正全球通：國際特務挑戰任務 (3大關卡)
+                    </h4>
+                    <p class="text-xs sm:text-sm text-rose-700 mt-1 leading-relaxed font-semibold">
+                        歡迎進入特務控制台！點擊下方三大國際核心任務，全數挑戰成功即可至學校圖書館領取精美小禮！
+                    </p>
+                </div>
+
+                <!-- Visually Rich Grid for Level Selection -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 flex-1">
+                    
+                    <!-- Level 1 Card -->
+                    <div id="card-level-1" class="glass-panel rounded-2xl p-4 flex flex-col justify-between hover:border-pink-400 transition-all cursor-pointer group hover:shadow-lg hover:-translate-y-0.5" onclick="openLevel(1)">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="bg-pink-100 text-pink-600 text-xs font-bold px-2.5 py-0.5 rounded border border-pink-200">MISSION 01</span>
+                                <span id="badge-level-1" class="text-rose-500 text-xs font-bold flex items-center gap-1.5"><i class="fas fa-circle-notch text-[10px] text-pink-500 animate-spin"></i> 待解鎖</span>
+                            </div>
+                            <h4 class="text-base sm:text-lg font-black text-rose-900 group-hover:text-pink-600 transition-colors">🌎 夥伴學校與 SDGs 探究</h4>
+                            <p class="text-xs sm:text-sm text-rose-700 mt-1 leading-relaxed">中正高中的國際版圖跨越多國，更融合永續指標。你能將夥伴計畫、雙語 SDGs 課程與地理雷達發光國家精確配對嗎？</p>
+                        </div>
+                        <button class="w-full mt-4 bg-pink-100 group-hover:bg-pink-200 border border-pink-200 text-pink-600 font-extrabold py-2.5 px-4 rounded-xl text-sm transition-all flex items-center justify-center gap-1">
+                            啟動航線雷達 <i class="fas fa-chevron-right text-xs group-hover:translate-x-0.5 transition-transform"></i>
+                        </button>
+                    </div>
+
+                    <!-- Level 2 Card -->
+                    <div id="card-level-2" class="glass-panel rounded-2xl p-4 flex flex-col justify-between hover:border-amber-400 transition-all cursor-pointer group hover:shadow-lg hover:-translate-y-0.5" onclick="openLevel(2)">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="bg-amber-100 text-amber-700 text-xs font-bold px-2.5 py-0.5 rounded border border-amber-200">MISSION 02</span>
+                                <span id="badge-level-2" class="text-rose-500 text-xs font-bold flex items-center gap-1.5"><i class="fas fa-circle-notch text-[10px] text-amber-500 animate-spin"></i> 待解鎖</span>
+                            </div>
+                            <h4 class="text-base sm:text-lg font-black text-amber-900 group-hover:text-amber-600 transition-colors">🗣️ 英語角即時口說</h4>
+                            <p class="text-xs sm:text-sm text-rose-700 mt-1 leading-relaxed">外師週五 lunchtime 在情境教室等著與你暢聊！快來與外師展開即時對話對談，解鎖輕鬆開口說的祕笈！</p>
+                        </div>
+                        <button class="w-full mt-4 bg-amber-100 group-hover:bg-amber-200 border border-amber-200 text-amber-700 font-extrabold py-2.5 px-4 rounded-xl text-sm transition-all flex items-center justify-center gap-1">
+                            啟動即時對話 <i class="fas fa-chevron-right text-xs group-hover:translate-x-0.5 transition-transform"></i>
+                        </button>
+                    </div>
+
+                    <!-- Level 3 Card -->
+                    <div id="card-level-3" class="glass-panel rounded-2xl p-4 flex flex-col justify-between hover:border-violet-400 transition-all cursor-pointer group hover:shadow-lg hover:-translate-y-0.5" onclick="openLevel(3)">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="bg-violet-100 text-violet-700 text-xs font-bold px-2.5 py-0.5 rounded border border-violet-200">MISSION 03</span>
+                                <span id="badge-level-3" class="text-rose-500 text-xs font-bold flex items-center gap-1.5"><i class="fas fa-circle-notch text-[10px] text-violet-500 animate-spin"></i> 待解鎖</span>
+                            </div>
+                            <h4 class="text-base sm:text-lg font-black text-violet-900 group-hover:text-violet-600 transition-colors">🎪 校慶多元文化大探索</h4>
+                            <p class="text-xs sm:text-sm text-rose-700 mt-1 leading-relaxed">校慶文化展極具特色，德法日越設攤極度火熱！快來連線特色攤位與代表國別，展現跨文化溝通的日常學問！</p>
+                        </div>
+                        <button class="w-full mt-4 bg-violet-100 group-hover:bg-violet-200 border border-violet-200 text-violet-700 font-extrabold py-2.5 px-4 rounded-xl text-sm transition-all flex items-center justify-center gap-1">
+                            啟動雷射光雕連線 <i class="fas fa-chevron-right text-xs group-hover:translate-x-0.5 transition-transform"></i>
+                        </button>
+                    </div>
+
+                </div>
+
+                <!-- Footer Return Indicator -->
+                <button onclick="returnToCarousel()" class="mt-4 py-2 text-sm text-rose-500 hover:text-rose-700 flex items-center justify-center gap-1.5 transition-colors font-bold shrink-0">
+                    <i class="fas fa-chevron-left text-xs"></i> 返回重點精華輪播頁面
+                </button>
+            </div>
+
+            <!-- SCREEN 4: LEVEL WORKSPACE -->
+            <div id="screen-level-workspace" class="absolute inset-0 bg-gradient-to-b from-rose-50/20 via-white to-sky-50/20 flex flex-col p-4 sm:p-5 z-20 opacity-0 pointer-events-none transition-opacity duration-300 overflow-y-auto no-scrollbar">
+                
+                <!-- Workspace Header -->
+                <div class="flex items-center justify-between border-b-2 border-pink-100 pb-3 mb-4 shrink-0">
+                    <button onclick="backToDashboard()" class="text-sm font-black text-rose-600 hover:text-rose-800 flex items-center gap-1 transition-colors bg-white px-4 py-2 rounded-full border border-pink-200 shadow-sm">
+                        <i class="fas fa-angle-left text-base"></i> 放棄並返回特務控制台
+                    </button>
+                    <span id="workspace-title-badge" class="bg-gradient-to-r from-pink-500 to-amber-500 text-white text-xs font-mono font-bold px-4 py-1.5 rounded-full uppercase tracking-widest animate-pulse shadow-sm">MISSION LOADING</span>
+                </div>
+
+                <!-- Interactive Subscreens dynamically loaded -->
+                <div id="level-container" class="flex-1 flex flex-col justify-between relative">
+                    <!-- Contents dynamically populated by JS -->
+                </div>
+            </div>
+
+            <!-- SCREEN 5: CONGRATULATIONS & VICTORY -->
+            <div id="screen-victory" class="absolute inset-0 bg-white/98 flex flex-col justify-between p-6 z-50 opacity-0 pointer-events-none transition-all duration-700 overflow-y-auto no-scrollbar">
+                
+                <!-- Confetti Overlay Canvas -->
+                <canvas id="victory-canvas" class="absolute inset-0 pointer-events-none z-10"></canvas>
+
+                <!-- Card Body container -->
+                <div class="my-auto flex flex-col items-center text-center max-w-2xl mx-auto w-full z-20 slide-in">
+                    
+                    <!-- Radiant Glowing Seal -->
+                    <div class="relative mb-5">
+                        <div class="absolute inset-0 bg-pink-500/20 rounded-full blur-3xl animate-pulse"></div>
+                        <div class="absolute -inset-1 bg-gradient-to-r from-pink-500 via-rose-500 to-amber-400 rounded-full blur opacity-45 transition duration-1000 animate-tilt"></div>
+                        <div class="w-24 h-24 rounded-full bg-gradient-to-br from-pink-500 via-rose-500 to-amber-400 flex items-center justify-center shadow-lg border-4 border-white text-white animate-bounce">
+                            <i class="fas fa-medal text-5xl"></i>
+                        </div>
+                    </div>
+
+                    <!-- Congratulations headline -->
+                    <h1 class="text-3xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-600 via-rose-500 to-amber-500 tracking-wider">
+                        🎉 本機台破關成功！ 🎉
+                    </h1>
+                    
+                    <!-- Certificate card -->
+                    <div class="mt-4 bg-white border-2 border-pink-300 rounded-3xl p-6 w-full shadow-xl relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-pink-500/10 to-transparent pointer-events-none"></div>
+                        <span class="absolute -top-0 right-6 bg-gradient-to-r from-pink-500 to-amber-500 text-white text-xs font-black px-4 py-1.5 rounded-b-xl uppercase tracking-widest shadow-sm">PASS PORT</span>
+                        
+                        <h2 class="text-xl sm:text-2xl font-black text-rose-950">台北市立中正高級中學</h2>
+                        <p class="text-xs sm:text-sm text-pink-500 tracking-widest font-black font-mono">GLOBAL AGENT CERTIFICATE</p>
+                        
+                        <div class="border-t border-b border-pink-100 my-4 py-4 text-center">
+                            <!-- Custom user-greet dynamic victory message -->
+                            <p class="text-lg sm:text-2xl text-pink-600 font-black leading-relaxed">
+                                恭喜 <span id="victory-player-name" class="text-amber-500 underline decoration-wavy">新進特務</span> 
+                                <br>完全了解中正高中國際面向！
+                            </p>
+                            <p class="text-sm sm:text-base text-rose-850 mt-3 font-bold">
+                                3台都破關可以獲得小禮物一份喔！
+                            </p>
+                        </div>
+
+                        <!-- Instruction to claim prize -->
+                        <div class="bg-gradient-to-r from-pink-50 to-amber-50 border-2 border-pink-200 rounded-2xl p-4 text-center mt-2 relative shadow-sm">
+                            <span class="text-pink-600 font-extrabold text-base sm:text-lg flex items-center justify-center gap-2 animate-pulse">
+                                <i class="fas fa-gift text-amber-500 animate-bounce"></i> 恭喜過關！獲得精美小禮物喔！
+                            </span>
+                            <span class="text-sm text-rose-800 mt-1.5 block font-extrabold">請保留此合格畫面，向中正高中【圖書館辦公室】領取神秘小獎品乙份！</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Return button -->
+                <div class="text-center p-3 z-20 shrink-0">
+                    <button onclick="resetGame()" class="bg-pink-100 hover:bg-pink-200 border-2 border-pink-300 text-pink-700 font-bold py-3 px-6 rounded-xl text-sm transition-colors shadow-sm">
+                        <i class="fas fa-redo-alt mr-1"></i> 重啟考驗
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        // Core game parameters
+        let currentSlideIndex = 0;
+        let carouselInterval = null;
+        let completedLevels = { 1: false, 2: false, 3: false };
+        let activeLineSvg = null;
+        let playerName = "新進特務";
+
+        // Level 1: Match States (SVG connected network map - Merged Partners & SDGs)
+        let level1SelectedProg = null;
+        const level1Data = [
+            { id: 'us-fairmont', label: '美國加州費爾蒙特高中雙聯 (JDP)', coord: { x: 30, y: 35 } },
+            { id: 'aus-sacei', label: '南澳大利亞教育局雙聯學制 (SACEI)', coord: { x: 80, y: 80 } },
+            { id: 'sweden-stockholm', label: '瑞典斯德哥爾摩 SDGs 永續線上合創', coord: { x: 50, y: 20 } },
+            { id: 'bilingual-sdgs', label: '海洋遊憩與永續雙語 SDGs 探究課程', coord: { x: 45, y: 48 } }
+        ];
+
+        // Level 2: Messaging Interaction (English Corner)
+        let level2Step = 0;
+        const level2Questions = [
+            {
+                dialogue: "Hi there! I'm planning to practice conversational English. Do we have native teachers to speak with on campus?",
+                options: [
+                    { text: "Yes! Scan the QR code to join 'Zhongzheng English Corner'!", isCorrect: true, feedback: "Awesome! High five! You nailed the entry ticket!" },
+                    { text: "No, we only have paper quizzes and reading drills.", isCorrect: false, feedback: "That's old-school! We focus on real active communication!" }
+                ]
+            },
+            {
+                dialogue: "That sounds amazing! When and where does this English Corner take place?",
+                options: [
+                    { text: "Every Friday Lunchtime (12:05~12:30) at the Situational Classroom.", isCorrect: true, feedback: "Correct! The Situational Classroom is where the magic happens!" },
+                    { text: "Every Monday 7:30 AM on the sports field.", isCorrect: false, feedback: "Oops, Monday morning is assembly! Friday lunchtime is conversational time." }
+                ]
+            },
+            {
+                dialogue: "Excellent. How can we register? Are there specific topics to practice?",
+                options: [
+                    { text: "Scan code on Mondays 9:00 AM! There are 14 practical themes.", isCorrect: true, feedback: "Perfect answer! You've officially memorized our routine!" },
+                    { text: "No registration, and we just read the English textbook together.", isCorrect: false, feedback: "No! Seats are highly limited. Sign up early on Monday morning!" }
+                ]
+            }
+        ];
+
+        // Level 3: Interactive Connection Line Grid (Multicultural)
+        const level4Left = [
+            { id: 'l_jp', label: '日舞學院 (美學舞蹈設計展攤)' },
+            { id: 'l_de', label: '東吳大學德文系 (德語拼音與桌遊)' },
+            { id: 'l_fr', label: '淡江大學法文系 (法語民謠與拼貼)' },
+            { id: 'l_vn', label: '銘傳國際處 (越南編織與春捲文化)' }
+        ];
+        const level4Right = [
+            { id: 'r_jp', label: '🇯🇵 日本 (日系文化探幽)', matchId: 'l_jp' },
+            { id: 'r_de', label: '🇩🇪 德國 (德文拼字桌遊)', matchId: 'l_de' },
+            { id: 'r_fr', label: '🇫🇷 法國 (香頌民歌法文)', matchId: 'l_fr' },
+            { id: 'r_vn', label: '🇻🇳 越南 (越文口語拼貼)', matchId: 'l_vn' }
+        ];
+        let level4SelectedLeft = null;
+        let level4SelectedRight = null;
+        let level4MatchedPairs = [];
+
+        window.onload = function() {
+            // Setup simple digital clock
+            setInterval(() => {
+                const now = new Date();
+                document.getElementById('clock').innerText = now.toTimeString().substring(0, 5);
+            }, 1000);
+            
+            buildCarouselDots();
+            startCarousel();
+
+            // Handle window resizing for SVG line coordinate updates
+            window.addEventListener('resize', () => {
+                if (document.getElementById('screen-level-workspace').classList.contains('opacity-100')) {
+                    redrawSVGConnections();
+                }
+            });
+        };
+
+        // Auto Slider Controls
+        function buildCarouselDots() {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const dotsContainer = document.getElementById('carousel-dots');
+            dotsContainer.innerHTML = '';
+            slides.forEach((_, idx) => {
+                const dot = document.createElement('button');
+                dot.className = `w-3 h-3 rounded-full transition-all duration-300 ${idx === 0 ? 'bg-pink-400 w-8 shadow' : 'bg-rose-200 hover:bg-rose-400'}`;
+                dot.onclick = () => jumpToSlide(idx);
+                dot.id = `carousel-dot-${idx}`;
+                dotsContainer.appendChild(dot);
+            });
+        }
+
+        function startCarousel() {
+            stopCarousel();
+            const slides = document.querySelectorAll('.carousel-slide');
+            if (slides.length === 0) return;
+            
+            slides[currentSlideIndex].classList.add('opacity-100', 'scale-100');
+            slides[currentSlideIndex].classList.remove('opacity-0', 'scale-95');
+
+            let tick = 0;
+            const progress = document.getElementById('carousel-progress');
+            
+            carouselInterval = setInterval(() => {
+                tick += 2;
+                if (progress) progress.style.width = `${tick}%`;
+
+                if (tick >= 100) {
+                    tick = 0;
+                    // Rotate
+                    slides[currentSlideIndex].classList.remove('opacity-100', 'scale-100');
+                    slides[currentSlideIndex].classList.add('opacity-0', 'scale-95');
+                    
+                    updateDotState(currentSlideIndex, false);
+                    currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+                    updateDotState(currentSlideIndex, true);
+                    
+                    slides[currentSlideIndex].classList.add('opacity-100', 'scale-100');
+                    slides[currentSlideIndex].classList.remove('opacity-0', 'scale-95');
+                }
+            }, 60); // Total ~3 seconds slide time
+        }
+
+        function stopCarousel() {
+            if (carouselInterval) {
+                clearInterval(carouselInterval);
+                carouselInterval = null;
+            }
+        }
+
+        function updateDotState(index, isActive) {
+            const dot = document.getElementById(`carousel-dot-${index}`);
+            if (dot) {
+                if (isActive) {
+                    dot.className = "w-8 h-3 rounded-full bg-pink-500 transition-all duration-300 shadow-sm";
+                } else {
+                    dot.className = "w-3 h-3 rounded-full bg-rose-200 transition-all duration-300";
+                }
+            }
+        }
+
+        function jumpToSlide(index) {
+            stopCarousel();
+            const slides = document.querySelectorAll('.carousel-slide');
+            slides.forEach((slide, idx) => {
+                slide.classList.remove('opacity-100', 'scale-100');
+                slide.classList.add('opacity-0', 'scale-95');
+                updateDotState(idx, false);
+            });
+            currentSlideIndex = index;
+            updateDotState(currentSlideIndex, true);
+            slides[currentSlideIndex].classList.add('opacity-100', 'scale-100');
+            slides[currentSlideIndex].classList.remove('opacity-0', 'scale-95');
+            startCarousel();
+        }
+
+        function startInteractiveMode() {
+            stopCarousel();
+            showScreen('screen-lock');
+            setTimeout(() => {
+                document.getElementById('player-name-input').focus();
+            }, 300);
+        }
+
+        function returnToCarousel() {
+            startCarousel();
+            showScreen('screen-carousel');
+        }
+
+        // SCREEN TRANSITIONS
+        function showScreen(screenId) {
+            const screens = ['screen-carousel', 'screen-lock', 'screen-dashboard', 'screen-level-workspace', 'screen-victory'];
+            screens.forEach(id => {
+                const element = document.getElementById(id);
+                if (id === screenId) {
+                    element.classList.remove('pointer-events-none', 'opacity-0');
+                    element.classList.add('opacity-100');
+                } else {
+                    element.classList.add('pointer-events-none', 'opacity-0');
+                    element.classList.remove('opacity-100');
+                }
+            });
+        }
+
+        // Player Name Registration submission
+        function submitPlayerName() {
+            const inputField = document.getElementById('player-name-input');
+            const errorMsg = document.getElementById('name-error-msg');
+            const name = inputField.value.trim();
+
+            if (name === "") {
+                errorMsg.classList.remove('hidden');
+                inputField.classList.add('animate-bounce', 'border-rose-500');
+                setTimeout(() => {
+                    inputField.classList.remove('animate-bounce', 'border-rose-500');
+                }, 500);
+                return;
+            }
+
+            playerName = name;
+            errorMsg.classList.add('hidden');
+
+            // Inject the entered name into dashboard and victory screens
+            document.getElementById('dashboard-player-name').innerText = playerName;
+            document.getElementById('victory-player-name').innerText = playerName;
+
+            // Unlock and go to main console
+            showScreen('screen-dashboard');
+            updateDashboardProgress();
+        }
+
+        function updateDashboardProgress() {
+            let done = 0;
+            for (let k in completedLevels) {
+                if (completedLevels[k]) {
+                    done++;
+                    document.getElementById(`badge-level-${k}`).innerHTML = `<span class="text-emerald-500 font-bold flex items-center gap-1"><i class="fas fa-check-circle"></i> 已通過</span>`;
+                    document.getElementById(`card-level-${k}`).className = "glass-panel rounded-2xl p-4 flex flex-col justify-between border-emerald-300 bg-emerald-50/70 transition-all cursor-pointer group hover:shadow-lg hover:-translate-y-0.5";
+                }
+            }
+            const percentage = (done / 3) * 100;
+            document.getElementById('dashboard-progress-bar').style.width = `${percentage}%`;
+            document.getElementById('dashboard-progress-txt').innerText = `${done}/3`;
+
+            if (done === 3) {
+                setTimeout(() => {
+                    triggerVictory();
+                }, 600);
+            }
+        }
+
+        function backToDashboard() {
+            showScreen('screen-dashboard');
+            updateDashboardProgress(); 
+        }
+
+        function openLevel(levelId) {
+            const container = document.getElementById('level-container');
+            container.innerHTML = '';
+            
+            const badge = document.getElementById('workspace-title-badge');
+            badge.innerText = `關卡 0${levelId}：特務驗證中`;
+
+            if (levelId === 1) setupLevel1(container);
+            else if (levelId === 2) setupLevel2(container);
+            else if (levelId === 3) setupLevel3(container);
+
+            showScreen('screen-level-workspace');
+        }
+
+        // ==================== LEVEL 1: Radar Map Matcher (Partners & SDGs) ====================
+        function setupLevel1(container) {
+            level1SelectedProg = null;
+            
+            container.innerHTML = `
+                <div class="flex-1 flex flex-col justify-between">
+                    <div class="text-center mb-3 shrink-0">
+                        <h3 class="text-lg sm:text-xl font-black text-pink-600">任務一：國際夥伴與 SDGs 雙語雷達大配對</h3>
+                        <p class="text-xs sm:text-sm text-rose-700 mt-0.5 font-bold">點選左側「世界夥伴/永續 SDGs 計畫」，接著點選雷達圖上的「發光國家與指標節點」完成航線！</p>
+                    </div>
+
+                    <!-- Connection Map Container -->
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 flex-1 items-center relative min-h-[45vh]">
+                        
+                        <!-- Left list: Programs -->
+                        <div class="md:col-span-6 flex flex-col gap-3 z-10">
+                            ${level1Data.map(p => `
+                                <button id="l1-prog-${p.id}" onclick="selectL1Prog('${p.id}')"
+                                        class="p-4 bg-white/90 border-2 border-pink-200 hover:border-pink-500 rounded-2xl text-left text-sm sm:text-base text-rose-900 transition-all shadow-md active:scale-98 flex items-center justify-between group">
+                                    <span class="flex items-center gap-2.5">
+                                        <i class="fas fa-network-wired text-pink-500 group-hover:animate-pulse"></i>
+                                        <span class="font-bold">${p.label}</span>
+                                    </span>
+                                    <i class="fas fa-arrow-right text-xs text-pink-400 opacity-0 group-hover:opacity-100 transition-all"></i>
+                                </button>
+                            `).join('')}
+                        </div>
+
+                        <!-- Right list: Dopamine Radar Map with Coordinates -->
+                        <div class="md:col-span-6 relative h-[250px] sm:h-[300px] md:h-full min-h-[240px] bg-gradient-to-tr from-sky-200 to-pink-100 rounded-2xl border-2 border-pink-300 flex items-center justify-center overflow-hidden z-10 shadow-lg">
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(244,63,94,0.08)_1.5px,transparent_1.5px)] bg-[size:16px_16px] opacity-70"></div>
+                            <div class="absolute w-full h-[1px] bg-pink-500/10 top-1/2 left-0"></div>
+                            <div class="absolute h-full w-[1px] bg-pink-500/10 left-1/2 top-0"></div>
+                            
+                            <!-- SVG overlay line renderer -->
+                            <svg id="l1-svg-lines" class="absolute inset-0 w-full h-full pointer-events-none z-0"></svg>
+
+                            <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20">
+                                <i class="fas fa-globe text-[150px] text-pink-400"></i>
+                            </div>
+
+                            <div class="absolute bottom-2 left-3 font-mono text-[10px] text-pink-500 font-bold">RADAR ACTIVE: DOPAMINE MODE</div>
+                            <div class="absolute top-2 right-3 font-mono text-[10px] text-pink-500 font-bold">GRID: GMT+8</div>
+
+                            <!-- Country Node Placements -->
+                            <button id="l1-node-us-fairmont" onclick="selectL1Country('us-fairmont')" style="left: 30%; top: 30%;"
+                                    class="absolute w-10 h-10 rounded-full flex items-center justify-center z-10 bg-white border-2 border-pink-300 hover:border-pink-500 group transition-all shadow">
+                                <span class="radar-ring absolute h-full w-full rounded-full bg-pink-400 opacity-75"></span>
+                                <span class="text-base">🇺🇸</span>
+                            </button>
+                            <span class="absolute text-xs text-rose-700 font-black" style="left: 28%; top: 46%;">CALIFORNIA</span>
+
+                            <button id="l1-node-aus-sacei" onclick="selectL1Country('aus-sacei')" style="left: 75%; top: 66%;"
+                                    class="absolute w-10 h-10 rounded-full flex items-center justify-center z-10 bg-white border-2 border-pink-300 hover:border-pink-500 group transition-all shadow">
+                                <span class="radar-ring absolute h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                <span class="text-base">🇦🇺</span>
+                            </button>
+                            <span class="absolute text-xs text-rose-700 font-black" style="left: 71%; top: 82%;">ADELAIDE</span>
+
+                            <button id="l1-node-sweden-stockholm" onclick="selectL1Country('sweden-stockholm')" style="left: 55%; top: 22%;"
+                                    class="absolute w-10 h-10 rounded-full flex items-center justify-center z-10 bg-white border-2 border-pink-300 hover:border-pink-500 group transition-all shadow">
+                                <span class="radar-ring absolute h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                                <span class="text-base">🇸🇪</span>
+                            </button>
+                            <span class="absolute text-xs text-rose-700 font-black" style="left: 54%; top: 38%;">STOCKHOLM</span>
+
+                            <button id="l1-node-bilingual-sdgs" onclick="selectL1Country('bilingual-sdgs')" style="left: 45%; top: 48%;"
+                                    class="absolute w-10 h-10 rounded-full flex items-center justify-center z-10 bg-white border-2 border-pink-300 hover:border-pink-500 group transition-all shadow">
+                                <span class="radar-ring absolute h-full w-full rounded-full bg-violet-400 opacity-75"></span>
+                                <span class="text-base">🇺🇳</span>
+                            </button>
+                            <span class="absolute text-xs text-rose-700 font-black" style="left: 44%; top: 64%;">SDGs DEPT</span>
+                        </div>
+                    </div>
+
+                    <!-- Level HUD Feedback -->
+                    <div id="l1-hud" class="mt-4 p-3.5 rounded-2xl glass-panel-light text-center text-sm text-rose-700 font-black border-pink-200">
+                        ⚡ 系統就緒：請先點選左側「世界夥伴/永續 SDGs 計畫」。
+                    </div>
+                </div>
+            `;
+            setTimeout(redrawL1Lines, 100);
+        }
+
+        function selectL1Prog(id) {
+            level1Data.forEach(p => {
+                const el = document.getElementById(`l1-prog-${p.id}`);
+                if (el && !el.disabled) {
+                    el.className = el.className.replace('border-pink-50 bg-pink-50 text-pink-600', 'border-pink-200 text-rose-900');
+                }
+            });
+
+            level1SelectedProg = id;
+            const activeBtn = document.getElementById(`l1-prog-${id}`);
+            if (activeBtn) {
+                activeBtn.className = activeBtn.className.replace('border-pink-200 text-rose-900', 'border-pink-500 bg-pink-50 text-pink-600');
+            }
+
+            const hud = document.getElementById('l1-hud');
+            hud.innerText = `🎯 項目選定！請於雷達圖點選對應的「合作國別或聯合國永續 SDGs 指標圓點」。`;
+            hud.className = "mt-4 p-3.5 rounded-2xl glass-panel-light text-center text-sm border-pink-300 text-pink-600 font-black animate-pulse";
+        }
+
+        function selectL1Country(id) {
+            const hud = document.getElementById('l1-hud');
+            if (!level1SelectedProg) {
+                hud.innerText = `⚠️ 請先點選左側要媒合的「計畫項目」！`;
+                hud.className = "mt-4 p-3.5 rounded-2xl glass-panel-light text-center text-sm border-amber-300 text-amber-700 font-black";
+                return;
+            }
+
+            if (level1SelectedProg === id) {
+                const pBtn = document.getElementById(`l1-prog-${id}`);
+                const cBtn = document.getElementById(`l1-node-${id}`);
+                
+                pBtn.className = "p-4 bg-emerald-50 border-2 border-emerald-400 rounded-2xl text-left text-sm sm:text-base text-emerald-600 transition-all shadow flex items-center justify-between font-extrabold";
+                pBtn.disabled = true;
+                cBtn.className = "absolute w-10 h-10 rounded-full flex items-center justify-center z-10 bg-emerald-100 border-2 border-emerald-400 transition-all shadow-md";
+                cBtn.disabled = true;
+                
+                hud.innerText = `🎯 配對成功！中正高中開通世界永續網絡！合作無遠弗屆。`;
+                hud.className = "mt-4 p-3.5 rounded-2xl glass-panel-light text-center text-sm border-emerald-300 text-emerald-600 font-black";
+
+                drawL1SuccessLine(id);
+
+                level1SelectedProg = null;
+                checkL1Progress();
+            } else {
+                hud.innerText = `❌ 配對不合！該項特色不屬於該地區，請再次比對！`;
+                hud.className = "mt-4 p-3.5 rounded-2xl glass-panel-light text-center text-sm border-rose-300 text-rose-600 font-black";
+            }
+        }
+
+        function drawL1SuccessLine(id) {
+            const pBtn = document.getElementById(`l1-prog-${id}`);
+            const cBtn = document.getElementById(`l1-node-${id}`);
+            const svg = document.getElementById('l1-svg-lines');
+            if (!pBtn || !cBtn || !svg) return;
+
+            const pRect = pBtn.getBoundingClientRect();
+            const cRect = cBtn.getBoundingClientRect();
+            const svgRect = svg.getBoundingClientRect();
+
+            const startX = pRect.right - svgRect.left;
+            const startY = pRect.top + (pRect.height / 2) - svgRect.top;
+
+            const endX = cRect.left + (cRect.width / 2) - svgRect.left;
+            const endY = cRect.top + (cRect.height / 2) - svgRect.top;
+
+            const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            const controlX1 = startX + 50;
+            const controlY1 = startY;
+            const controlX2 = endX - 50;
+            const controlY2 = endY;
+
+            path.setAttribute("d", `M ${startX} ${startY} C ${controlX1} ${controlY1}, ${controlX2} ${controlY2}, ${endX} ${endY}`);
+            path.setAttribute("stroke", "#10b981");
+            path.setAttribute("stroke-width", "4");
+            path.setAttribute("fill", "none");
+            path.setAttribute("stroke-dasharray", "8, 4");
+            path.setAttribute("class", "animate-[pulse_1s_infinite]");
+            
+            svg.appendChild(path);
+        }
+
+        function redrawL1Lines() {
+            const svg = document.getElementById('l1-svg-lines');
+            if (!svg) return;
+            svg.innerHTML = '';
+            level1Data.forEach(p => {
+                const btn = document.getElementById(`l1-prog-${p.id}`);
+                if (btn && btn.disabled) {
+                    drawL1SuccessLine(p.id);
+                }
+            });
+        }
+
+        function checkL1Progress() {
+            const unfinished = level1Data.some(p => {
+                const btn = document.getElementById(`l1-prog-${p.id}`);
+                return btn && !btn.disabled;
+            });
+            if (!unfinished) {
+                setTimeout(() => {
+                    completedLevels[1] = true;
+                    showSuccessTransition("恭喜！中正特務順利開通世界與 SDGs 四大合作航線。不出國也能修習世界一流與永續雙語課程！");
+                }, 1000);
+            }
+        }
+
+
+        // ==================== LEVEL 2: Conversation Live Room ====================
+        function setupLevel2(container) {
+            level2Step = 0;
+            renderLevel2Chat(container);
+        }
+
+        function renderLevel2Chat(container) {
+            const q = level2Questions[level2Step];
+            container.innerHTML = `
+                <div class="flex-1 flex flex-col justify-between h-full">
+                    <div class="text-center mb-2 shrink-0">
+                        <h3 class="text-lg sm:text-xl font-black text-rose-500">任務二：English Corner 即時對話室</h3>
+                        <p class="text-xs sm:text-sm text-rose-700 mt-0.5 font-bold">請與中正高中的外師(Native Teacher)對話。選對最佳答案，才能完成對話挑戰！</p>
+                    </div>
+
+                    <!-- Messenger Chat Screen -->
+                    <div class="flex-1 max-w-xl mx-auto w-full bg-white border-2 border-pink-200 rounded-3xl flex flex-col overflow-hidden min-h-[220px] shadow-xl">
+                        
+                        <!-- Messenger header -->
+                        <div class="bg-pink-50/80 px-4 py-3.5 border-b border-pink-100 flex items-center justify-between shrink-0">
+                            <div class="flex items-center gap-3">
+                                <div class="relative">
+                                    <span class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-400 border-2 border-white rounded-full animate-pulse"></span>
+                                    <div class="w-12 h-12 rounded-full bg-rose-100 border border-rose-200 flex items-center justify-center text-2xl">
+                                        👩‍🏫
+                                    </div>
+                                </div>
+                                <div class="text-left">
+                                    <h4 class="text-sm sm:text-base font-extrabold text-rose-900">Teacher Sarah</h4>
+                                    <span class="text-[10px] text-emerald-500 font-bold tracking-wider">ACTIVE NOW / ZZSH COACH</span>
+                                </div>
+                            </div>
+                            <i class="fas fa-video text-rose-400 text-base hover:text-rose-600 cursor-pointer pr-2"></i>
+                        </div>
+
+                        <!-- Dialogue bubble body -->
+                        <div class="flex-1 p-4 overflow-y-auto flex flex-col gap-4 bg-rose-50/20 no-scrollbar">
+                            <div class="text-center">
+                                <span class="bg-white text-rose-400 text-xs font-bold px-3 py-1 rounded-full border border-pink-100 shadow-sm">WEEKLY FRIDAY SESSION</span>
+                            </div>
+
+                            <!-- Native Teacher's Bubble -->
+                            <div class="flex items-end gap-2 text-left self-start max-w-[85%] slide-in">
+                                <div class="w-8 h-8 rounded-full bg-rose-100 border border-rose-200 flex items-center justify-center text-sm shrink-0 shadow-sm">👩‍🏫</div>
+                                <div class="bg-white text-rose-850 text-sm sm:text-base p-4 rounded-2xl rounded-bl-none border-2 border-pink-100 shadow-sm font-bold italic leading-relaxed">
+                                    "${q.dialogue}"
+                                </div>
+                            </div>
+
+                            <!-- Optional typing indicator -->
+                            <div id="typing-indicator" class="hidden flex items-center gap-1.5 self-start bg-white border border-pink-150 p-2.5 px-4 rounded-full text-xs text-pink-500 shadow-sm">
+                                <span class="w-2 h-2 rounded-full bg-pink-400 animate-bounce"></span>
+                                <span class="w-2 h-2 rounded-full bg-pink-400 animate-bounce delay-150"></span>
+                                <span class="w-2 h-2 rounded-full bg-pink-400 animate-bounce delay-300"></span>
+                            </div>
+                        </div>
+
+                        <!-- User Options Input Pad -->
+                        <div class="p-4 bg-pink-50/50 border-t border-pink-100 shrink-0">
+                            <span class="text-xs text-pink-600 font-black block mb-2.5 text-left uppercase tracking-wider">🗣&nbsp;請選取合適的回覆內容：</span>
+                            <div class="flex flex-col gap-2.5">
+                                ${q.options.map((opt, oIdx) => `
+                                    <button onclick="selectLevel2Option(${opt.isCorrect}, ${oIdx}, '${opt.feedback.replace(/'/g, "\\'")}')" 
+                                            id="l2-opt-${oIdx}"
+                                            class="w-full p-4 bg-white hover:bg-pink-100/40 border-2 border-pink-100 hover:border-pink-300 rounded-2xl text-left text-sm sm:text-base text-rose-900 transition-all flex items-center gap-3 active:scale-98 shadow-sm">
+                                        <span class="w-7 h-7 rounded-full bg-pink-100 border border-pink-200 flex items-center justify-center text-sm text-pink-600 font-black shrink-0">${String.fromCharCode(65 + oIdx)}</span>
+                                        <span class="font-bold">${opt.text}</span>
+                                    </button>
+                                `).join('')}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div id="l2-hud" class="mt-3 p-3.5 rounded-2xl glass-panel-light text-center text-sm border-pink-200 text-rose-600 font-black">
+                        進度提示：第 ${level2Step + 1} / 3 題對話挑戰中
+                    </div>
+                </div>
+            `;
+        }
+
+        function selectLevel2Option(isCorrect, optIdx, feedback) {
+            const btn = document.getElementById(`l2-opt-${optIdx}`);
+            const hud = document.getElementById('l2-hud');
+
+            if (isCorrect) {
+                btn.className = "w-full p-4 bg-emerald-50 border-2 border-emerald-400 rounded-2xl text-left text-sm sm:text-base text-emerald-600 transition-all flex items-center gap-3 font-extrabold shadow-md";
+                hud.innerText = "🎯 " + feedback;
+                hud.className = "mt-3 p-3 rounded-2xl glass-panel-light text-center text-sm border-emerald-300 text-emerald-600 font-black animate-pulse";
+
+                setTimeout(() => {
+                    const indicator = document.getElementById('typing-indicator');
+                    if (indicator) indicator.classList.remove('hidden');
+                }, 400);
+
+                setTimeout(() => {
+                    level2Step++;
+                    if (level2Step < level2Questions.length) {
+                        renderLevel2Chat(document.getElementById('level-container'));
+                    } else {
+                        completedLevels[2] = true;
+                        showSuccessTransition("恭喜！你成功掌握中正英語角口說秘笈。每週五 12:05 歡迎主動前來情境教室，外師等著與你一對一熱烈開口聊！");
+                    }
+                }, 1800);
+            } else {
+                btn.className = "w-full p-4 bg-rose-50 border-2 border-rose-300 rounded-2xl text-left text-sm sm:text-base text-rose-600 transition-all flex items-center gap-3 font-extrabold shadow-md";
+                hud.innerText = "❌ " + feedback;
+                hud.className = "mt-3 p-3 rounded-2xl glass-panel-light text-center text-sm border-rose-300 text-rose-600 font-black";
+                
+                setTimeout(() => {
+                    btn.className = "w-full p-4 bg-white hover:bg-pink-100/40 border-2 border-pink-100 hover:border-pink-300 rounded-2xl text-left text-sm sm:text-base text-rose-900 transition-all flex items-center gap-3 active:scale-98 shadow-sm";
+                }, 1500);
+            }
+        }
+
+
+        // ==================== LEVEL 3: Multicultural Connection ====================
+        function setupL3SelectedData() {
+            level4SelectedLeft = null;
+            level4SelectedRight = null;
+            level4MatchedPairs = [];
+        }
+
+        function setupLevel3(container) {
+            setupL3SelectedData();
+
+            const shuffledLeft = [...level4Left].sort(() => Math.random() - 0.5);
+            const shuffledRight = [...level4Right].sort(() => Math.random() - 0.5);
+
+            container.innerHTML = `
+                <div class="flex-1 flex flex-col justify-between relative h-full">
+                    <div class="text-center mb-3 shrink-0">
+                        <h3 class="text-lg sm:text-xl font-black text-violet-600">任務三：國際校慶多元文化大連線</h3>
+                        <p class="text-xs sm:text-sm text-rose-700 mt-0.5 font-bold">點擊左側「大學設攤單位」，再點擊右側「對應國旗代表」即時牽起雷達雷射連線！</p>
+                    </div>
+
+                    <svg id="l4-svg-lines" class="absolute inset-0 w-full h-full pointer-events-none z-0"></svg>
+
+                    <!-- Matching Columns -->
+                    <div class="grid grid-cols-2 gap-4 my-auto relative z-10 p-1 min-h-[38vh]">
+                        
+                        <!-- Left Columns (Stalls) -->
+                        <div class="flex flex-col gap-3">
+                            <span class="text-rose-500 text-xs sm:text-sm font-black uppercase text-center mb-1"><i class="fas fa-store-alt text-violet-400 mr-1.5"></i>校慶設攤單位</span>
+                            ${shuffledLeft.map(p => `
+                                <button id="l4-p-${p.id}" onclick="selectL4Item('left', '${p.id}')"
+                                        class="p-4 bg-white/95 hover:bg-pink-50 border-2 border-pink-200 hover:border-violet-300 rounded-2xl text-left text-sm sm:text-base font-extrabold text-rose-900 transition-all flex items-center justify-between active:scale-98 shadow-sm">
+                                    <span>${p.label}</span>
+                                    <i class="fas fa-circle-notch text-[10px] text-violet-300"></i>
+                                </button>
+                            `).join('')}
+                        </div>
+
+                        <!-- Right Columns (Countries) -->
+                        <div class="flex flex-col gap-3">
+                            <span class="text-rose-500 text-xs sm:text-sm font-black uppercase text-center mb-1"><i class="fas fa-globe-asia text-violet-400 mr-1.5"></i>對應國別代表</span>
+                            ${shuffledRight.map(f => `
+                                <button id="l4-f-${f.id}" onclick="selectL4Item('right', '${f.id}')"
+                                        class="p-4 bg-white/95 hover:bg-pink-50 border-2 border-pink-200 hover:border-violet-300 rounded-2xl text-left text-sm sm:text-base font-extrabold text-rose-900 transition-all flex items-center justify-between active:scale-98 shadow-sm">
+                                    <span>${f.label}</span>
+                                    <i class="fas fa-circle-notch text-[10px] text-violet-300"></i>
+                                </button>
+                            `).join('')}
+                        </div>
+
+                    </div>
+
+                    <div id="l4-hud" class="mt-4 p-3.5 rounded-2xl glass-panel-light text-center text-sm border-pink-200 text-rose-700 font-extrabold z-10 shrink-0">
+                        ⚡ 系統連線就緒：請隨意點選左側或右側一個項目展開闖關。
+                    </div>
+                </div>
+            `;
+            setTimeout(redrawL4Lines, 100);
+        }
+
+        function selectL4Item(side, id) {
+            const hud = document.getElementById('l4-hud');
+
+            if (side === 'left') {
+                const btn = document.getElementById(`l4-p-${id}`);
+                if (btn.disabled) return;
+
+                if (level4SelectedLeft) {
+                    document.getElementById(`l4-p-${level4SelectedLeft}`).className = "p-4 bg-white/95 hover:bg-pink-50 border-2 border-pink-200 hover:border-violet-300 rounded-2xl text-left text-sm sm:text-base font-extrabold text-rose-900 transition-all flex items-center justify-between shadow-sm";
+                }
+                level4SelectedLeft = id;
+                btn.className = "p-4 bg-pink-50 border-2 border-violet-400 text-violet-700 rounded-2xl text-left text-sm sm:text-base font-black transition-all flex items-center justify-between shadow-md";
+            } else {
+                const btn = document.getElementById(`l4-f-${id}`);
+                if (btn.disabled) return;
+
+                if (level4SelectedRight) {
+                    document.getElementById(`l4-f-${level4SelectedRight}`).className = "p-4 bg-white/95 hover:bg-pink-50 border-2 border-pink-200 hover:border-violet-300 rounded-2xl text-left text-sm sm:text-base font-extrabold text-rose-900 transition-all flex items-center justify-between shadow-sm";
+                }
+                level4SelectedRight = id;
+                btn.className = "p-4 bg-pink-50 border-2 border-violet-400 text-violet-700 rounded-2xl text-left text-sm sm:text-base font-black transition-all flex items-center justify-between shadow-md";
+            }
+
+            if (level4SelectedLeft && level4SelectedRight) {
+                const lBtn = document.getElementById(`l4-p-${level4SelectedLeft}`);
+                const rBtn = document.getElementById(`l4-f-${level4SelectedRight}`);
+
+                if (level4SelectedLeft === level4SelectedRight.replace('r_', 'l_')) {
+                    lBtn.className = "p-4 bg-emerald-50 border-2 border-emerald-300 text-emerald-600 rounded-2xl text-left text-sm sm:text-base font-black transition-all flex items-center justify-between shadow";
+                    lBtn.disabled = true;
+                    rBtn.className = "p-4 bg-emerald-50 border-2 border-emerald-300 text-emerald-600 rounded-2xl text-left text-sm sm:text-base font-black transition-all flex items-center justify-between shadow";
+                    rBtn.disabled = true;
+
+                    lBtn.querySelector('i').className = "fas fa-check-circle text-emerald-500 text-sm";
+                    rBtn.querySelector('i').className = "fas fa-check-circle text-emerald-500 text-sm";
+
+                    hud.innerText = `🎯 成功牽線！為中正高中校慶多元文化祭典增添精彩深度航線！`;
+                    hud.className = "mt-4 p-3.5 rounded-2xl glass-panel-light text-center text-sm border-emerald-300 text-emerald-600 font-extrabold";
+
+                    level4MatchedPairs.push({ left: level4SelectedLeft, right: level4SelectedRight });
+                    drawL4SuccessLine(level4SelectedLeft, level4SelectedRight);
+
+                    level4SelectedLeft = null;
+                    level4SelectedRight = null;
+                    checkL4Progress();
+                } else {
+                    lBtn.className += " border-rose-300";
+                    rBtn.className += " border-rose-300";
+                    hud.innerText = `❌ 航向不配！該攤位專屬計畫與此國別代表不符，請再次比對！`;
+                    hud.className = "mt-4 p-3.5 rounded-2xl glass-panel-light text-center text-sm border-rose-300 text-rose-600 font-extrabold";
+
+                    setTimeout(() => {
+                        lBtn.className = "p-4 bg-white/95 hover:bg-pink-50 border-2 border-pink-200 hover:border-violet-300 rounded-2xl text-left text-sm sm:text-base font-extrabold text-rose-900 transition-all flex items-center justify-between shadow-sm";
+                        rBtn.className = "p-4 bg-white/95 hover:bg-pink-50 border-2 border-pink-200 hover:border-violet-300 rounded-2xl text-left text-sm sm:text-base font-extrabold text-rose-900 transition-all flex items-center justify-between shadow-sm";
+                    }, 800);
+
+                    level4SelectedLeft = null;
+                    level4SelectedRight = null;
+                }
+            }
+        }
+
+        function drawL4SuccessLine(leftId, rightId) {
+            const lBtn = document.getElementById(`l4-p-${leftId}`);
+            const rBtn = document.getElementById(`l4-f-${rightId}`);
+            const svg = document.getElementById('l4-svg-lines');
+            if (!lBtn || !rBtn || !svg) return;
+
+            const lRect = lBtn.getBoundingClientRect();
+            const rRect = rBtn.getBoundingClientRect();
+            const svgRect = svg.getBoundingClientRect();
+
+            const startX = lRect.right - svgRect.left;
+            const startY = lRect.top + (lRect.height / 2) - svgRect.top;
+            const endX = rRect.left - svgRect.left;
+            const endY = rRect.top + (rRect.height / 2) - svgRect.top;
+
+            const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+            const controlX1 = startX + 60;
+            const controlY1 = startY;
+            const controlX2 = endX - 60;
+            const controlY2 = endY;
+
+            path.setAttribute("d", `M ${startX} ${startY} C ${controlX1} ${controlY1}, ${controlX2} ${controlY2}, ${endX} ${endY}`);
+            path.setAttribute("stroke", "#10b981");
+            path.setAttribute("stroke-width", "4");
+            path.setAttribute("fill", "none");
+            path.setAttribute("stroke-dasharray", "10, 5");
+            path.setAttribute("class", "animate-[pulse_1s_infinite]");
+
+            svg.appendChild(path);
+        }
+
+        function redrawL4Lines() {
+            const svg = document.getElementById('l4-svg-lines');
+            if (!svg) return;
+            svg.innerHTML = '';
+            level4MatchedPairs.forEach(pair => {
+                drawL4SuccessLine(pair.left, pair.right);
+            });
+        }
+
+        function redrawSVGConnections() {
+            redrawL1Lines();
+            redrawL4Lines();
+        }
+
+        function checkL4Progress() {
+            if (level4MatchedPairs.length === 4) {
+                setTimeout(() => {
+                    completedLevels[3] = true;
+                    showSuccessTransition("恭喜！中正校慶多元文化大探索全數連線通關！置身中正，世界多元學習大門就在你眼前！");
+                }, 1000);
+            }
+        }
+
+        function showSuccessTransition(msgText) {
+            const container = document.getElementById('level-container');
+            container.innerHTML = `
+                <div class="flex-1 flex flex-col justify-center items-center text-center p-6 bg-white border-2 border-pink-200 rounded-3xl max-w-lg mx-auto w-full my-auto shadow-xl slide-in">
+                    <div class="w-20 h-20 rounded-full bg-pink-100 border-2 border-pink-300 flex items-center justify-center text-4xl mb-4 animate-bounce">
+                        🎉
+                    </div>
+                    <h3 class="text-2xl font-black text-pink-600">特務考驗通過！</h3>
+                    <p class="text-sm sm:text-base text-rose-800 mt-4 font-bold leading-relaxed">${msgText}</p>
+                    <button onclick="backToDashboard()" class="mt-6 w-full bg-gradient-to-r from-pink-500 to-amber-500 hover:from-pink-400 hover:to-amber-400 text-white font-extrabold py-3.5 px-6 rounded-2xl text-sm sm:text-base shadow-md transition-transform active:scale-95 flex items-center justify-center gap-1.5">
+                        <span>返回特務控制台</span> <i class="fas fa-chevron-right text-xs"></i>
+                    </button>
+                </div>
+            `;
+        }
+
+        // ==================== Victory Confetti ====================
+        function triggerVictory() {
+            showScreen('screen-victory');
+            startVictoryConfetti();
+        }
+
+        function startVictoryConfetti() {
+            const canvas = document.getElementById('victory-canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = canvas.parentElement.clientHeight;
+
+            const colors = ['#ff6b8b', '#ffb6b9', '#ffd3b6', '#a8e6cf', '#ff8b94', '#dcedc1', '#a8d8ea'];
+            const confettiCount = 120;
+            const pieces = [];
+
+            for (let i = 0; i < confettiCount; i++) {
+                pieces.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height - canvas.height,
+                    size: Math.random() * 12 + 6,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    speed: Math.random() * 3.5 + 2,
+                    rotation: Math.random() * 360,
+                    rotationSpeed: Math.random() * 6 - 3,
+                    shape: Math.random() > 0.5 ? 'circle' : 'square'
+                });
+            }
+
+            function animateConfetti() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                pieces.forEach(p => {
+                    p.y += p.speed;
+                    p.rotation += p.rotationSpeed;
+                    if (p.y > canvas.height) {
+                        p.y = -20;
+                        p.x = Math.random() * canvas.width;
+                    }
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate(p.rotation * Math.PI / 180);
+                    ctx.fillStyle = p.color;
+                    if (p.shape === 'circle') {
+                        ctx.beginPath();
+                        ctx.arc(0, 0, p.size / 2, 0, Math.PI * 2);
+                        ctx.fill();
+                    } else {
+                        ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size);
+                    }
+                    ctx.restore();
+                });
+                if (document.getElementById('screen-victory').classList.contains('opacity-100')) {
+                    requestAnimationFrame(animateConfetti);
+                }
+            }
+            animateConfetti();
+        }
+
+        function resetGame() {
+            completedLevels = { 1: false, 2: false, 3: false };
+            document.getElementById('player-name-input').value = '';
+            document.getElementById('name-error-msg').classList.add('hidden');
+            for (let i = 1; i <= 3; i++) {
+                document.getElementById(`badge-level-${i}`).innerHTML = `<i class="fas fa-circle-notch text-[10px] text-pink-500 animate-spin"></i> 待解鎖`;
+                document.getElementById(`card-level-${i}`).className = "glass-panel rounded-2xl p-4 flex flex-col justify-between hover:border-pink-400 transition-all cursor-pointer group hover:shadow-lg hover:-translate-y-0.5";
+            }
+            returnToCarousel();
+        }
+    </script>
+</body>
+</html>
