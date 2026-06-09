@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>中正高中 國際外交官挑戰</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons for Beautiful Graphics -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter & Noto Sans TC -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+TC:wght@400;700;950&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            user-select: none;
+            -webkit-user-select: none;
+            overflow: hidden;
+            font-size: 16px; /* Optimized base size to prevent vertical compression on 16:9 viewports */
+        }
+        @media (min-width: 1024px) {
+            body { font-size: 17px; }
+        }
+        /* Custom scrollbar for game containers */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.3);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(99, 102, 241, 0.4);
+            border-radius: 4px;
+        }
+        /* Glassmorphism utility */
+        .glass {
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+        }
+        /* Neon Glow buttons */
+        .glow-button {
+            box-shadow: 0 0 25px rgba(99, 102, 241, 0.7);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glow-button:hover {
+            box-shadow: 0 0 40px rgba(168, 85, 247, 0.95);
+            transform: scale(1.03);
+        }
+        /* Custom Touch Card active effect */
+        .touch-btn {
+            background: rgba(30, 41, 59, 0.95);
+            border: 2px solid rgba(148, 163, 184, 0.2);
+            box-shadow: 0 8px 12px -2px rgba(0, 0, 0, 0.5);
+            transition: all 0.1s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .touch-btn:active {
+            transform: scale(0.95);
+            background: rgb(99, 102, 241);
+            border-color: rgb(168, 85, 247);
+        }
+        /* Pulse Indicator */
+        .step-active {
+            background: linear-gradient(135deg, #6366f1, #a855f7);
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.8);
+            animation: pulse-glow 2s infinite;
+        }
+        @keyframes pulse-glow {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 15px rgba(168, 85, 247, 0.7); }
+            50% { transform: scale(1.05); box-shadow: 0 0 25px rgba(168, 85, 247, 0.95); }
+        }
+        /* Dynamic Carousel Progress Bar */
+        .carousel-progress {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(to right, #6366f1, #a855f7);
+            transition: width 3500ms linear;
+        }
+        /* Animated Floating Assets */
+        .float-fast {
+            animation: float 2.5s ease-in-out infinite;
+        }
+        .float-slow {
+            animation: float 5s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+        }
+        /* Luggage visual styles */
+        .luggage-box {
+            transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .luggage-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px -5px rgba(99, 102, 241, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 h-full w-full flex items-center justify-center p-2 sm:p-4">
+
+    <!-- iPad Outer Frame Simulation (stays perfectly centered, 16:9 Aspect Ratio Optimized) -->
+    <div class="relative w-full max-w-6xl h-full max-h-[660px] aspect-[16/9] bg-slate-900 rounded-3xl border-8 border-slate-800 shadow-2xl overflow-hidden flex flex-col justify-between">
+        
+        <!-- TOP LOGO BANNER (STAYS ON TOP THROUGHOUT THE GAME) -->
+        <div class="h-14 bg-slate-950 px-6 flex items-center justify-between select-none z-50 border-b border-indigo-950 shadow-md shrink-0">
+            <span class="font-black tracking-wider flex items-center gap-2.5 text-yellow-400 text-sm sm:text-base md:text-lg">
+                <i class="fa-solid fa-medal text-amber-400 animate-bounce text-xl"></i>
+                臺北市立中正高中 - 國際學校獎(卓越級)
+            </span>
+            <div class="flex items-center gap-4">
+                <span id="game-timer-display" class="hidden text-amber-400 font-extrabold bg-amber-950/40 px-3 py-1 rounded border border-amber-500/20 text-xs sm:text-sm"><i class="fa-solid fa-hourglass-half mr-1.5 animate-pulse"></i>剩餘時間: 3:00</span>
+                <span class="text-slate-400 text-xs sm:text-sm"><i class="fa-solid fa-wifi mr-1.5"></i>5G <i class="fa-solid fa-battery-full ml-1.5"></i></span>
+            </div>
+        </div>
+
+        <!-- MAIN CONTAINER -->
+        <div class="relative flex-1 w-full overflow-hidden flex flex-col justify-between">
+            
+            <!-- STAGE 1: Carousel & Welcome Touch Cover -->
+            <div id="screen-intro" class="absolute inset-0 z-40 flex flex-col justify-between bg-gradient-to-b from-slate-950 via-slate-900 to-indigo-950 p-4 sm:p-6 transition-all duration-700 ease-in-out">
+                
+                <!-- Title Header -->
+                <div class="text-center">
+                    <span class="bg-indigo-900/60 text-indigo-200 text-xs sm:text-sm font-bold px-4 py-1.5 rounded-full border border-indigo-500/30">
+                        臺北市立中正高級中學 • 國際領航特展
+                    </span>
+                    <h1 class="text-2xl sm:text-3xl md:text-4xl font-black tracking-wider text-white mt-2 flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-earth-americas text-indigo-400 animate-spin-slow"></i> 開拓視界，航向未來！
+                    </h1>
+                </div>
+
+                <!-- Carousel Container -->
+                <div class="relative my-2 flex-1 flex items-center justify-center overflow-hidden rounded-2xl border border-slate-800 bg-slate-950/40 p-4">
+                    
+                    <!-- Slide 1: USA Cleveland High School Postcard -->
+                    <div class="carousel-slide absolute inset-0 flex flex-col md:flex-row gap-6 items-center justify-center px-8 transition-all duration-500 transform opacity-100 scale-100">
+                        <!-- Left Side: Hand-crafted SVG Tech & Science Discovery -->
+                        <div class="w-full md:w-3/5 h-44 sm:h-56 md:h-64 rounded-2xl overflow-hidden relative shadow-2xl border border-blue-500/30 bg-gradient-to-br from-blue-950 via-slate-900 to-slate-950 p-5 flex flex-col justify-between">
+                            <div class="absolute inset-0 opacity-10 flex items-center justify-center pointer-events-none">
+                                <i class="fa-solid fa-plane-departure text-[180px] text-blue-400"></i>
+                            </div>
+                            <div class="flex items-center justify-between z-10">
+                                <span class="bg-blue-600/90 text-white text-xs sm:text-sm font-black px-4 py-1.5 rounded-full"><i class="fa-solid fa-flag-usa mr-1.5"></i>美國波特蘭</span>
+                                <span class="text-xs sm:text-sm text-slate-500 font-mono">ZZSH x Cleveland</span>
+                            </div>
+                            <!-- Visual Landmark SVG representation -->
+                            <div class="my-auto flex items-center gap-5 z-10">
+                                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-blue-500/10 flex items-center justify-center border border-blue-500/30 shrink-0 float-fast">
+                                    <svg class="w-14 h-14 text-blue-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M20 54h24M24 10h16M28 10v16M36 10v16M16 46l8-20h16l8 20c2 4-1 8-5 8H21c-4 0-7-4-5-8z" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div class="text-left">
+                                    <h3 class="text-xl sm:text-2xl md:text-3xl font-black text-white">美西科技自主壯遊</h3>
+                                    <p class="text-sm sm:text-base text-blue-300 mt-1.5">融入美式課堂 ➔ 全英語溝通 ➔ 蘋果總部與科學院參訪</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-2.5 z-10">
+                                <span class="text-xs bg-slate-800 px-3 py-1.5 rounded-md text-slate-300 font-bold">🏠 寄宿家庭</span>
+                                <span class="text-xs bg-slate-800 px-3 py-1.5 rounded-md text-slate-300 font-bold">💻 科技重鎮</span>
+                                <span class="text-xs bg-slate-800 px-3 py-1.5 rounded-md text-slate-300 font-bold">💬 美式課堂</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Right Side: Highly Visual Card Features -->
+                        <div class="w-full md:w-2/5 grid grid-cols-3 md:grid-cols-1 gap-3 text-left">
+                            <div class="bg-blue-950/20 p-3.5 rounded-xl border border-blue-900/30 flex items-center gap-3">
+                                <span class="text-3xl sm:text-4xl">🏠</span>
+                                <div>
+                                    <h4 class="text-xs sm:text-sm font-bold text-blue-400">寄宿家庭沉浸</h4>
+                                    <p class="text-[11px] text-slate-400 hidden md:block mt-0.5">體驗最道地的美式生活文化與全英實戰</p>
+                                </div>
+                            </div>
+                            <div class="bg-blue-950/20 p-3.5 rounded-xl border border-blue-900/30 flex items-center gap-3">
+                                <span class="text-3xl sm:text-4xl">💻</span>
+                                <div>
+                                    <h4 class="text-xs sm:text-sm font-bold text-blue-400">蘋果與科學院巡禮</h4>
+                                    <p class="text-[11px] text-slate-400 hidden md:block mt-0.5">參訪 Apple 總部與加州科學院，啟發科技與科學思維</p>
+                                </div>
+                            </div>
+                            <div class="bg-blue-950/20 p-3.5 rounded-xl border border-blue-900/30 flex items-center gap-3">
+                                <span class="text-3xl sm:text-4xl">💬</span>
+                                <div>
+                                    <h4 class="text-xs sm:text-sm font-bold text-blue-400">中美學伴協作</h4>
+                                    <p class="text-[11px] text-slate-400 hidden md:block mt-0.5">參與課堂發表，共同討論科學及科技議題</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2: France Lycée Beaulieu Postcard -->
+                    <div class="carousel-slide absolute inset-0 flex flex-col md:flex-row gap-6 items-center justify-center px-8 transition-all duration-500 transform opacity-0 scale-95 pointer-events-none">
+                        <!-- Left Side: Eiffel Tower SVG -->
+                        <div class="w-full md:w-3/5 h-44 sm:h-56 md:h-64 rounded-2xl overflow-hidden relative shadow-2xl border border-purple-500/30 bg-gradient-to-br from-purple-950 via-slate-900 to-slate-950 p-5 flex flex-col justify-between">
+                            <div class="absolute inset-0 opacity-10 flex items-center justify-center pointer-events-none">
+                                <i class="fa-solid fa-palette text-[180px] text-purple-400"></i>
+                            </div>
+                            <div class="flex items-center justify-between z-10">
+                                <span class="bg-purple-600/90 text-white text-xs sm:text-sm font-black px-4 py-1.5 rounded-full"><i class="fa-solid fa-landmark-flag mr-1.5"></i>法國雙邊接待</span>
+                                <span class="text-xs sm:text-sm text-slate-500 font-mono">ZZSH x Beaulieu</span>
+                            </div>
+                            <div class="my-auto flex items-center gap-5 z-10">
+                                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-purple-500/10 flex items-center justify-center border border-purple-500/30 shrink-0 float-slow">
+                                    <svg class="w-14 h-14 text-purple-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M32 4v54M28 20h8M24 38h16M14 58c6-20 12-40 18-50 6 10 12 30 18 50M18 58a14 14 0 0 1 28 0" stroke-linecap="round"/>
+                                    </svg>
+                                </div>
+                                <div class="text-left">
+                                    <h3 class="text-xl sm:text-2xl md:text-3xl font-black text-white">歐洲藝術飲食共創</h3>
+                                    <p class="text-sm sm:text-base text-purple-300 mt-1.5">接待外賓導覽 ➔ 文化交流實踐 ➔ 締結跨歐亞友誼</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-2.5 z-10">
+                                <span class="text-xs bg-slate-800 px-3 py-1.5 rounded-md text-slate-300 font-bold">🥐 北投導覽</span>
+                                <span class="text-xs bg-slate-800 px-3 py-1.5 rounded-md text-slate-300 font-bold">🎨 藝術共繪</span>
+                                <span class="text-xs bg-slate-800 px-3 py-1.5 rounded-md text-slate-300 font-bold">🍷 飲食外交</span>
+                            </div>
+                        </div>
+                        
+                        <div class="w-full md:w-2/5 grid grid-cols-3 md:grid-cols-1 gap-3 text-left">
+                            <div class="bg-purple-950/20 p-3.5 rounded-xl border border-purple-900/30 flex items-center gap-3">
+                                <span class="text-3xl sm:text-4xl">🥐</span>
+                                <div>
+                                    <h4 class="text-xs sm:text-sm font-bold text-purple-400">在地英文導覽</h4>
+                                    <p class="text-[11px] text-slate-400 hidden md:block mt-0.5">帶法國學伴走讀北投溫泉地熱谷，發揚在地文化</p>
+                                </div>
+                            </div>
+                            <div class="bg-purple-950/20 p-3.5 rounded-xl border border-purple-900/30 flex items-center gap-3">
+                                <span class="text-3xl sm:text-4xl">🎨</span>
+                                <div>
+                                    <h4 class="text-xs sm:text-sm font-bold text-purple-400">雙邊藝術共創</h4>
+                                    <p class="text-[11px] text-slate-400 hidden md:block mt-0.5">兩國學伴協力繪畫共創作與進行美食交流</p>
+                                </div>
+                            </div>
+                            <div class="bg-purple-950/20 p-3.5 rounded-xl border border-purple-900/30 flex items-center gap-3">
+                                <span class="text-3xl sm:text-4xl">🇫🇷</span>
+                                <div>
+                                    <h4 class="text-xs sm:text-sm font-bold text-purple-400">雙向出訪接待</h4>
+                                    <p class="text-[11px] text-slate-400 hidden md:block mt-0.5">藉由接待法國外賓與後續出訪，昇華交流內涵</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3: Japan Ueda High School Postcard -->
+                    <div class="carousel-slide absolute inset-0 flex flex-col md:flex-row gap-6 items-center justify-center px-8 transition-all duration-500 transform opacity-0 scale-95 pointer-events-none">
+                        <!-- Left Side: Mount Fuji and Torii Gate SVG -->
+                        <div class="w-full md:w-3/5 h-44 sm:h-56 md:h-64 rounded-2xl overflow-hidden relative shadow-2xl border border-red-500/30 bg-gradient-to-br from-red-950 via-slate-900 to-slate-950 p-5 flex flex-col justify-between">
+                            <div class="absolute inset-0 opacity-10 flex items-center justify-center pointer-events-none">
+                                <i class="fa-solid fa-atom text-[180px] text-rose-400"></i>
+                            </div>
+                            <div class="flex items-center justify-between z-10">
+                                <span class="bg-red-600/90 text-white text-xs sm:text-sm font-black px-4 py-1.5 rounded-full"><i class="fa-solid fa-torii-gate mr-1.5"></i>日本超級科學高校</span>
+                                <span class="text-xs sm:text-sm text-slate-500 font-mono">ZZSH x Ueda</span>
+                            </div>
+                            <div class="my-auto flex items-center gap-5 z-10">
+                                <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-red-500/10 flex items-center justify-center border border-red-500/30 shrink-0 float-fast">
+                                    <svg class="w-14 h-14 text-rose-400" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 18h40M18 18v34M46 18v34M10 26h44" stroke-linecap="round"/>
+                                        <path d="M20 18c12-8 12-8 24 0M16 10h32" stroke-linecap="round"/>
+                                    </svg>
+                                </div>
+                                <div class="text-left">
+                                    <h3 class="text-xl sm:text-2xl md:text-3xl font-black text-white">學術發表與永續思考</h3>
+                                    <p class="text-sm sm:text-base text-rose-300 mt-1.5">SSH科學全英文發表 ➔ 探討永續議題 ➔ 長野文化體驗</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-2.5 z-10">
+                                <span class="text-xs bg-slate-800 px-3 py-1.5 rounded-md text-slate-300 font-bold">🧪 科學發表</span>
+                                <span class="text-xs bg-slate-800 px-3 py-1.5 rounded-md text-slate-300 font-bold">🌏 SDGs探討</span>
+                                <span class="text-xs bg-slate-800 px-3 py-1.5 rounded-md text-slate-300 font-bold">長野傳統</span>
+                            </div>
+                        </div>
+                        
+                        <div class="w-full md:w-2/5 grid grid-cols-3 md:grid-cols-1 gap-3 text-left">
+                            <div class="bg-red-950/20 p-3.5 rounded-xl border border-red-900/30 flex items-center gap-3">
+                                <span class="text-3xl sm:text-4xl">🧪</span>
+                                <div>
+                                    <h4 class="text-xs sm:text-sm font-bold text-rose-400">全英學術發表</h4>
+                                    <p class="text-[11px] text-slate-400 hidden md:block mt-0.5">登台向日本高校與大學教授進行全英文解說專題</p>
+                                </div>
+                            </div>
+                            <div class="bg-red-950/20 p-3.5 rounded-xl border border-red-900/30 flex items-center gap-3">
+                                <span class="text-3xl sm:text-4xl">🌏</span>
+                                <div>
+                                    <h4 class="text-xs sm:text-sm font-bold text-rose-400">SDGs跨國研討</h4>
+                                    <p class="text-[11px] text-slate-400 hidden md:block mt-0.5">台日小組協力共商聯合國永續指標與改善對策</p>
+                                </div>
+                            </div>
+                            <div class="bg-red-950/20 p-3.5 rounded-xl border border-red-900/30 flex items-center gap-3">
+                                <span class="text-3xl sm:text-4xl">🇯🇵</span>
+                                <div>
+                                    <h4 class="text-xs sm:text-sm font-bold text-rose-400">長野生活體驗</h4>
+                                    <p class="text-[11px] text-slate-400 hidden md:block mt-0.5">寄宿當地家庭，深度學習茶道、品味傳統長野文化</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Left/Right Nav Buttons -->
+                    <button onclick="changeSlide(-1)" class="absolute left-3 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-black/60 text-white hover:bg-indigo-600 transition duration-150 z-50 shadow-md">
+                        <i class="fa-solid fa-chevron-left text-xl"></i>
+                    </button>
+                    <button onclick="changeSlide(1)" class="absolute right-3 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-black/60 text-white hover:bg-indigo-600 transition duration-150 z-50 shadow-md">
+                        <i class="fa-solid fa-chevron-right text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- Carousel Indicators & Visual Progress Bar -->
+                <div class="space-y-2 mb-2 shrink-0">
+                    <div class="flex justify-center gap-2.5">
+                        <span class="carousel-dot w-6 h-2.5 rounded-full bg-indigo-500 transition-all duration-300"></span>
+                        <span class="carousel-dot w-2.5 h-2.5 rounded-full bg-slate-600 transition-all duration-300"></span>
+                        <span class="carousel-dot w-2.5 h-2.5 rounded-full bg-slate-600 transition-all duration-300"></span>
+                    </div>
+                    <!-- Automatic rotation timing indicator -->
+                    <div class="w-64 h-1.5 bg-slate-800 rounded-full mx-auto overflow-hidden">
+                        <div id="carousel-bar-fill" class="carousel-progress"></div>
+                    </div>
+                </div>
+
+                <!-- Bottom CTA Button (Highly Interactive Touch) -->
+                <div class="text-center mt-2 z-10 shrink-0">
+                    <button onclick="openNameModal()" class="glow-button px-10 py-4.5 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-extrabold rounded-full text-lg tracking-wider transition-transform transform active:scale-95 duration-100 flex items-center gap-2.5 mx-auto">
+                        <i class="fa-solid fa-passport animate-bounce"></i> 啟航！開啟外交官挑戰
+                    </button>
+                    <p class="text-slate-400 text-sm mt-2.5">觸控螢幕或點擊上方按鈕，即刻開始 3 分鐘國際移動力挑戰！</p>
+                </div>
+            </div>
+
+            <!-- Name Input Modal Overlay (Touch to Wake Experience) -->
+            <div id="name-modal" class="absolute inset-0 z-50 bg-slate-950/95 flex items-center justify-center p-4 transition-all duration-500 opacity-0 pointer-events-none">
+                <div class="glass w-full max-w-lg p-8 rounded-3xl text-center space-y-6 transform scale-95 transition-all duration-300">
+                    <div class="w-16 h-16 bg-indigo-500/10 text-indigo-400 flex items-center justify-center rounded-full mx-auto text-3xl border border-indigo-500/30">
+                        <i class="fa-solid fa-user-tie"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-black text-white">建立外交官專屬通行證</h2>
+                        <p class="text-sm text-slate-400 mt-2">請輸入您的姓名，開啟中正高中國際外交挑戰！</p>
+                    </div>
+
+                    <!-- Large Input Box perfect for iPad touch -->
+                    <div class="relative bg-slate-900 border border-slate-700 rounded-xl p-3 flex items-center justify-between">
+                        <input type="text" id="player-name-input" maxlength="8" placeholder="請輸入您的姓名 (預設：中正之星)" 
+                               class="w-full text-center bg-transparent border-none text-white tracking-widest focus:outline-none text-lg placeholder:text-slate-600 font-extrabold">
+                    </div>
+
+                    <!-- Modal Actions -->
+                    <div class="flex gap-4 pt-3">
+                        <button onclick="closeNameModal()" class="flex-1 py-4.5 rounded-xl bg-slate-800 hover:bg-slate-750 text-slate-300 font-extrabold text-sm active:scale-95 transition">
+                            返回導覽
+                        </button>
+                        <button onclick="registerPlayer()" class="flex-1 py-4.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-black text-sm active:scale-95 transition shadow-lg shadow-emerald-900/40">
+                            登入並啟航 <i class="fa-solid fa-plane-departure ml-1.5"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- STAGE 2: Game Briefing Screen (Highly Visual Mission Selector) -->
+            <div id="screen-briefing" class="absolute inset-0 z-30 flex flex-col justify-between bg-gradient-to-br from-slate-950 to-indigo-950 p-6 opacity-0 pointer-events-none transition-all duration-500">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-gradient-to-tr from-yellow-400 to-amber-500 text-slate-950 flex items-center justify-center rounded-2xl mx-auto shadow-lg mb-2 text-3xl">
+                        <i class="fa-solid fa-compass animate-spin-slow"></i>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-black text-white">
+                        歡迎加入！ <span id="briefing-name" class="text-yellow-400">外交官</span> 同學
+                    </h2>
+                    <p class="text-sm sm:text-base text-slate-400 mt-1">您即將進行以下三項「國際領航官」極速挑戰！</p>
+                </div>
+
+                <!-- Visually stunning grid showing step process -->
+                <div class="grid grid-cols-3 gap-6 my-4">
+                    <div class="bg-blue-950/30 border border-blue-500/20 p-5 rounded-2xl text-center flex flex-col items-center justify-center">
+                        <div class="text-5xl mb-2 flex items-center justify-center">🧳</div>
+                        <h4 class="text-sm sm:text-base font-black text-blue-400">1. 行李箱打包</h4>
+                        <p class="text-xs sm:text-sm text-slate-400 mt-1.5">點選特色卡，裝入美、法、日三國行李箱中！</p>
+                    </div>
+                    <div class="bg-purple-950/30 border border-purple-500/20 p-5 rounded-2xl text-center flex flex-col items-center justify-center">
+                        <div class="text-5xl mb-2 flex items-center justify-center">💬</div>
+                        <h4 class="text-sm sm:text-base font-black text-purple-400">2. 語錄真心話</h4>
+                        <p class="text-xs sm:text-sm text-slate-400 mt-1.5">解讀學長姐的交流語錄，點選核心素養！</p>
+                    </div>
+                    <div class="bg-emerald-950/30 border border-emerald-500/20 p-5 rounded-2xl text-center flex flex-col items-center justify-center">
+                        <div class="text-5xl mb-2 flex items-center justify-center">🌟</div>
+                        <h4 class="text-sm sm:text-base font-black text-emerald-400">3. 特質收集戰</h4>
+                        <p class="text-xs sm:text-sm text-slate-400 mt-1.5">手指在 iPad 螢幕上觸控點擊吸收正面特質氣泡！</p>
+                    </div>
+                </div>
+
+                <div class="glass p-3 sm:p-4 rounded-xl text-center">
+                    <p class="text-xs sm:text-sm md:text-base font-bold text-amber-400"><i class="fa-solid fa-clock mr-2"></i> 限時極限：3 分鐘 | 通關標準：達到 120 分</p>
+                </div>
+
+                <div class="text-center">
+                    <button onclick="startGame()" class="px-14 py-4 bg-gradient-to-r from-emerald-400 to-teal-400 text-slate-950 text-base sm:text-lg font-black rounded-full tracking-wider shadow-lg active:scale-95 transition duration-100 flex items-center gap-2.5 mx-auto">
+                        開始挑戰！進入外交挑戰室 <i class="fa-solid fa-circle-play"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- STAGE 3: GAMEPLAY SCREEN -->
+            <div id="screen-gameplay" class="absolute inset-0 z-20 flex flex-col justify-between bg-slate-900 p-4 opacity-0 pointer-events-none transition-all duration-500 overflow-hidden">
+                
+                <!-- Game Header Banner with Graphical Step Indicators -->
+                <div class="flex items-center justify-between pb-3 border-b border-slate-800 text-xs sm:text-sm shrink-0">
+                    <!-- Step tracker with larger text badges -->
+                    <div class="flex items-center gap-3">
+                        <div id="step-badge-1" class="step-active text-white text-xs font-black px-4 py-1.5 rounded-full flex items-center gap-1.5">
+                            <span>1</span> <span>行李箱打包</span>
+                        </div>
+                        <div id="step-badge-2" class="bg-slate-800 text-slate-500 text-xs font-black px-4 py-1.5 rounded-full flex items-center gap-1.5">
+                            <span>2</span> <span>語錄真心話</span>
+                        </div>
+                        <div id="step-badge-3" class="bg-slate-800 text-slate-500 text-xs font-black px-4 py-1.5 rounded-full flex items-center gap-1.5">
+                            <span>3</span> <span>特質大收集</span>
+                        </div>
+                    </div>
+                    <div class="text-right flex items-center gap-3">
+                        <span class="text-slate-400 text-sm font-bold">外交點數:</span>
+                        <span id="live-score-display" class="text-emerald-400 font-black text-xl bg-emerald-950/60 px-4 py-1 rounded-lg border border-emerald-500/30">0</span>
+                    </div>
+                </div>
+
+                <!-- MAIN INTERACTIVE STAGE AREA -->
+                <div class="flex-1 my-3 relative flex items-center justify-center overflow-hidden">
+                    
+                    <!-- SUB-GAME 1: Matching Game (Luggage Packaging) -->
+                    <div id="subgame-matching" class="absolute inset-0 flex flex-col justify-between transition-all duration-300">
+                        <div class="text-center mb-1 shrink-0">
+                            <p class="text-sm text-amber-400 font-extrabold"><i class="fa-solid fa-briefcase mr-1.5 animate-pulse"></i> 任務一：請將底下的「交流行李卡」歸類打包至正確國家的「皮箱」中！</p>
+                        </div>
+
+                        <!-- Suitcases Columns (Taller and Wider for Large Screens) -->
+                        <div class="flex-1 grid grid-cols-3 gap-6 items-stretch py-2">
+                            
+                            <!-- USA Suitcase (Blue) -->
+                            <div class="luggage-box bg-gradient-to-b from-blue-950/40 to-blue-900/10 border-2 border-dashed border-blue-500/50 rounded-2xl p-4 flex flex-col justify-between text-center relative cursor-pointer shadow-lg" data-target="USA">
+                                <div class="pb-3 border-b border-blue-500/20 flex flex-col items-center">
+                                    <div class="text-5xl drop-shadow-md">🧳🇺🇸</div>
+                                    <h5 class="text-sm sm:text-base font-black text-blue-400 mt-2">美國波特蘭</h5>
+                                </div>
+                                <div id="match-box-usa" class="flex-1 flex flex-wrap gap-2 content-start justify-center py-2 overflow-y-auto max-h-[140px] empty:after:content-['📦_點卡片再點皮箱'] empty:after:text-xs empty:after:text-slate-500 empty:after:mt-6 empty:after:font-bold">
+                                    <!-- Items landed here -->
+                                </div>
+                            </div>
+
+                            <!-- France Suitcase (Purple) -->
+                            <div class="luggage-box bg-gradient-to-b from-purple-950/40 to-purple-900/10 border-2 border-dashed border-purple-500/50 rounded-2xl p-4 flex flex-col justify-between text-center relative cursor-pointer shadow-lg" data-target="FRANCE">
+                                <div class="pb-3 border-b border-purple-500/20 flex flex-col items-center">
+                                    <div class="text-5xl drop-shadow-md">🧳🇫🇷</div>
+                                    <h5 class="text-sm sm:text-base font-black text-purple-400 mt-2">法國雙邊</h5>
+                                </div>
+                                <div id="match-box-france" class="flex-1 flex flex-wrap gap-2 content-start justify-center py-2 overflow-y-auto max-h-[140px] empty:after:content-['📦_點卡片再點皮箱'] empty:after:text-xs empty:after:text-slate-500 empty:after:mt-6 empty:after:font-bold">
+                                    <!-- Items landed here -->
+                                </div>
+                            </div>
+
+                            <!-- Japan Suitcase (Red) -->
+                            <div class="luggage-box bg-gradient-to-b from-rose-950/30 to-rose-900/10 border-2 border-dashed border-red-500/50 rounded-2xl p-4 flex flex-col justify-between text-center relative cursor-pointer shadow-lg" data-target="JAPAN">
+                                <div class="pb-3 border-b border-red-500/20 flex flex-col items-center">
+                                    <div class="text-5xl drop-shadow-md">🧳🇯🇵</div>
+                                    <h5 class="text-sm sm:text-base font-black text-rose-400 mt-2">日本長野</h5>
+                                </div>
+                                <div id="match-box-japan" class="flex-1 flex flex-wrap gap-2 content-start justify-center py-2 overflow-y-auto max-h-[140px] empty:after:content-['📦_點卡片再點皮箱'] empty:after:text-xs empty:after:text-slate-500 empty:after:mt-6 empty:after:font-bold">
+                                    <!-- Items landed here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Source Luggage Tags Container -->
+                        <div class="p-3.5 bg-slate-950/80 rounded-2xl border border-slate-800 shrink-0">
+                            <p class="text-xs sm:text-sm text-indigo-300 font-extrabold mb-2.5 text-center"><i class="fa-solid fa-hand-pointer mr-1.5 animate-pulse"></i> 先「點選」下方其中一張卡片 ➔ 再「點選」上方正確的國家皮箱！</p>
+                            
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="source-matching-cards">
+                                <button onclick="selectMatchCard(this, 'USA', 'card-1')" id="card-1" class="match-card p-2.5 bg-slate-800 hover:bg-slate-750 text-slate-100 rounded-xl text-xs sm:text-sm text-left border-2 border-slate-700 active:scale-95 transition flex items-center gap-2.5 font-bold shadow-md">
+                                    <span class="text-3xl shrink-0">🏠</span>
+                                    <span>入住 Host Family 美西家庭沉浸</span>
+                                </button>
+                                <button onclick="selectMatchCard(this, 'FRANCE', 'card-2')" id="card-2" class="match-card p-2.5 bg-slate-800 hover:bg-slate-750 text-slate-100 rounded-xl text-xs sm:text-sm text-left border-2 border-slate-700 active:scale-95 transition flex items-center gap-2.5 font-bold shadow-md">
+                                    <span class="text-3xl shrink-0">🥐</span>
+                                    <span>士林北投地熱谷 英語在地導覽</span>
+                                </button>
+                                <button onclick="selectMatchCard(this, 'JAPAN', 'card-3')" id="card-3" class="match-card p-2.5 bg-slate-800 hover:bg-slate-750 text-slate-100 rounded-xl text-xs sm:text-sm text-left border-2 border-slate-700 active:scale-95 transition flex items-center gap-2.5 font-bold shadow-md">
+                                    <span class="text-3xl shrink-0">🧪</span>
+                                    <span>日本 SSH 超級科學 全英文發表</span>
+                                </button>
+                                <button onclick="selectMatchCard(this, 'USA', 'card-4')" id="card-4" class="match-card p-2.5 bg-slate-800 hover:bg-slate-750 text-slate-100 rounded-xl text-xs sm:text-sm text-left border-2 border-slate-700 active:scale-95 transition flex items-center gap-2.5 font-bold shadow-md">
+                                    <span class="text-3xl shrink-0">💻</span>
+                                    <span>Apple 總部與科學院 奠定科學視野</span>
+                                </button>
+                                <button onclick="selectMatchCard(this, 'FRANCE', 'card-5')" id="card-5" class="match-card p-2.5 bg-slate-800 hover:bg-slate-750 text-slate-100 rounded-xl text-xs sm:text-sm text-left border-2 border-slate-700 active:scale-95 transition flex items-center gap-2.5 font-bold shadow-md">
+                                    <span class="text-3xl shrink-0">🎨</span>
+                                    <span>中法文學藝術 跨文化共創共展</span>
+                                </button>
+                                <button onclick="selectMatchCard(this, 'JAPAN', 'card-6')" id="card-6" class="match-card p-2.5 bg-slate-800 hover:bg-slate-750 text-slate-100 rounded-xl text-xs sm:text-sm text-left border-2 border-slate-700 active:scale-95 transition flex items-center gap-2.5 font-bold shadow-md">
+                                    <span class="text-3xl shrink-0">🍵</span>
+                                    <span>永續 SDGs 小組研討 長野茶道</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SUB-GAME 2: Trivia Q&A Game (Comic Bubble Dialogue) -->
+                    <div id="subgame-trivia" class="absolute inset-0 flex flex-col justify-between transition-all duration-300 hidden">
+                        <div class="text-center mb-1 shrink-0">
+                            <span class="text-xs sm:text-sm text-purple-400 font-extrabold bg-purple-950/40 px-4 py-1 rounded-full border border-purple-500/20"><i class="fa-solid fa-comments mr-2 animate-pulse"></i> 任務二：解讀學長姐的交流真心話</span>
+                        </div>
+
+                        <!-- Visual Avatar + Bubble container -->
+                        <div class="flex-1 min-h-0 flex flex-row gap-4 items-center justify-center p-3.5 glass rounded-xl my-1 relative overflow-hidden">
+                            <!-- Left Avatar representation -->
+                            <div class="w-14 h-14 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-600 flex items-center justify-center text-3xl shadow-xl shrink-0 border border-white/20 relative">
+                                👩‍🎓
+                                <span id="trivia-country-badge" class="absolute -bottom-1.5 left-1/2 -translate-x-1/2 bg-indigo-600 text-white font-extrabold text-[9px] px-2 py-0.5 rounded-full border border-slate-900 whitespace-nowrap">美國交流</span>
+                            </div>
+
+                            <!-- Right Bubble chat text with scroll backup to prevent overflow overlay -->
+                            <div class="flex-1 bg-slate-950 border border-slate-850 p-3.5 rounded-xl relative w-full max-h-[115px] overflow-y-auto">
+                                <p id="trivia-quote-text" class="text-slate-200 text-xs sm:text-sm md:text-base font-bold leading-relaxed italic">
+                                    「一開始根本不敢開口，怕英文文法講錯。但Home爸媽很熱情地包容我。後來我學會積極表達...」
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Question title -->
+                        <h4 id="trivia-question-text" class="text-xs sm:text-sm md:text-base font-black text-white text-center py-1.5 shrink-0">
+                            Q: 根據學姐的語錄，國際交流帶給中正高中學生最重要的收穫是？
+                        </h4>
+
+                        <!-- Highly tactile Options Container -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 shrink-0" id="trivia-options-container">
+                            <!-- Renders dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- SUB-GAME 3: Star/Bubble Catcher Game (Zero reading, pure visual emoji) -->
+                    <div id="subgame-catcher" class="absolute inset-0 flex flex-col justify-between transition-all duration-300 hidden">
+                        <div class="text-center flex items-center justify-between px-2 shrink-0">
+                            <span class="text-xs sm:text-sm text-emerald-300 font-extrabold flex items-center gap-1.5">
+                                <i class="fa-solid fa-crosshairs mr-1.5 text-emerald-400"></i>
+                                直接在 iPad 上觸碰或點選「綠色能量球」收集！避開「紅色阻礙球」！
+                            </span>
+                            <span class="text-xs sm:text-sm font-extrabold bg-yellow-950/40 px-4 py-1.5 rounded-full border border-yellow-500/20 text-yellow-400">
+                                本關目標: <span id="catcher-local-score">0</span> / 100 🔋
+                            </span>
+                        </div>
+
+                        <!-- Canvas Zone (High visual contrast) -->
+                        <div class="flex-1 relative bg-slate-950 rounded-2xl border-2 border-indigo-500/30 overflow-hidden shadow-inner my-2 animate-pulse" id="catcher-game-zone">
+                            <!-- Falling container -->
+                            <div id="catcher-elements-holder" class="absolute inset-0 pointer-events-none"></div>
+
+                            <!-- Visual player scoop -->
+                            <div id="catcher-basket" class="absolute bottom-2 left-1/2 -translate-x-1/2 w-28 h-12 bg-gradient-to-r from-yellow-400 via-amber-500 to-orange-500 rounded-b-xl rounded-t-md flex items-center justify-center shadow-lg shadow-amber-500/30 border-t-2 border-white/40 transition-all duration-100 ease-out z-10">
+                                <span class="text-xs sm:text-sm font-black text-slate-950 tracking-wider">ZZSH 外交官</span>
+                            </div>
+
+                            <!-- Hand gesture overlay -->
+                            <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none opacity-25">
+                                <i class="fa-solid fa-hand-pointer text-6xl animate-bounce text-indigo-400"></i>
+                                <span class="text-sm mt-3 text-white font-extrabold">點擊或用手指在空中點擊飄落的特質！</span>
+                            </div>
+                        </div>
+
+                        <!-- Tap/Swipe controls -->
+                        <div class="flex gap-4 justify-between items-center py-1 shrink-0">
+                            <button id="btn-move-left" class="flex-1 py-4 bg-indigo-900/40 hover:bg-indigo-900/60 active:scale-95 border border-indigo-500/30 text-white rounded-xl text-xs sm:text-sm font-black transition flex items-center justify-center gap-1.5">
+                                <i class="fa-solid fa-arrow-left"></i> 籃子向左
+                            </button>
+                            <span class="text-xs text-slate-400 shrink-0 font-bold">點擊左/右方向，移動下方的收集籃</span>
+                            <button id="btn-move-right" class="flex-1 py-4 bg-indigo-900/40 hover:bg-indigo-900/60 active:scale-95 border border-indigo-500/30 text-white rounded-xl text-xs sm:text-sm font-black transition flex items-center justify-center gap-1.5">
+                                籃子向右 <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game Footer controller -->
+                <div class="h-12 flex items-center justify-between border-t border-slate-800 pt-2 text-xs sm:text-sm shrink-0">
+                    <span class="text-slate-500 flex items-center gap-1.5 font-bold"><i class="fa-solid fa-medal text-yellow-500"></i> 外交官考核系統</span>
+                    <!-- Trigger Next Stage button -->
+                    <button id="btn-next-stage" disabled onclick="transitionToNextSubgame()" class="px-8 py-3 rounded-xl bg-slate-800 text-slate-500 font-black text-xs sm:text-sm cursor-not-allowed transition duration-150 flex items-center gap-1.5">
+                        <span>完成本關，進入下一關</span> <i class="fa-solid fa-circle-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- STAGE 4: VICTORY & NEXT PASSCODE REVEAL -->
+            <div id="screen-victory" class="absolute inset-0 z-40 flex flex-col justify-between bg-gradient-to-b from-slate-950 via-indigo-950 to-slate-950 p-6 opacity-0 pointer-events-none transition-all duration-700">
+                <div class="text-center space-y-4 my-auto">
+                    
+                    <div class="w-20 h-20 bg-gradient-to-tr from-yellow-400 to-amber-500 text-slate-950 flex items-center justify-center rounded-full mx-auto shadow-2xl animate-bounce text-4xl">
+                        👑
+                    </div>
+                    
+                    <h2 class="text-3xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-400 to-orange-400 tracking-wider">
+                        恭喜 <span id="victory-player-name" class="text-white underline">中正之星</span>！通過外交考核
+                    </h2>
+
+                    <!-- Added highly visible gift incentive badge -->
+                    <div class="bg-gradient-to-r from-emerald-950/80 to-teal-950/80 border-2 border-emerald-500/50 p-4.5 rounded-2xl max-w-xl mx-auto shadow-lg shadow-emerald-950/50 animate-pulse">
+                        <p class="text-base sm:text-lg md:text-xl font-black text-emerald-300 tracking-wide flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-gift text-2xl text-yellow-400 animate-bounce"></i>
+                            本機台破關成功，3個關卡都完成可獲得精美小禮物喔！
+                        </p>
+                    </div>
+                    
+                    <p class="text-sm sm:text-base text-slate-300 max-w-xl mx-auto font-bold leading-relaxed">
+                        太優秀了！你完美打包了出國行李、解答了學長姐的外交真心話，並吸收了關鍵的「全球領航移動力能量」！
+                    </p>
+                </div>
+
+                <!-- Footer info & restart option -->
+                <div class="text-center pt-2 border-t border-slate-800 flex items-center justify-between shrink-0">
+                    <span class="text-xs text-slate-500 font-bold">臺北市立中正高中 ‧ 期待在世界與你相遇</span>
+                    <button onclick="restartEntireGame()" class="text-xs sm:text-sm text-slate-400 hover:text-white flex items-center gap-1.5 bg-slate-800 px-4 py-2 rounded-lg font-black">
+                        <i class="fa-solid fa-rotate-left"></i> 重新體驗
+                    </button>
+                </div>
+            </div>
+
+            <!-- STAGE 5: GAME OVER -->
+            <div id="screen-gameover" class="absolute inset-0 z-50 flex flex-col justify-between bg-slate-950 p-6 opacity-0 pointer-events-none transition-all duration-500">
+                <div class="text-center space-y-4 my-auto">
+                    <div class="w-20 h-20 bg-rose-950 text-rose-500 flex items-center justify-center rounded-full mx-auto text-4xl border border-rose-500/30">
+                        ⏰
+                    </div>
+                    <h2 class="text-2xl font-black text-white">任務限時到！別灰心</h2>
+                    <p class="text-sm sm:text-base text-slate-400 max-w-sm mx-auto font-bold leading-relaxed">
+                        外交談判與行李整備充滿挑戰！再次整理心緒、重新出發，你一定能順利完成外交挑戰！
+                    </p>
+                    <button onclick="restartEntireGame()" class="px-10 py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold rounded-full text-sm active:scale-95 transition">
+                        重新整備出發
+                    </button>
+                </div>
+            </div>
+
+            <!-- GLOBAL TOAST NOTIFICATION -->
+            <div id="toast-notification" class="absolute top-4 left-1/2 -translate-x-1/2 z-50 bg-slate-900 border border-slate-700 text-white text-xs sm:text-sm px-5 py-3 rounded-xl shadow-2xl flex items-center gap-2.5 transform translate-y-[-100px] opacity-0 transition-all duration-300 pointer-events-none">
+                <span id="toast-icon"></span>
+                <span id="toast-text"></span>
+            </div>
+
+        </div>
+
+        <!-- iPad Virtual Home Button -->
+        <div class="h-4 bg-slate-950 flex items-center justify-center select-none shrink-0">
+            <div class="w-24 h-1.5 bg-slate-800 rounded-full"></div>
+        </div>
+
+    </div>
+
+    <script>
+        /* ---------------------------------------------------- */
+        /* AUDIO SYNTHESIZER (WEB AUDIO API - SELF CONTAINED)  */
+        /* ---------------------------------------------------- */
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playSound(type) {
+            try {
+                if (audioCtx.state === 'suspended') {
+                    audioCtx.resume();
+                }
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+
+                if (type === 'success') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+                    osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1); // E5
+                    osc.frequency.setValueAtTime(783.99, audioCtx.currentTime + 0.2); // G5
+                    osc.frequency.setValueAtTime(1046.50, audioCtx.currentTime + 0.3); // C6
+                    gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.5);
+                } else if (type === 'correct') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(880, audioCtx.currentTime); // A5
+                    osc.frequency.setValueAtTime(1320, audioCtx.currentTime + 0.08); // E6
+                    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.25);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.25);
+                } else if (type === 'error') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(130, audioCtx.currentTime);
+                    osc.frequency.linearRampToValueAtTime(65, audioCtx.currentTime + 0.25);
+                    gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.3);
+                } else if (type === 'bubble') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(700, audioCtx.currentTime);
+                    osc.frequency.exponentialRampToValueAtTime(1400, audioCtx.currentTime + 0.08);
+                    gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.1);
+                } else if (type === 'unlock') {
+                    osc.type = 'square';
+                    osc.frequency.setValueAtTime(440, audioCtx.currentTime); 
+                    osc.frequency.setValueAtTime(554, audioCtx.currentTime + 0.1); 
+                    osc.frequency.setValueAtTime(660, audioCtx.currentTime + 0.2); 
+                    gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
+                    osc.start();
+                    osc.stop(audioCtx.currentTime + 0.5);
+                }
+            } catch (e) {
+                console.log('Audio Context suppressed or not loaded.', e);
+            }
+        }
+
+        /* ---------------------------------------------------- */
+        /* CAROUSEL ROTATION WITH TIMING INDICATOR              */
+        /* ---------------------------------------------------- */
+        let currentSlideIdx = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const dots = document.querySelectorAll('.carousel-dot');
+        const fillBar = document.getElementById('carousel-bar-fill');
+        let carouselInterval = null;
+
+        function updateCarousel() {
+            slides.forEach((slide, idx) => {
+                slide.classList.remove('opacity-100', 'scale-100');
+                slide.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+                dots[idx].classList.remove('bg-indigo-500', 'w-6');
+                dots[idx].classList.add('bg-slate-600', 'w-2.5');
+            });
+
+            if (slides[currentSlideIdx]) {
+                slides[currentSlideIdx].classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+                slides[currentSlideIdx].classList.add('opacity-100', 'scale-100');
+                dots[currentSlideIdx].classList.remove('bg-slate-600', 'w-2.5');
+                dots[currentSlideIdx].classList.add('bg-indigo-500', 'w-6');
+            }
+
+            // Reset progress bar animation
+            fillBar.style.transition = 'none';
+            fillBar.style.width = '0%';
+            setTimeout(() => {
+                fillBar.style.transition = 'width 3500ms linear';
+                fillBar.style.width = '100%';
+            }, 30);
+        }
+
+        function changeSlide(direction) {
+            currentSlideIdx += direction;
+            if (currentSlideIdx >= slides.length) currentSlideIdx = 0;
+            if (currentSlideIdx < 0) currentSlideIdx = slides.length - 1;
+            updateCarousel();
+            // Reset interval upon manual slide to prevent double trigger
+            resetCarouselTimer();
+        }
+
+        function resetCarouselTimer() {
+            if (carouselInterval) clearInterval(carouselInterval);
+            carouselInterval = setInterval(() => {
+                changeSlide(1);
+            }, 3500);
+        }
+
+        // Initialize Carousel on Load
+        window.addEventListener('load', () => {
+            updateCarousel();
+            resetCarouselTimer();
+        });
+
+        /* ---------------------------------------------------- */
+        /* TOUCH TO WAKE & NAME REGISTRATION                    */
+        /* ---------------------------------------------------- */
+        let playerName = "中正之星";
+
+        function openNameModal() {
+            // Stop automatic carousel once user proceeds
+            if (carouselInterval) {
+                clearInterval(carouselInterval);
+                carouselInterval = null;
+            }
+            const modal = document.getElementById('name-modal');
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            modal.querySelector('div').classList.remove('scale-95');
+            document.getElementById('player-name-input').focus();
+        }
+
+        function closeNameModal() {
+            const modal = document.getElementById('name-modal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modal.querySelector('div').classList.add('scale-95');
+            resetCarouselTimer();
+            updateCarousel();
+        }
+
+        function registerPlayer() {
+            const inputVal = document.getElementById('player-name-input').value.trim();
+            if (inputVal !== "") {
+                playerName = inputVal;
+            } else {
+                playerName = "中正之星";
+            }
+
+            playSound('unlock');
+            
+            // Set name to displays
+            document.getElementById('briefing-name').textContent = playerName;
+            document.getElementById('victory-player-name').textContent = playerName;
+
+            // Close modal
+            const modal = document.getElementById('name-modal');
+            modal.classList.add('opacity-0', 'pointer-events-none');
+
+            // Transition to Briefing Screen
+            document.getElementById('screen-intro').classList.add('opacity-0', 'pointer-events-none', 'scale-95');
+            document.getElementById('screen-briefing').classList.remove('opacity-0', 'pointer-events-none');
+        }
+
+        /* ---------------------------------------------------- */
+        /* TIMER AND GENERAL GAME STATE                         */
+        /* ---------------------------------------------------- */
+        let gameScore = 0;
+        let gameTimer = null;
+        let timeLeft = 180; // 3 mins
+        let currentSubGame = 1;
+
+        function updateScore(points) {
+            gameScore += points;
+            document.getElementById('live-score-display').textContent = gameScore;
+        }
+
+        function startGame() {
+            document.getElementById('screen-briefing').classList.add('opacity-0', 'pointer-events-none');
+            document.getElementById('screen-gameplay').classList.remove('opacity-0', 'pointer-events-none');
+            document.getElementById('game-timer-display').classList.remove('hidden');
+
+            gameScore = 0;
+            timeLeft = 180;
+            updateScore(0);
+
+            startCountdownTimer();
+            setupSubGame1();
+        }
+
+        function startCountdownTimer() {
+            if (gameTimer) clearInterval(gameTimer);
+            gameTimer = setInterval(() => {
+                timeLeft--;
+                const mins = Math.floor(timeLeft / 60);
+                const secs = timeLeft % 60;
+                document.getElementById('game-timer-display').innerHTML = 
+                    `<i class="fa-solid fa-hourglass-half mr-2 animate-pulse"></i>剩餘時間: ${mins}:${secs < 10 ? '0' + secs : secs}`;
+
+                if (timeLeft <= 0) {
+                    endGame(false);
+                }
+            }, 1000);
+        }
+
+        /* ---------------------------------------------------- */
+        /* SUB-GAME 1: Matching Card System                     */
+        /* ---------------------------------------------------- */
+        let selectedMatchCardId = null;
+        let selectedMatchCountry = null;
+        let matchedCount = 0;
+
+        function selectMatchCard(element, country, cardId) {
+            document.querySelectorAll('.match-card').forEach(c => {
+                c.classList.remove('border-indigo-400', 'bg-indigo-950/60', 'scale-105');
+            });
+
+            selectedMatchCardId = cardId;
+            selectedMatchCountry = country;
+            element.classList.add('border-indigo-400', 'bg-indigo-950/60', 'scale-105');
+        }
+
+        // Assign luggage listeners
+        document.querySelectorAll('[data-target]').forEach(targetBox => {
+            targetBox.addEventListener('click', () => {
+                if (!selectedMatchCardId) {
+                    showToast('請先選取下方的行李卡片！', 'error');
+                    return;
+                }
+
+                const targetCountry = targetBox.getAttribute('data-target');
+                const cardElement = document.getElementById(selectedMatchCardId);
+
+                if (targetCountry === selectedMatchCountry) {
+                    playSound('correct');
+                    updateScore(15);
+                    matchedCount++;
+
+                    const targetContainerId = `match-box-${targetCountry.toLowerCase()}`;
+                    const targetContainer = document.getElementById(targetContainerId);
+
+                    // Create landing badge (Larger text representation)
+                    const badge = document.createElement('div');
+                    badge.className = "px-3 py-1.5 bg-slate-800 border border-indigo-500/30 rounded-xl text-xs text-slate-100 flex items-center gap-1.5 animate-pulse font-extrabold shadow-md";
+                    const emoji = cardElement.querySelector('span').textContent;
+                    badge.innerHTML = `<span>${emoji}</span> <span>已打包</span>`;
+                    targetContainer.appendChild(badge);
+
+                    cardElement.remove();
+                    selectedMatchCardId = null;
+                    selectedMatchCountry = null;
+
+                    if (matchedCount === 6) {
+                        showToast('成功打包！所有的外交行李都配置妥當！', 'success');
+                        enableNextStageBtn();
+                    }
+                } else {
+                    playSound('error');
+                    showToast('搭配不太合適喔！請再確認一次國家特點！', 'error');
+                    cardElement.classList.remove('border-indigo-400', 'bg-indigo-950/60', 'scale-105');
+                    selectedMatchCardId = null;
+                    selectedMatchCountry = null;
+                }
+            });
+        });
+
+        function setupSubGame1() {
+            currentSubGame = 1;
+            matchedCount = 0;
+            updateStepIndicator(1);
+            
+            // Toggle Display via physical 'hidden' to avoid any overlay layout collapse on iPad
+            document.getElementById('subgame-matching').classList.remove('hidden');
+            document.getElementById('subgame-trivia').classList.add('hidden');
+            document.getElementById('subgame-catcher').classList.add('hidden');
+            
+            disableNextStageBtn();
+        }
+
+        function updateStepIndicator(stepNum) {
+            for (let i = 1; i <= 3; i++) {
+                const el = document.getElementById(`step-badge-${i}`);
+                if (i === stepNum) {
+                    el.className = "step-active text-white text-xs sm:text-sm font-black px-4 py-1.5 rounded-full flex items-center gap-1.5";
+                } else {
+                    el.className = "bg-slate-800 text-slate-500 text-xs sm:text-sm font-black px-4 py-1.5 rounded-full flex items-center gap-1.5";
+                }
+            }
+        }
+
+        function enableNextStageBtn() {
+            const btn = document.getElementById('btn-next-stage');
+            btn.removeAttribute('disabled');
+            btn.classList.remove('bg-slate-800', 'text-slate-500', 'cursor-not-allowed');
+            btn.classList.add('bg-gradient-to-r', 'from-yellow-400', 'to-amber-500', 'text-slate-900', 'glow-button');
+        }
+
+        function disableNextStageBtn() {
+            const btn = document.getElementById('btn-next-stage');
+            btn.setAttribute('disabled', 'true');
+            btn.classList.add('bg-slate-800', 'text-slate-500', 'cursor-not-allowed');
+            btn.classList.remove('bg-gradient-to-r', 'from-yellow-400', 'to-amber-500', 'text-slate-900', 'glow-button');
+        }
+
+        /* ---------------------------------------------------- */
+        /* SUB-GAME ROUTING TRANSITION                          */
+        /* ---------------------------------------------------- */
+        function transitionToNextSubgame() {
+            if (currentSubGame === 1) {
+                setupSubGame2();
+            } else if (currentSubGame === 2) {
+                setupSubGame3();
+            } else if (currentSubGame === 3) {
+                if (gameScore >= 120) {
+                    endGame(true);
+                } else {
+                    showToast(`積分不夠喔！目前 ${gameScore}分，需滿 120分才能通過外交挑戰！`, 'error');
+                }
+            }
+        }
+
+        /* ---------------------------------------------------- */
+        /* SUB-GAME 2: Comic Dialogue (Highly Graphical)        */
+        /* ---------------------------------------------------- */
+        const TRIVIA_QUESTIONS = [
+            {
+                country: "🇺🇸 美國交流心得",
+                quote: "「在波特蘭 Cleveland High 課堂中，一開始我很害羞。後來我發現這重要不只是看世界，更要主動積極找到自己的『發言權』！能跟外國學伴合作簡報發表真的很過癮！」",
+                question: "Q: 學姐認為在波特蘭交流共同協作中，最重要的個人反思是什麼？",
+                options: [
+                    "💬 自信與主動發表，才是跨國合作與科技探討的核心",
+                    "🤫 保持沉默並依賴他人，避免犯錯比較安全"
+                ],
+                correctIdx: 0,
+                points: 20
+            },
+            {
+                country: "🇫🇷 法國接待心得",
+                quote: "「當我用英語向法國 Beaulieu 高中學伴介紹士林與北投地熱谷文化時，看見他們一臉驚艷的表情。那一刻我才深刻意識到，我們的在地文史具有多麼巨大的國際吸引力！」",
+                question: "Q: 介紹在地觀光特點，帶給中正外交生最重要的收穫是？",
+                options: [
+                    "🌸 行程只有觀光，接待外賓沒有實質學術收穫",
+                    "💖 透過向外國人進行英文文史導覽，重塑深度在地文化認同"
+                ],
+                correctIdx: 1,
+                points: 20
+            },
+            {
+                country: "🇯🇵 日本長野學術發表",
+                quote: "「在上田高校評審面前用英語發表我們的科學專題，並探討跨國 SDGs 永續議題時，雖然緊張到手心出汗，但能與日本頂尖理科學子同台，眼界大開！」",
+                question: "Q: 赴日與超級科學高校 (SSH) 同台發表，關鍵的價值在於？",
+                options: [
+                    "🌏 透過全英學術簡報，共同切磋探討全球 SDGs 永續解決方案",
+                    "🛍️ 出國的目的在於觀光與採購，專題只是形式"
+                ],
+                correctIdx: 0,
+                points: 20
+            }
+        ];
+
+        let currentTriviaIdx = 0;
+
+        function setupSubGame2() {
+            currentSubGame = 2;
+            currentTriviaIdx = 0;
+            updateStepIndicator(2);
+            
+            // Hide match container physically, display trivia
+            document.getElementById('subgame-matching').classList.add('hidden');
+            document.getElementById('subgame-trivia').classList.remove('hidden');
+            document.getElementById('subgame-catcher').classList.add('hidden');
+            
+            disableNextStageBtn();
+            renderTrivia();
+        }
+
+        function renderTrivia() {
+            if (currentTriviaIdx >= TRIVIA_QUESTIONS.length) return;
+            
+            const q = TRIVIA_QUESTIONS[currentTriviaIdx];
+            document.getElementById('trivia-country-badge').textContent = q.country;
+            document.getElementById('trivia-quote-text').textContent = q.quote;
+            document.getElementById('trivia-question-text').textContent = q.question;
+
+            const container = document.getElementById('trivia-options-container');
+            container.innerHTML = '';
+
+            q.options.forEach((opt, idx) => {
+                const btn = document.createElement('button');
+                btn.className = "trivia-option p-2.5 sm:p-3 rounded-xl bg-slate-800 hover:bg-indigo-950 text-left text-xs sm:text-sm text-slate-100 border border-slate-700 active:scale-95 transition duration-150 flex items-center gap-2 font-bold w-full";
+                btn.onclick = () => selectTriviaOption(idx);
+                btn.innerHTML = `
+                    <span class="w-6 h-6 rounded-full bg-indigo-500 text-white flex items-center justify-center font-black text-xs shrink-0">${String.fromCharCode(65 + idx)}</span>
+                    <span class="flex-1">${opt}</span>
+                `;
+                container.appendChild(btn);
+            });
+        }
+
+        function selectTriviaOption(selectedIdx) {
+            if (currentTriviaIdx >= TRIVIA_QUESTIONS.length) return;
+            const q = TRIVIA_QUESTIONS[currentTriviaIdx];
+            if (!q) return;
+
+            const options = document.querySelectorAll('.trivia-option');
+
+            options.forEach(o => {
+                o.onclick = null;
+                o.style.pointerEvents = 'none';
+            });
+
+            if (selectedIdx === q.correctIdx) {
+                playSound('correct');
+                options[selectedIdx].className = "trivia-option p-2.5 sm:p-3 rounded-xl bg-emerald-950/90 border border-emerald-500 text-emerald-300 text-left text-xs sm:text-sm flex items-center gap-2 font-bold w-full";
+                updateScore(q.points);
+                showToast(`回答正確！外交點數 +${q.points}！`, 'success');
+            } else {
+                playSound('error');
+                options[selectedIdx].className = "trivia-option p-2.5 sm:p-3 rounded-xl bg-rose-950/90 border border-rose-500 text-rose-300 text-left text-xs sm:text-sm flex items-center gap-2 font-bold w-full";
+                if (options[q.correctIdx]) {
+                    options[q.correctIdx].className = "trivia-option p-2.5 sm:p-3 rounded-xl bg-emerald-950/90 border border-emerald-500 text-emerald-300 text-left text-xs sm:text-sm flex items-center gap-2 font-bold w-full";
+                }
+                showToast('語錄理解有些偏差唷，請再試試！', 'error');
+            }
+
+            setTimeout(() => {
+                currentTriviaIdx++;
+                if (currentTriviaIdx < TRIVIA_QUESTIONS.length) {
+                    renderTrivia();
+                } else {
+                    showToast('任務二：學長姐語錄真心話解讀完成！', 'success');
+                    enableNextStageBtn();
+                }
+            }, 2000);
+        }
+
+        /* ---------------------------------------------------- */
+        /* SUB-GAME 3: Star/Bubble Catcher                      */
+        /* ---------------------------------------------------- */
+        let catcherInterval = null;
+        let isCatcherActive = false;
+        let basketX = 50; 
+        let catcherScore = 0;
+        
+        const VISUAL_GOOD_BUBBLES = [
+            { icon: "🌍", text: "世界觀" },
+            { icon: "💬", text: "自信表達" },
+            { icon: "🤝", text: "國際友誼" },
+            { icon: "🧪", text: "學術力" },
+            { icon: "🎨", text: "共創力" },
+            { icon: "💡", text: "SDGs" }
+        ];
+        const VISUAL_BAD_BUBBLES = [
+            { icon: "❌", text: "害羞" },
+            { icon: "💤", text: "被動" },
+            { icon: "🚫", text: "偏見" }
+        ];
+
+        function setupSubGame3() {
+            currentSubGame = 3;
+            catcherScore = 0;
+            updateStepIndicator(3);
+            document.getElementById('catcher-local-score').textContent = catcherScore;
+            
+            // Hide matching/trivia completely, show catcher
+            document.getElementById('subgame-matching').classList.add('hidden');
+            document.getElementById('subgame-trivia').classList.add('hidden');
+            document.getElementById('subgame-catcher').classList.remove('hidden');
+            
+            disableNextStageBtn();
+            startCatcherGame();
+        }
+
+        function startCatcherGame() {
+            isCatcherActive = true;
+            document.getElementById('catcher-elements-holder').innerHTML = '';
+
+            if (catcherInterval) clearInterval(catcherInterval);
+            catcherInterval = setInterval(() => {
+                if (isCatcherActive && currentSubGame === 3) {
+                    spawnKeywordBubble();
+                }
+            }, 750);
+
+            // Left/Right Basket Movement
+            document.getElementById('btn-move-left').onclick = () => moveBasket(-15);
+            document.getElementById('btn-move-right').onclick = () => moveBasket(15);
+        }
+
+        function moveBasket(delta) {
+            basketX = Math.max(10, Math.min(90, basketX + delta));
+            document.getElementById('catcher-basket').style.left = `${basketX}%`;
+        }
+
+        function spawnKeywordBubble() {
+            const holder = document.getElementById('catcher-elements-holder');
+            const gameZone = document.getElementById('catcher-game-zone');
+            
+            const isPositive = Math.random() > 0.35;
+            const bubbleData = isPositive 
+                ? VISUAL_GOOD_BUBBLES[Math.floor(Math.random() * VISUAL_GOOD_BUBBLES.length)]
+                : VISUAL_BAD_BUBBLES[Math.floor(Math.random() * VISUAL_BAD_BUBBLES.length)];
+
+            const bubble = document.createElement('div');
+            // Enlarged bubble layout for iPad touch accuracy
+            bubble.className = `absolute px-4 py-3 rounded-full text-sm sm:text-base font-black shadow-xl flex items-center gap-2 cursor-pointer pointer-events-auto select-none transition-all duration-100 ${
+                isPositive 
+                    ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 border-2 border-emerald-300 shadow-emerald-500/30' 
+                    : 'bg-gradient-to-r from-rose-600 to-red-600 text-white border-2 border-rose-300 shadow-red-500/30'
+            }`;
+
+            const randX = Math.floor(Math.random() * 80) + 10;
+            bubble.style.left = `${randX}%`;
+            bubble.style.top = `-60px`;
+            bubble.innerHTML = `<span>${bubbleData.icon}</span><span>${bubbleData.text}</span>`;
+
+            // Support Direct Touch Tap on iPad screen
+            const collectFunc = (e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                triggerCapture(isPositive, bubble);
+            };
+            bubble.addEventListener('mousedown', collectFunc);
+            bubble.addEventListener('touchstart', collectFunc, { passive: false });
+
+            holder.appendChild(bubble);
+
+            let yPos = -60;
+            const speed = 2.0 + Math.random() * 2.0;
+
+            const fall = setInterval(() => {
+                if (!isCatcherActive || currentSubGame !== 3) {
+                    clearInterval(fall);
+                    bubble.remove();
+                    return;
+                }
+
+                yPos += speed;
+                bubble.style.top = `${yPos}px`;
+                const zoneHeight = gameZone.offsetHeight;
+
+                // Basket collision detection
+                if (yPos >= zoneHeight - 55 && yPos <= zoneHeight - 5) {
+                    const minB = basketX - 18;
+                    const maxB = basketX + 18;
+                    if (randX >= minB && randX <= maxB) {
+                        triggerCapture(isPositive, bubble);
+                        clearInterval(fall);
+                    }
+                }
+
+                if (yPos > zoneHeight) {
+                    clearInterval(fall);
+                    bubble.remove();
+                }
+            }, 30);
+        }
+
+        function triggerCapture(isPositive, bubble) {
+            playSound('bubble');
+            if (isPositive) {
+                catcherScore += 25;
+                updateScore(15);
+                showToast('獲得核心特質！ 外交點數 +15', 'success');
+            } else {
+                catcherScore = Math.max(0, catcherScore - 15);
+                updateScore(-20);
+                showToast('吸收到阻礙！ 外交點數 -20', 'error');
+            }
+
+            document.getElementById('catcher-local-score').textContent = catcherScore;
+            bubble.classList.add('scale-150', 'opacity-0');
+            setTimeout(() => bubble.remove(), 150);
+
+            if (catcherScore >= 100) {
+                isCatcherActive = false;
+                clearInterval(catcherInterval);
+                showToast('特質能量已注滿！本階段考核通過！', 'success');
+                enableNextStageBtn();
+            }
+        }
+
+        /* ---------------------------------------------------- */
+        /* GAME OVER / RESTART                                  */
+        /* ---------------------------------------------------- */
+        function endGame(isWin) {
+            if (gameTimer) clearInterval(gameTimer);
+            if (catcherInterval) clearInterval(catcherInterval);
+            isCatcherActive = false;
+
+            document.getElementById('game-timer-display').classList.add('hidden');
+            document.getElementById('screen-gameplay').classList.add('opacity-0', 'pointer-events-none');
+
+            if (isWin && gameScore >= 120) {
+                playSound('success');
+                document.getElementById('screen-victory').classList.remove('opacity-0', 'pointer-events-none');
+            } else {
+                playSound('error');
+                document.getElementById('screen-gameover').classList.remove('opacity-0', 'pointer-events-none');
+            }
+        }
+
+        function restartEntireGame() {
+            document.getElementById('screen-victory').classList.add('opacity-0', 'pointer-events-none');
+            document.getElementById('screen-gameover').classList.add('opacity-0', 'pointer-events-none');
+            document.getElementById('screen-intro').classList.remove('opacity-0', 'pointer-events-none', 'scale-95');
+            
+            // Clear input name
+            document.getElementById('player-name-input').value = '';
+            playerName = "中正之星";
+
+            // Restart Visual Carousel Autoplay
+            currentSlideIdx = 0;
+            updateCarousel();
+            resetCarouselTimer();
+        }
+
+        /* ---------------------------------------------------- */
+        /* UTILITIES: TOASTS & CLASSNAME ASSIGNER              */
+        /* ---------------------------------------------------- */
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast-notification');
+            const icon = document.getElementById('toast-icon');
+            const text = document.getElementById('toast-text');
+
+            text.textContent = message;
+
+            if (type === 'success') {
+                icon.innerHTML = '🌟';
+                toast.className = "absolute top-4 left-1/2 -translate-x-1/2 z-50 bg-slate-900 border border-emerald-500 text-white text-xs sm:text-sm px-5 py-3 rounded-xl shadow-2xl flex items-center gap-2.5 transform transition-all duration-300 pointer-events-none font-bold";
+            } else {
+                icon.innerHTML = '⚠️';
+                toast.className = "absolute top-4 left-1/2 -translate-x-1/2 z-50 bg-slate-900 border border-rose-500 text-white text-xs sm:text-sm px-5 py-3 rounded-xl shadow-2xl flex items-center gap-2.5 transform transition-all duration-300 pointer-events-none font-bold";
+            }
+
+            toast.classList.remove('translate-y-[-100px]', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-[-100px]', 'opacity-0');
+                toast.classList.remove('translate-y-0', 'opacity-100');
+            }, 1800);
+        }
+    </script>
+</body>
+</html>
