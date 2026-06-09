@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>中正高中 2025 全球學教育博覽會 | 數位大廳</title>
+    <title>中正高中 2026 全球學教育博覽會 | 數位大廳</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -84,6 +84,26 @@
             pointer-events: none;
             opacity: 0.15;
         }
+
+        /* 飛機翱翔與星軌動畫 */
+        @keyframes flightFloat {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(3deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        @keyframes orbitRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .animate-flight {
+            animation: flightFloat 4s ease-in-out infinite;
+        }
+
+        .animate-orbit {
+            animation: orbitRotate 30s linear infinite;
+        }
     </style>
 </head>
 
@@ -113,7 +133,7 @@
                     <h1 class="text-xl font-extrabold tracking-tight text-slate-900 flex items-center gap-2">
                         臺北市立中正高中
                     </h1>
-                    <p class="text-xs text-slate-500 font-semibold tracking-widest uppercase">Global Studies Expo 2025</p>
+                    <p class="text-xs text-slate-500 font-semibold tracking-widest uppercase">ZZSH Global Education Expo 2026</p>
                 </div>
             </div>
             
@@ -121,7 +141,7 @@
             <div class="flex items-center gap-4 bg-white/90 px-4 py-2 rounded-xl border border-slate-200/80 shadow-sm text-sm">
                 <span class="flex items-center gap-1.5 text-indigo-600 font-bold">
                     <span class="w-2.5 h-2.5 rounded-full bg-indigo-500 animate-pulse"></span>
-                    2025 全球學教育博覽會
+                    2026 全球學教育博覽會
                 </span>
                 <span class="text-slate-300">|</span>
                 <span class="text-slate-600 font-mono font-semibold" id="clock">12:00:00</span>
@@ -136,49 +156,79 @@
             <!-- 內嵌動態裝飾線條 -->
             <div class="absolute inset-0 opacity-20 pointer-events-none bg-[radial-gradient(#6366f1_1px,transparent_1px)] [background-size:16px_16px]"></div>
             
-            <div class="relative z-10 max-w-3xl">
-                <div class="flex flex-wrap gap-2.5 mb-4">
-                    <span class="px-4 py-1.5 bg-indigo-50 text-indigo-600 rounded-full text-xs font-extrabold tracking-wider uppercase inline-block border border-indigo-100">
-                        <i class="fa-solid fa-globe mr-1"></i> 全球視野・在地實踐
-                    </span>
-                    <span class="px-4 py-1.5 bg-amber-50 text-amber-700 rounded-full text-xs font-extrabold tracking-wider uppercase inline-block border border-amber-200 shadow-sm flex items-center gap-1.5">
-                        <i class="fa-solid fa-award text-amber-500"></i> 中正高中榮獲國際學校獎(IEA)卓越級認賞
-                    </span>
-                </div>
-                <h2 class="text-4xl md:text-5xl font-black tracking-tight mb-4 leading-tight text-slate-900">
-                    探索世界的新維度，<br>
-                    <span class="text-gradient-primary">啟航 2025 全球學教育博覽會</span>
-                </h2>
-                <p class="text-slate-600 text-base md:text-lg mb-8 leading-relaxed font-medium">
-                    歡迎來到中正高中全球學博覽會。請依序點選以下<b>三大核心主題廊道</b>，建議<b>「先瀏覽學生成果展示，再挑戰互動數位闖關」</b>，循序漸進解鎖您的全球學探索地圖！
-                </p>
-                
-                <!-- 闖關足跡進度條 (Quest Tracker) -->
-                <div class="p-5 bg-white/85 rounded-2xl border border-slate-200/80 shadow-sm max-w-lg">
-                    <div class="flex justify-between items-center mb-3">
-                        <span class="text-sm font-bold text-slate-700 flex items-center gap-2">
-                            <i class="fa-solid fa-circle-check text-emerald-500"></i>
-                            我的博覽會足跡 (探索進度)
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+                <div class="lg:col-span-7">
+                    <div class="flex flex-wrap gap-2.5 mb-4">
+                        <span class="px-4 py-1.5 bg-indigo-50 text-indigo-600 rounded-full text-xs font-extrabold tracking-wider uppercase inline-block border border-indigo-100">
+                            <i class="fa-solid fa-globe mr-1"></i> 全球視野・在地實踐
                         </span>
-                        <span class="text-xs font-extrabold bg-slate-100 text-indigo-600 px-3 py-1 rounded-full" id="progress-text">
-                            0 / 6 完成
+                        <span class="px-4 py-1.5 bg-amber-50 text-amber-700 rounded-full text-xs font-extrabold tracking-wider uppercase inline-block border border-amber-200 shadow-sm flex items-center gap-1.5">
+                            <i class="fa-solid fa-award text-amber-500"></i> 中正高中榮獲國際學校獎(IEA)卓越級認證
                         </span>
                     </div>
-                    <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
-                        <div id="progress-bar" class="bg-gradient-to-r from-emerald-400 via-sky-400 to-indigo-500 h-full w-0 transition-all duration-500 ease-out"></div>
+                    <h2 class="text-4xl md:text-5xl font-black tracking-tight mb-4 leading-tight text-slate-900">
+                        探索世界的新維度，<br>
+                        <span class="text-gradient-primary">啟航 2026 全球學教育博覽會</span>
+                    </h2>
+                    <p class="text-slate-600 text-base md:text-lg mb-8 leading-relaxed font-medium">
+                        歡迎來到中正高中全球學博覽會。請依序體驗以下<b>三大核心主題廊道</b>，建議<b>「先瀏覽學生成果展示，再挑戰互動數位闖關」</b>。凡體驗過的項目將會自動標記完成，助您點亮全球探索地圖！
+                    </p>
+                    
+                    <!-- 闖關足跡進度條 (Quest Tracker) -->
+                    <div class="p-5 bg-white/85 rounded-2xl border border-slate-200/80 shadow-sm max-w-lg">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-sm font-bold text-slate-700 flex items-center gap-2">
+                                <i class="fa-solid fa-circle-check text-emerald-500"></i>
+                                我的博覽會足跡 (探索進度)
+                            </span>
+                            <span class="text-xs font-extrabold bg-slate-100 text-indigo-600 px-3 py-1 rounded-full" id="progress-text">
+                                0 / 6 完成
+                            </span>
+                        </div>
+                        <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
+                            <div id="progress-bar" class="bg-gradient-to-r from-emerald-400 via-sky-400 to-indigo-500 h-full w-0 transition-all duration-500 ease-out"></div>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2 font-medium">提示：點選下方的「立即體驗」開啟關卡或成果後，該足跡即會自動亮起！</p>
                     </div>
-                    <p class="text-xs text-slate-500 mt-2 font-medium">提示：看完展示或玩完關卡後，點擊卡片右上角的「<i class="fa-regular fa-square-check"></i>」即可點亮足跡喔！</p>
                 </div>
-            </div>
-            
-            <!-- 側邊浮動球體 (裝飾用) -->
-            <div class="absolute right-12 bottom-0 top-0 hidden lg:flex items-center">
-                <svg class="w-80 h-80 text-indigo-500/10 animate-[spin_60s_linear_infinite]" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="50" cy="50" r="45" stroke="currentColor" stroke-width="1" stroke-dasharray="5 5" />
-                    <circle cx="50" cy="50" r="35" stroke="currentColor" stroke-width="0.5" />
-                    <circle cx="50" cy="50" r="25" stroke="currentColor" stroke-width="1.5" stroke-dasharray="10 5" />
-                    <path d="M50 5 L50 95 M5 50 L95 50" stroke="currentColor" stroke-width="0.5" />
-                </svg>
+
+                <!-- 國際視覺元素：3D質感 寰宇星軌地球與飛機飛行路徑 (SVG + CSS) -->
+                <div class="lg:col-span-5 flex justify-center items-center relative py-6">
+                    <div class="relative w-72 h-72 flex items-center justify-center">
+                        <!-- 地球主體 SVG -->
+                        <svg class="w-64 h-64 text-indigo-600/10 drop-shadow-[0_10px_15px_rgba(99,102,241,0.08)]" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- 外部亮暈圈 -->
+                            <circle cx="50" cy="50" r="48" stroke="currentColor" stroke-width="0.5" />
+                            <!-- 旋轉中的網格星軌 -->
+                            <g class="animate-orbit origin-center text-indigo-500/20">
+                                <circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="1" stroke-dasharray="4 4" />
+                                <ellipse cx="50" cy="50" rx="40" ry="15" stroke="currentColor" stroke-width="0.75" />
+                                <ellipse cx="50" cy="50" rx="15" ry="40" stroke="currentColor" stroke-width="0.75" />
+                            </g>
+                            <!-- 正中心地球陸地意象簡化剪影 -->
+                            <path d="M50 15 C30 15 15 30 15 50 C15 70 30 85 50 85 C70 85 85 70 85 50 C85 30 70 15 50 15 Z" stroke="currentColor" stroke-width="1.5" />
+                            <path d="M22 40 C35 32 45 45 55 35 C65 25 72 38 82 32 M18 60 C32 55 42 68 58 55 C70 45 74 65 83 58" stroke="currentColor" stroke-width="1" stroke-linecap="round" />
+                        </svg>
+
+                        <!-- 飄動飛機與虛線航路 -->
+                        <div class="absolute inset-0 flex items-center justify-center animate-flight">
+                            <!-- 航線軌道 -->
+                            <svg class="absolute w-72 h-72 text-sky-400" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <ellipse cx="100" cy="100" rx="90" ry="45" stroke="currentColor" stroke-width="1.5" stroke-dasharray="6 6" class="opacity-70 rotate-[15deg] origin-center" />
+                            </svg>
+                            <!-- 飛機實體 (放置於軌道合適視覺定位點) -->
+                            <div class="absolute right-8 top-12 text-sky-500 bg-white/90 p-2.5 rounded-full shadow-lg border border-sky-100 animate-pulse">
+                                <i class="fa-solid fa-plane text-lg rotate-[-15deg]"></i>
+                            </div>
+                        </div>
+
+                        <!-- 地球圖示與微光標籤 -->
+                        <div class="absolute left-6 bottom-8 bg-white/95 px-3 py-1.5 rounded-xl border border-indigo-50 shadow-md text-[11px] font-bold text-slate-700 flex items-center gap-1.5">
+                            <i class="fa-solid fa-earth-asia text-indigo-500"></i>
+                            <span>全球學跨域實踐</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -209,10 +259,10 @@
                                 <span class="px-3 py-1 bg-emerald-50 text-emerald-600 rounded-lg text-xs font-extrabold border border-emerald-200 tracking-wider">
                                     <i class="fa-solid fa-book-open mr-1"></i> 卓越成果展示
                                 </span>
-                                <!-- 互動勾選器 (使用 data-footprint 解決 iPad 點擊問題) -->
-                                <button onclick="toggleFootprint('showcase-1', this)" data-footprint="showcase-1" class="footprint-btn p-2 rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-emerald-500 hover:border-emerald-300 transition-colors shadow-sm" title="標記為已看過">
-                                    <i class="fa-regular fa-square-check text-xl pointer-events-none"></i>
-                                </button>
+                                <!-- 自動狀態指示徽章 -->
+                                <div data-status-badge="showcase-1" class="px-3 py-1 bg-slate-100 text-slate-400 rounded-lg text-xs font-bold border border-slate-200 flex items-center gap-1 transition-all">
+                                    <i class="fa-regular fa-circle"></i> 待探索
+                                </div>
                             </div>
                             <h4 class="text-xl font-bold mt-2 mb-3 text-slate-900 group-hover:text-emerald-600 transition-colors">必修學生作品電子書</h4>
                             <p class="text-slate-600 text-sm leading-relaxed mb-6 font-medium">
@@ -220,13 +270,10 @@
                             </p>
                         </div>
                         
-                        <div class="flex gap-3 mt-auto pt-4">
-                            <button onclick="openPreview('https://zzshelle.github.io/2026expo/pdf-reader.html', '主題一成果：校訂必修學生作品電子書')" class="flex-1 py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 rounded-xl text-xs font-bold tracking-wider transition-all border border-slate-200 flex items-center justify-center gap-2">
-                                <i class="fa-regular fa-eye"></i> 快速預覽
+                        <div class="pt-4">
+                            <button onclick="triggerExperience('showcase-1', 'https://zzshelle.github.io/2026expo/pdf-reader.html', '主題一成果：校訂必修學生作品電子書')" class="w-full py-3.5 px-4 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white rounded-xl text-sm font-bold tracking-wider transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-play"></i> 立即體驗
                             </button>
-                            <a href="https://zzshelle.github.io/2026expo/pdf-reader.html" target="_blank" class="p-3 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white rounded-xl text-xs font-bold tracking-wider transition-all shadow-md shadow-emerald-500/10 flex items-center justify-center">
-                                <i class="fa-solid fa-up-right-from-square"></i>
-                            </a>
                         </div>
                     </div>
 
@@ -243,10 +290,10 @@
                                 <span class="px-3 py-1 bg-sky-50 text-sky-600 rounded-lg text-xs font-extrabold border border-sky-200 tracking-wider">
                                     <i class="fa-solid fa-gamepad mr-1"></i> 數位體驗闖關
                                 </span>
-                                <!-- 互動勾選器 -->
-                                <button onclick="toggleFootprint('challenge-1', this)" data-footprint="challenge-1" class="footprint-btn p-2 rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-sky-500 hover:border-sky-300 transition-colors shadow-sm" title="標記為已完成">
-                                    <i class="fa-regular fa-square-check text-xl pointer-events-none"></i>
-                                </button>
+                                <!-- 自動狀態指示徽章 -->
+                                <div data-status-badge="challenge-1" class="px-3 py-1 bg-slate-100 text-slate-400 rounded-lg text-xs font-bold border border-slate-200 flex items-center gap-1 transition-all">
+                                    <i class="fa-regular fa-circle"></i> 待挑戰
+                                </div>
                             </div>
                             <h4 class="text-xl font-bold mt-2 mb-3 text-slate-900 group-hover:text-sky-600 transition-colors">校訂必修課程體驗關卡</h4>
                             <p class="text-slate-600 text-sm leading-relaxed mb-6 font-medium">
@@ -254,13 +301,10 @@
                             </p>
                         </div>
                         
-                        <div class="flex gap-3 mt-auto pt-4">
-                            <button onclick="openPreview('https://zzshelle.github.io/2026expo/game1.html', '主題一闖關：校訂必修課程體驗關卡')" class="flex-1 py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 rounded-xl text-xs font-bold tracking-wider transition-all border border-slate-200 flex items-center justify-center gap-2">
-                                <i class="fa-regular fa-eye"></i> 快速預覽
+                        <div class="pt-4">
+                            <button onclick="triggerExperience('challenge-1', 'https://zzshelle.github.io/2026expo/game1.html', '主題一闖關：校訂必修課程體驗關卡')" class="w-full py-3.5 px-4 bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-400 hover:to-indigo-400 text-white rounded-xl text-sm font-bold tracking-wider transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-gamepad"></i> 立即體驗
                             </button>
-                            <a href="https://zzshelle.github.io/2026expo/game1.html" target="_blank" class="p-3 bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-400 hover:to-indigo-400 text-white rounded-xl text-xs font-bold tracking-wider transition-all shadow-md shadow-sky-500/10 flex items-center justify-center">
-                                <i class="fa-solid fa-up-right-from-square"></i>
-                            </a>
                         </div>
                     </div>
 
@@ -291,10 +335,10 @@
                                 <span class="px-3 py-1 bg-emerald-50 text-emerald-600 rounded-lg text-xs font-extrabold border border-emerald-200 tracking-wider">
                                     <i class="fa-solid fa-video mr-1"></i> 卓越成果展示
                                 </span>
-                                <!-- 互動勾選器 -->
-                                <button onclick="toggleFootprint('showcase-2', this)" data-footprint="showcase-2" class="footprint-btn p-2 rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-emerald-500 hover:border-emerald-300 transition-colors shadow-sm" title="標記為已看過">
-                                    <i class="fa-regular fa-square-check text-xl pointer-events-none"></i>
-                                </button>
+                                <!-- 自動狀態指示徽章 -->
+                                <div data-status-badge="showcase-2" class="px-3 py-1 bg-slate-100 text-slate-400 rounded-lg text-xs font-bold border border-slate-200 flex items-center gap-1 transition-all">
+                                    <i class="fa-regular fa-circle"></i> 待探索
+                                </div>
                             </div>
                             <h4 class="text-xl font-bold mt-2 mb-3 text-slate-900 group-hover:text-emerald-600 transition-colors">國際接待影片輪播</h4>
                             <p class="text-slate-600 text-sm leading-relaxed mb-6 font-medium">
@@ -302,13 +346,10 @@
                             </p>
                         </div>
                         
-                        <div class="flex gap-3 mt-auto pt-4">
-                            <button onclick="openPreview('https://www.youtube.com/playlist?list=PLVjbYSnMn1D-a3eBFfoAsp66GNRQuZzq-', '主題二成果：國際接待影片輪播')" class="flex-1 py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 rounded-xl text-xs font-bold tracking-wider transition-all border border-slate-200 flex items-center justify-center gap-2">
-                                <i class="fa-regular fa-eye"></i> 快速預覽
+                        <div class="pt-4">
+                            <button onclick="triggerExperience('showcase-2', 'https://www.youtube.com/playlist?list=PLVjbYSnMn1D-a3eBFfoAsp66GNRQuZzq-', '主題二成果：國際接待影片輪播')" class="w-full py-3.5 px-4 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white rounded-xl text-sm font-bold tracking-wider transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-play"></i> 立即體驗
                             </button>
-                            <a href="https://www.youtube.com/playlist?list=PLVjbYSnMn1D-a3eBFfoAsp66GNRQuZzq-" target="_blank" class="p-3 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white rounded-xl text-xs font-bold tracking-wider transition-all shadow-md shadow-emerald-500/10 flex items-center justify-center">
-                                <i class="fa-solid fa-up-right-from-square"></i>
-                            </a>
                         </div>
                     </div>
 
@@ -325,10 +366,10 @@
                                 <span class="px-3 py-1 bg-indigo-50 text-indigo-600 rounded-lg text-xs font-extrabold border border-indigo-200 tracking-wider">
                                     <i class="fa-solid fa-gamepad mr-1"></i> 數位體驗闖關
                                 </span>
-                                <!-- 互動勾選器 -->
-                                <button onclick="toggleFootprint('challenge-2', this)" data-footprint="challenge-2" class="footprint-btn p-2 rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-sky-500 hover:border-sky-300 transition-colors shadow-sm" title="標記為已完成">
-                                    <i class="fa-regular fa-square-check text-xl pointer-events-none"></i>
-                                </button>
+                                <!-- 自動狀態指示徽章 -->
+                                <div data-status-badge="challenge-2" class="px-3 py-1 bg-slate-100 text-slate-400 rounded-lg text-xs font-bold border border-slate-200 flex items-center gap-1 transition-all">
+                                    <i class="fa-regular fa-circle"></i> 待挑戰
+                                </div>
                             </div>
                             <h4 class="text-xl font-bold mt-2 mb-3 text-slate-900 group-hover:text-indigo-600 transition-colors">國際接待體驗關卡</h4>
                             <p class="text-slate-600 text-sm leading-relaxed mb-6 font-medium">
@@ -336,13 +377,10 @@
                             </p>
                         </div>
                         
-                        <div class="flex gap-3 mt-auto pt-4">
-                            <button onclick="openPreview('https://zzshelle.github.io/2026expo/game2.html', '主題二闖關：國際接待體驗關卡')" class="flex-1 py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 rounded-xl text-xs font-bold tracking-wider transition-all border border-slate-200 flex items-center justify-center gap-2">
-                                <i class="fa-regular fa-eye"></i> 快速預覽
+                        <div class="pt-4">
+                            <button onclick="triggerExperience('challenge-2', 'https://zzshelle.github.io/2026expo/game2.html', '主題二闖關：國際接待體驗關卡')" class="w-full py-3.5 px-4 bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-400 hover:to-indigo-400 text-white rounded-xl text-sm font-bold tracking-wider transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-gamepad"></i> 立即體驗
                             </button>
-                            <a href="https://zzshelle.github.io/2026expo/game2.html" target="_blank" class="p-3 bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-400 hover:to-indigo-400 text-white rounded-xl text-xs font-bold tracking-wider transition-all shadow-md shadow-sky-500/10 flex items-center justify-center">
-                                <i class="fa-solid fa-up-right-from-square"></i>
-                            </a>
                         </div>
                     </div>
 
@@ -373,10 +411,10 @@
                                 <span class="px-3 py-1 bg-emerald-50 text-emerald-600 rounded-lg text-xs font-extrabold border border-emerald-200 tracking-wider">
                                     <i class="fa-solid fa-images mr-1"></i> 卓越成果展示
                                 </span>
-                                <!-- 互動勾選器 -->
-                                <button onclick="toggleFootprint('showcase-3', this)" data-footprint="showcase-3" class="footprint-btn p-2 rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-emerald-500 hover:border-emerald-300 transition-colors shadow-sm" title="標記為已看過">
-                                    <i class="fa-regular fa-square-check text-xl pointer-events-none"></i>
-                                </button>
+                                <!-- 自動狀態指示徽章 -->
+                                <div data-status-badge="showcase-3" class="px-3 py-1 bg-slate-100 text-slate-400 rounded-lg text-xs font-bold border border-slate-200 flex items-center gap-1 transition-all">
+                                    <i class="fa-regular fa-circle"></i> 待探索
+                                </div>
                             </div>
                             <h4 class="text-xl font-bold mt-2 mb-3 text-slate-900 group-hover:text-emerald-600 transition-colors">活動照片牆輪播</h4>
                             <p class="text-slate-600 text-sm leading-relaxed mb-6 font-medium">
@@ -384,13 +422,10 @@
                             </p>
                         </div>
                         
-                        <div class="flex gap-3 mt-auto pt-4">
-                            <button onclick="openPreview('https://zzshelle.github.io/2026expo/swiper.html', '主題三成果：活動照片牆輪播')" class="flex-1 py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 rounded-xl text-xs font-bold tracking-wider transition-all border border-slate-200 flex items-center justify-center gap-2">
-                                <i class="fa-regular fa-eye"></i> 快速預覽
+                        <div class="pt-4">
+                            <button onclick="triggerExperience('showcase-3', 'https://zzshelle.github.io/2026expo/swiper.html', '主題三成果：活動照片牆輪播')" class="w-full py-3.5 px-4 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white rounded-xl text-sm font-bold tracking-wider transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-play"></i> 立即體驗
                             </button>
-                            <a href="https://zzshelle.github.io/2026expo/swiper.html" target="_blank" class="p-3 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white rounded-xl text-xs font-bold tracking-wider transition-all shadow-md shadow-emerald-500/10 flex items-center justify-center">
-                                <i class="fa-solid fa-up-right-from-square"></i>
-                            </a>
                         </div>
                     </div>
 
@@ -407,10 +442,10 @@
                                 <span class="px-3 py-1 bg-purple-50 text-purple-600 rounded-lg text-xs font-extrabold border border-purple-200 tracking-wider">
                                     <i class="fa-solid fa-gamepad mr-1"></i> 數位體驗闖關
                                 </span>
-                                <!-- 互動勾選器 -->
-                                <button onclick="toggleFootprint('challenge-3', this)" data-footprint="challenge-3" class="footprint-btn p-2 rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-sky-500 hover:border-sky-300 transition-colors shadow-sm" title="標記為已完成">
-                                    <i class="fa-regular fa-square-check text-xl pointer-events-none"></i>
-                                </button>
+                                <!-- 自動狀態指示徽章 -->
+                                <div data-status-badge="challenge-3" class="px-3 py-1 bg-slate-100 text-slate-400 rounded-lg text-xs font-bold border border-slate-200 flex items-center gap-1 transition-all">
+                                    <i class="fa-regular fa-circle"></i> 待挑戰
+                                </div>
                             </div>
                             <h4 class="text-xl font-bold mt-2 mb-3 text-slate-900 group-hover:text-purple-600 transition-colors">多元文化、英語角體驗關卡</h4>
                             <p class="text-slate-600 text-sm leading-relaxed mb-6 font-medium">
@@ -418,13 +453,10 @@
                             </p>
                         </div>
                         
-                        <div class="flex gap-3 mt-auto pt-4">
-                            <button onclick="openPreview('https://zzshelle.github.io/2026expo/game3.html', '主題三闖關：多元文化、英語角體驗關卡')" class="flex-1 py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 rounded-xl text-xs font-bold tracking-wider transition-all border border-slate-200 flex items-center justify-center gap-2">
-                                <i class="fa-regular fa-eye"></i> 快速預覽
+                        <div class="pt-4">
+                            <button onclick="triggerExperience('challenge-3', 'https://zzshelle.github.io/2026expo/game3.html', '主題三闖關：多元文化、英語角體驗關卡')" class="w-full py-3.5 px-4 bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-400 hover:to-indigo-400 text-white rounded-xl text-sm font-bold tracking-wider transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-gamepad"></i> 立即體驗
                             </button>
-                            <a href="https://zzshelle.github.io/2026expo/game3.html" target="_blank" class="p-3 bg-gradient-to-r from-sky-500 to-indigo-500 hover:from-sky-400 hover:to-indigo-400 text-white rounded-xl text-xs font-bold tracking-wider transition-all shadow-md shadow-sky-500/10 flex items-center justify-center">
-                                <i class="fa-solid fa-up-right-from-square"></i>
-                            </a>
                         </div>
                     </div>
 
@@ -441,7 +473,7 @@
             © 2025-2026 臺北市立中正高級中學 全球學教學團隊 製作
         </p>
         <p class="text-xs text-slate-400 mt-1 font-medium">
-            專為博覽會 iPad 現場載具最佳化，支援一對一主題直覺體驗與進度追蹤。
+            專為博覽會 iPad 現場載具最佳化，支援一對一主題直覺體驗與進度自動追蹤。
         </p>
     </footer>
 
@@ -453,16 +485,12 @@
             <div class="flex items-center gap-3">
                 <span class="w-3.5 h-3.5 rounded-full bg-indigo-500 animate-pulse"></span>
                 <span class="font-extrabold text-slate-900 text-base md:text-lg" id="modal-title">載入中...</span>
-                <span class="hidden sm:inline-block px-2.5 py-0.5 bg-slate-100 text-slate-600 text-xs font-bold rounded-full">iPad 嵌入瀏覽模式</span>
+                <span class="px-2.5 py-0.5 bg-slate-100 text-slate-600 text-xs font-bold rounded-full">iPad 內嵌體驗模式</span>
             </div>
             <div class="flex items-center gap-4">
-                <!-- 直接在新分頁開啟按鈕 -->
-                <a id="modal-external-link" href="#" target="_blank" class="text-slate-700 hover:text-slate-900 text-sm font-bold bg-slate-100 hover:bg-slate-200 px-4 py-2 rounded-xl border border-slate-200 transition-colors flex items-center gap-2">
-                    <i class="fa-solid fa-up-right-from-square text-xs"></i> 新分頁開啟
-                </a>
                 <!-- 關閉按鈕 -->
-                <button onclick="closePreview()" class="text-slate-600 hover:text-rose-600 bg-slate-100 hover:bg-rose-50 px-4 py-2 rounded-xl transition-all font-bold flex items-center gap-1 border border-slate-200 hover:border-rose-200">
-                    <i class="fa-solid fa-circle-xmark text-lg"></i> 關閉並返回
+                <button onclick="closePreview()" class="text-slate-600 hover:text-rose-600 bg-slate-100 hover:bg-rose-50 px-5 py-2.5 rounded-xl transition-all font-bold flex items-center gap-2 border border-slate-200 hover:border-rose-200">
+                    <i class="fa-solid fa-circle-xmark text-lg"></i> 關閉並返回大廳
                 </button>
             </div>
         </div>
@@ -485,64 +513,69 @@
         function updateClock() {
             const now = new Date();
             const timeString = now.toLocaleTimeString('zh-TW', { hour12: false });
-            document.getElementById('clock').textContent = timeString;
+            const clockEl = document.getElementById('clock');
+            if (clockEl) clockEl.textContent = timeString;
         }
         setInterval(updateClock, 1000);
         updateClock();
 
-        // 2. 探索足跡功能 (加入了 Try-Catch 防護，避免 Iframe 環境下 LocalStorage 崩潰)
+        // 2. 自動探索足跡功能 (加入了 Try-Catch 防護，避免 Iframe 環境下 LocalStorage 崩潰)
         const totalItems = 6;
+        const itemIds = ['showcase-1', 'challenge-1', 'showcase-2', 'challenge-2', 'showcase-3', 'challenge-3'];
         let footprints = {};
         
         try {
-            footprints = JSON.parse(localStorage.getItem('zz_expo_footprints_v3')) || {};
+            footprints = JSON.parse(localStorage.getItem('zz_expo_footprints_v4')) || {};
         } catch (e) {
-            console.warn("[Cookie/Storage Restrictions] LocalStorage is blocked in this container. Running with in-memory memory fallback.");
+            console.warn("[Cookie/Storage Restrictions] LocalStorage is blocked. Running with in-memory fallback.");
         }
 
-        // 初始化勾選狀態 (改為精確的 data-footprint 選擇器，保障 iPad 100% 勾選正確)
+        // 初始化勾選狀態 (將已有記錄的足跡渲染到狀態徽章上)
         document.addEventListener('DOMContentLoaded', () => {
-            Object.keys(footprints).forEach(id => {
-                if (footprints[id]) {
-                    const button = document.querySelector(`[data-footprint="${id}"]`);
-                    if (button) {
-                        setButtonCheckedState(button, true);
-                    }
-                }
+            itemIds.forEach(id => {
+                updateBadgeState(id, !!footprints[id]);
             });
             updateProgress();
         });
 
-        // 切換打勾狀態
-        function toggleFootprint(itemId, button) {
-            footprints[itemId] = !footprints[itemId];
-            
-            // 安全儲存
-            try {
-                localStorage.setItem('zz_expo_footprints_v3', JSON.stringify(footprints));
-            } catch (e) {
-                // 靜默處理
+        // 核心體驗啟動器：觸發體驗、自動記錄足跡、開啟彈窗
+        function triggerExperience(itemId, url, title) {
+            // 自動標記為「已探索/已完成」
+            if (!footprints[itemId]) {
+                footprints[itemId] = true;
+                try {
+                    localStorage.setItem('zz_expo_footprints_v4', JSON.stringify(footprints));
+                } catch (e) {
+                    // 靜默處理
+                }
+                
+                // 視覺更新
+                updateBadgeState(itemId, true);
+                updateProgress();
+                
+                // 支援 iPad Haptic 輕微震動回饋
+                if (window.navigator && window.navigator.vibrate) {
+                    window.navigator.vibrate(30);
+                }
             }
             
-            // 視覺更新
-            setButtonCheckedState(button, footprints[itemId]);
-            updateProgress();
-            
-            // 支援 iPad Haptic 微震動
-            if (window.navigator && window.navigator.vibrate) {
-                window.navigator.vibrate(40);
-            }
+            // 開啟全螢幕內嵌預覽
+            openPreview(url, title);
         }
 
-        // 設定按鈕勾選外觀 (不再使用複雜 class remove，直接強固改寫樣式名稱，保證 iPad 完美呈現)
-        function setButtonCheckedState(button, isChecked) {
-            const icon = button.querySelector('i');
-            if (isChecked) {
-                button.className = "footprint-btn p-2 rounded-lg bg-emerald-50 border border-emerald-300 text-emerald-600 hover:text-emerald-700 transition-colors shadow-sm";
-                icon.className = "fa-solid fa-square-check text-xl pointer-events-none";
+        // 設定狀態指示徽章外觀
+        function updateBadgeState(id, isCompleted) {
+            const badge = document.querySelector(`[data-status-badge="${id}"]`);
+            if (!badge) return;
+
+            const isChallenge = id.includes('challenge');
+
+            if (isCompleted) {
+                badge.className = "px-3 py-1 bg-emerald-50 text-emerald-600 rounded-lg text-xs font-bold border border-emerald-200 flex items-center gap-1 transition-all";
+                badge.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-500"></i> ${isChallenge ? '已完成' : '已探索'}`;
             } else {
-                button.className = "footprint-btn p-2 rounded-lg bg-white border border-slate-200 text-slate-400 hover:text-emerald-500 hover:border-emerald-300 transition-colors shadow-sm";
-                icon.className = "fa-regular fa-square-check text-xl pointer-events-none";
+                badge.className = "px-3 py-1 bg-slate-100 text-slate-400 rounded-lg text-xs font-bold border border-slate-200 flex items-center gap-1 transition-all";
+                badge.innerHTML = `<i class="fa-regular fa-circle"></i> ${isChallenge ? '待挑戰' : '待探索'}`;
             }
         }
 
@@ -554,25 +587,25 @@
             const progressBar = document.getElementById('progress-bar');
             const progressText = document.getElementById('progress-text');
             
-            progressBar.style.width = `${percentage}%`;
-            progressText.textContent = `${completedCount} / ${totalItems} 完成`;
+            if (progressBar) progressBar.style.width = `${percentage}%`;
+            if (progressText) progressText.textContent = `${completedCount} / ${totalItems} 完成`;
         }
 
-        // 3. Iframe 彈窗預覽功能 (包含智慧 YouTube 網址優化處理)
+        // 3. Iframe 彈窗預覽功能 (包含 YouTube 網址優化)
         const modal = document.getElementById('preview-modal');
         const iframe = document.getElementById('preview-iframe');
         const modalTitle = document.getElementById('modal-title');
-        const modalExternalLink = document.getElementById('modal-external-link');
         const spinner = document.getElementById('iframe-spinner');
 
         function openPreview(url, title) {
+            if (!modal || !iframe || !spinner) return;
+
             spinner.style.opacity = '1';
             spinner.style.pointerEvents = 'auto';
             
             modalTitle.textContent = title;
-            modalExternalLink.href = url;
             
-            // 智慧網址最佳化：若偵測到 YouTube 播放清單，自動將其轉成可正常內嵌預覽的 /embed 格式
+            // 智慧網址優化：若為 YouTube 播放清單，自動轉換為可完美內嵌的 embed 格式
             let targetUrl = url;
             if (url.includes('youtube.com/playlist') && url.includes('list=')) {
                 try {
@@ -589,7 +622,7 @@
             // 安全載入目標 URL
             iframe.src = targetUrl;
 
-            // 監聽載入完成
+            // 監聽載入完成，隱藏 Spinner
             iframe.onload = () => {
                 spinner.style.opacity = '0';
                 spinner.style.pointerEvents = 'none';
@@ -597,9 +630,11 @@
         }
 
         function closePreview() {
+            if (!modal || !iframe) return;
+
             modal.classList.add('translate-y-full', 'opacity-0', 'pointer-events-none');
             
-            // 重置 iframe，避免音訊繼續播放與記憶體佔用
+            // 清空 iframe 資源，釋放記憶體與停止背景聲音播放
             setTimeout(() => {
                 iframe.src = "about:blank";
             }, 300);
